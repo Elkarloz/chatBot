@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("template/header.ejs") %>
+
+  <body class="main-layout in_page">
+    <!-- loader  -->
+    <div class="loader_bg">
+      <div class="loader"><img src="images/loading.gif" alt="#" /></div>
+    </div>
+    <!-- end loader -->
+    <!-- header -->
+    <%- include("template/navbar.ejs") %>
+    <!-- end header inner -->
+    <!-- end header -->
+    <!--  service -->
+    <div class="service" style="margin-bottom: 100px">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="titlepage">
+              <h2>Reparti<span class="green">dores</span></h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12" style="max-height: 300px; overflow-y: auto">
+          <table class="uk-table uk-table-hover uk-table-divider">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% deliverys.forEach(function(delivery) { %>
+              <tr>
+                <td><%= delivery.DelId %></td>
+                <td><%= delivery.DelName %></td>
+                <td><%= delivery.DelPhone %></td>
+                <td style="width: 250px">
+                  <button class="uk-button uk-button-secondary uk-button-small">
+                    Editar
+                  </button>
+                  <button class="uk-button uk-button-danger uk-button-small">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- end service -->
+    <!--  footer -->
+    <%- include("template/footer.ejs") %>
+    <!-- end footer -->
+  </body>
+</html>
