@@ -15,6 +15,17 @@
     <!--  service -->
     <div class="service" style="margin-bottom: 100px">
       <div class="container">
+        <div
+          class="uk-alert-success"
+          uk-alert
+          id="alert-success"
+          style="position: fixed; top: 10%; right: 1%"
+          hidden
+        >
+          <a class="uk-alert-close" uk-close></a>
+          <p></p>
+        </div>
+
         <div class="row">
           <div class="col-md-12">
             <div class="titlepage">
@@ -33,17 +44,28 @@
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tableBody">
               <% responses.forEach(function(response) { %>
               <tr>
                 <td><%= response.ResId %></td>
                 <td><%= response.ResTitle %></td>
                 <td><%= response.ResResponse %></td>
                 <td style="width: 250px">
-                  <button class="uk-button uk-button-secondary uk-button-small">
+                  <button
+                    class="uk-button uk-button-secondary uk-button-small"
+                    uk-toggle="target: #modal-center"
+                    uk-icon="icon: pencil"
+                    id="btnEdit"
+                    onclick="editResponses(`<%= response.ResId %>`, `<%= response.ResTitle %>`, `<%= response.ResResponse %>`)"
+                  >
                     Editar
                   </button>
-                  <button class="uk-button uk-button-danger uk-button-small">
+                  <button
+                    class="uk-button uk-button-danger uk-button-small"
+                    uk-icon="icon: trash"
+                    id="btnDel"
+                    onclick="deleteResponses(`<%= response.ResId %>`)"
+                  >
                     Eliminar
                   </button>
                 </td>
@@ -53,11 +75,148 @@
             </tbody>
           </table>
         </div>
+        <div id="modal-center" class="uk-flex-top" uk-modal>
+          <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+            <button
+              class="uk-modal-close-default"
+              type="button"
+              uk-close
+              onclick="closeModal()"
+            ></button>
+
+            <h1 style="text-align: center">Editar Respuestas</h1>
+
+            <form>
+              <div class="uk-margin">
+                <label class="uk-form-label">Titulo: </label>
+                <div class="uk-inline">
+                  <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                  <input
+                    class="uk-input uk-form-width-large"
+                    type="text"
+                    aria-label="Clickable icon"
+                    id="inputTitle"
+                  />
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Respuesta </label>
+                <div class="uk-inline">
+                  <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                  <input
+                    class="uk-input uk-form-width-large"
+                    type="text"
+                    aria-label="Clickable icon"
+                    id="inputResponse"
+                  />
+                </div>
+              </div>
+              <div class="uk-flex uk-flex-right">
+                <div>
+                  <button
+                    class="uk-button uk-button-danger uk-margin-small-right"
+                    type="button"
+                    onclick="closeModal()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div>
+                  <button
+                    class="uk-button uk-button-primary"
+                    type="button"
+                    id="modalbtnEdit"
+                    onclick="editDeliveryModal()"
+                  >
+                    Editar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="modal-center-2" class="uk-flex-top" uk-modal>
+          <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+            <button
+              class="uk-modal-close-default"
+              type="button"
+              uk-close
+              onclick="closeModal()"
+            ></button>
+
+            <h1 style="text-align: center">Agregar Respuesta</h1>
+
+            <form>
+              <div class="uk-margin">
+                <label class="uk-form-label">Titulo: </label>
+                <div class="uk-inline">
+                  <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                  <input
+                    class="uk-input uk-form-width-large"
+                    type="text"
+                    aria-label="Clickable icon"
+                    id="inputTitle2"
+                  />
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label">Respuesta </label>
+                <div class="uk-inline">
+                  <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                  <input
+                    class="uk-input uk-form-width-large"
+                    type="text"
+                    aria-label="Clickable icon"
+                    id="inputResponse2"
+                  />
+                </div>
+              </div>
+              <div class="uk-flex uk-flex-right">
+                <div>
+                  <button
+                    class="uk-button uk-button-danger uk-margin-small-right"
+                    type="button"
+                    onclick="closeModal()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div>
+                  <button
+                    class="uk-button uk-button-primary"
+                    type="button"
+                    id="modalbtnEdit"
+                    onclick="creteResponse()"
+                  >
+                    Agregar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="uk-flex uk-flex-center">
+          <div>
+            <button
+              class="uk-button uk-button-primary uk-margin-large-bottom"
+              type="button"
+              uk-icon="icon: plus-circle"
+              id="modalbtnEdit"
+              onclick="openModal()"
+            >
+              Agregar Respuesta
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <!-- end service -->
     <!--  footer -->
     <%- include("template/footer.ejs") %>
+    <script src="js/me/btnActionResponses.js"></script>
+    >
     <!-- end footer -->
   </body>
 </html>
