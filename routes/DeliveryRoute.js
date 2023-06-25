@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  console.log(req.params.id, req.body)
+  console.log(req.params.id, req.body);
   try {
     const del = await deliveryController.updateDelivery(
       req.params.id,

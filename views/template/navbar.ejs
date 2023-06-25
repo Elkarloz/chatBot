@@ -1,48 +1,62 @@
 <header>
-   <!-- header inner -->
-   <div class="header">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12 col-sm-3 col logo_section">
-               <div class="full">
-                  <div class="center-desk">
-                     <div class="logo">
-                        <a href="index.html"><img src="images/logo.png" alt="#" /></a>
-                     </div>
-                  </div>
-               </div>
+  <!-- header inner -->
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-3 col logo_section">
+          <div class="full">
+            <div class="center-desk">
+              <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+              </div>
             </div>
-            <div class="col-md-10 offset-md-1">
-               <div class="navigation navbar navbar-expand-md navbar-dark">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarsExample04">
-                     <ul class="navbar-nav mr-auto">
-                       <li class="nav-item <%= activeLink === 'home' ? 'active' : '' %>">
-                         <a class="nav-link" href="/">Home</a>
-                       </li>
-                       <li class="nav-item <%= activeLink === 'deliverys' ? 'active' : '' %>">
-                         <a class="nav-link" href="/Deliverys">Repartidor</a>
-                       </li>
-                       <li class="nav-item <%= activeLink === 'responses' ? 'active' : '' %>">
-                         <a class="nav-link" href="/Responses">Respuestas</a>
-                       </li>
-                       <li class="nav-item <%= activeLink === 'gallery' ? 'active' : '' %>">
-                         <a class="nav-link" href="gallery.html">Gallery</a>
-                       </li>
-                       <li class="nav-item <%= activeLink === 'testimonial' ? 'active' : '' %>">
-                         <a class="nav-link" href="testimonial.html">Testimonial</a>
-                       </li>
-                       <li class="nav-item <%= activeLink === 'contact' ? 'active' : '' %>">
-                         <a class="nav-link" href="contact.html">Contact Us</a>
-                       </li>
-                     </ul>
-                   </div>
-                   
-               </div>
+          </div>
+        </div>
+        <div class="col-md-10 offset-md-1">
+          <div class="navigation navbar navbar-expand-md navbar-dark">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarsExample04"
+              aria-controls="navbarsExample04"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample04">
+              <ul class="navbar-nav mr-auto">
+                <li
+                  class="nav-item <%= activeLink === 'home' ? 'active' : '' %>"
+                >
+                  <a class="nav-link" href="/">Chat</a>
+                </li>
+                <li
+                  class="nav-item <%= activeLink === 'deliverys' ? 'active' : '' %>"
+                >
+                  <a class="nav-link" href="/Deliverys">Repartidor</a>
+                </li>
+                <li
+                  class="nav-item <%= activeLink === 'responses' ? 'active' : '' %>"
+                >
+                  <a class="nav-link" href="/Responses">Respuestas</a>
+                </li>
+                <li
+                  class="nav-item <%= activeLink === 'gallery' ? 'active' : '' %>"
+                >
+                  <a class="nav-link" href="/Config">Configuracion</a>
+                </li>
+                <li
+                  class="nav-item <%= activeLink === 'contact' ? 'active' : '' %>"
+                >
+                  <a class="nav-link" href="/Logout">Cerrar Session</a>
+                </li>
+              </ul>
             </div>
-         </div>
+          </div>
+        </div>
       </div>
-   </div>
+    </div>
+  </div>
 </header>

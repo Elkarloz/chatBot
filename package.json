@@ -9,11 +9,13 @@
   "author": "Carlos Roa",
   "license": "ISC",
   "dependencies": {
+    "@wppconnect-team/wppconnect": "^1.27.3",
     "bcrypt": "^5.1.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "mysql2": "^3.4.0",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.32.1",
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

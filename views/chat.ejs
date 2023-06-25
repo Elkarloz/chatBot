@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="css/chat.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.16.21/dist/css/uikit.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.21/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.21/dist/js/uikit-icons.min.js"></script>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <title><%=title%></title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="menu">
+          <ul class="items">
+            <li class="item item-active">
+              <i class="fa fa-home" aria-hidden="true"></i>
+            </li>
+            <li class="item">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </li>
+            <li class="item">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </li>
+            <li class="item">
+              <i class="fa fa-commenting" aria-hidden="true"></i>
+            </li>
+            <li class="item">
+              <i class="fa fa-file" aria-hidden="true"></i>
+            </li>
+            <li class="item">
+              <i class="fa fa-cog" aria-hidden="true"></i>
+            </li>
+          </ul>
+        </nav>
+
+        <section class="discussions disable_window">
+          <!--<div class="discussion search">
+            <div class="searchbar">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <input type="text" placeholder="Buscar chat..." />
+            </div>
+          </div>
+
+          <div class="discussion">
+            <div
+              class="photo"
+              style="
+                background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+              "
+            >
+              <div class="online"></div>
+            </div>
+            <div class="desc-contact">
+              <p class="name">Megan Leib</p>
+              <p class="message">9 pm at the bar if possible 😳</p>
+            </div>
+            <div class="timer">12 sec</div>
+          </div>-->
+        </section>
+        <section id="window_start" class="chat active_window">
+          <div class="header-chat">
+            <div class="titlepage">
+              <h2>Ini<span class="green">cio</span></h2>
+            </div>
+          </div>
+          <div class="container-fluid container_inicio">
+            <div id="div_qr_code">
+              <div>
+                <img
+                  id="qr_code"
+                  style="width: 400px"
+                  src="images/qr.gif"
+                  alt="qr code"
+                />
+              </div>
+              <p>
+                Estado de la conexion: <span id="status_session"></span
+                ><span id="dots">...</span>
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="window_chat" class="chat disable_window">
+          <div class="header-chat">
+            <i class="icon fa fa-user-o" aria-hidden="true"></i>
+            <p id="name_client" class="name">Megan Leib</p>
+            <i
+              class="icon clickable fa fa-ellipsis-h right"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div class="messages-chat">
+            <!--<div class="message">
+              <div
+                class="photo"
+                style="
+                  background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+                "
+              >
+                <div class="online"></div>
+              </div>
+              <p class="text">Hi, how are you ?</p>
+            </div>
+            <div class="message text-only">
+              <p class="text">
+                What are you doing tonight ? Want to go take a drink ?
+              </p>
+            </div>
+            <p class="time">14h58</p>
+            <div class="message text-only">
+              <div class="response">
+                <p class="text">Hey Megan ! It's been a while 😃</p>
+              </div>
+            </div>
+            <div class="message text-only">
+              <div class="response">
+                <p class="text">When can we meet ?</p>
+              </div>
+            </div>
+            <p class="response-time time">15h04</p>
+            <div class="message">
+              <div
+                class="photo"
+                style="
+                  background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+                "
+              >
+                <div class="online"></div>
+              </div>
+              <p class="text">9 pm at the bar if possible 😳</p>
+            </div>
+            <p class="time">15h09</p>
+            <div class="message">
+              <div
+                class="photo"
+                style="
+                  background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+                "
+              >
+                <div class="online"></div>
+              </div>
+              <p class="text">9 pm at the bar if possible 😳</p>
+            </div>
+            <p class="time">15h09</p>
+            <div class="message">
+              <div
+                class="photo"
+                style="
+                  background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+                "
+              >
+                <div class="online"></div>
+              </div>
+              <p class="text">9 pm at the bar if possible 😳</p>
+            </div>
+            <p class="time">15h09</p>
+            <div class="message">
+              <div
+                class="photo"
+                style="
+                  background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+                "
+              >
+                <div class="online"></div>
+              </div>
+              <p class="text">9 pm at the bar if possible 😳</p>
+            </div>
+            <p class="time">15h09</p>-->
+          </div>
+          <div class="footer-chat">
+            <i
+              class="icon fa fa-smile-o clickable"
+              style="font-size: 25pt"
+              aria-hidden="true"
+            ></i>
+            <input
+              type="text"
+              onkeydown="functionEnter(event)"
+              class="write-message"
+              id="message_chat"
+              placeholder="Escribe tu mensaje aquí"
+            />
+            <i
+              onclick="sendMessageText()"
+              class="icon send fa fa-paper-plane-o clickable"
+              aria-hidden="true"
+            ></i>
+          </div>
+        </section>
+        <section id="window_delivery" class="chat disable_window">
+          <div class="header-chat">
+            <div class="titlepage">
+              <h2>Reparti<span class="green">dores</span></h2>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div
+              class="uk-alert-success"
+              uk-alert
+              id="alert-success"
+              style="position: fixed; top: 10%; right: 1%"
+              hidden
+            >
+              <a class="uk-alert-close" uk-close></a>
+              <p></p>
+            </div>
+
+            <div class="col-md-12" style="max-height: 300px; overflow-y: auto">
+              <table class="uk-table uk-table-hover uk-table-divider">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <% deliverys.forEach(function(delivery) { %>
+                  <tr>
+                    <td id="dataId"><%= delivery.DelId %></td>
+                    <td id="dataName"><%= delivery.DelName %></td>
+                    <td id="dataPhone"><%= delivery.DelPhone %></td>
+                    <td style="width: 250px">
+                      <button
+                        class="uk-button uk-button-secondary uk-button-small"
+                        uk-toggle="target: #modal-center"
+                        uk-icon="icon: pencil"
+                        id="btnEdit"
+                        onclick="editDelivery(`<%= delivery.DelId %>`, `<%= delivery.DelName %>`, `<%= delivery.DelPhone %>`)"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        class="uk-button uk-button-danger uk-button-small"
+                        uk-icon="icon: trash"
+                        id="btnDel"
+                        onclick="deleteDelivery(`<%= delivery.DelId %>`)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+            <div id="modal-center" class="uk-flex-top" uk-modal>
+              <div
+                class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"
+              >
+                <button
+                  class="uk-modal-close-default"
+                  type="button"
+                  uk-close
+                  onclick="closeModal()"
+                ></button>
+
+                <h1 style="text-align: center">Editar Repartidores</h1>
+
+                <form>
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Nombre: </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputName"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Teléfono </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputPhone"
+                      />
+                    </div>
+                  </div>
+                  <div class="uk-flex uk-flex-right">
+                    <div>
+                      <button
+                        class="uk-button uk-button-danger uk-margin-small-right"
+                        type="button"
+                        onclick="closeModal()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        class="uk-button uk-button-primary"
+                        type="button"
+                        id="modalbtnEdit"
+                        onclick="editDeliveryModal()"
+                      >
+                        Editar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div id="modal-center-2" class="uk-flex-top" uk-modal>
+              <div
+                class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"
+              >
+                <button
+                  class="uk-modal-close-default"
+                  type="button"
+                  uk-close
+                  onclick="closeModal()"
+                ></button>
+
+                <h1 style="text-align: center">Agregar Repartidor</h1>
+
+                <form>
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Nombre: </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputName2"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Teléfono </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputPhone2"
+                      />
+                    </div>
+                  </div>
+                  <div class="uk-flex uk-flex-right">
+                    <div>
+                      <button
+                        class="uk-button uk-button-danger uk-margin-small-right"
+                        type="button"
+                        onclick="closeModal()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        class="uk-button uk-button-primary"
+                        type="button"
+                        id="modalbtnEdit"
+                        onclick="creteDelivery()"
+                      >
+                        Agregar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="uk-flex uk-flex-center">
+              <div>
+                <button
+                  class="uk-button uk-button-primary uk-margin-large-bottom"
+                  type="button"
+                  uk-icon="icon: plus-circle"
+                  id="modalbtnEdit"
+                  onclick="openModal()"
+                >
+                  Agregar Repartidor
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="window_responses" class="chat disable_window">
+          <div class="header-chat">
+            <div class="titlepage">
+              <h2>Respue<span class="green">stas</span></h2>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div
+              class="uk-alert-success"
+              uk-alert
+              id="alert-success"
+              style="position: fixed; top: 10%; right: 1%"
+              hidden
+            >
+              <a class="uk-alert-close" uk-close></a>
+              <p></p>
+            </div>
+
+            <div class="col-md-12" style="max-height: 300px; overflow-y: auto">
+              <table class="uk-table uk-table-hover uk-table-divider">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Respuesta</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <% responses.forEach(function(response) { %>
+                  <tr>
+                    <td><%= response.ResId %></td>
+                    <td><%= response.ResTitle %></td>
+                    <td><%= response.ResResponse %></td>
+                    <td style="width: 250px">
+                      <button
+                        class="uk-button uk-button-secondary uk-button-small"
+                        uk-toggle="target: #modal-center"
+                        uk-icon="icon: pencil"
+                        id="btnEdit"
+                        onclick="editResponses(`<%= response.ResId %>`, `<%= response.ResTitle %>`, `<%= response.ResResponse %>`)"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        class="uk-button uk-button-danger uk-button-small"
+                        uk-icon="icon: trash"
+                        id="btnDel"
+                        onclick="deleteResponses(`<%= response.ResId %>`)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+            <div id="modal-center" class="uk-flex-top" uk-modal>
+              <div
+                class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"
+              >
+                <button
+                  class="uk-modal-close-default"
+                  type="button"
+                  uk-close
+                  onclick="closeModal()"
+                ></button>
+
+                <h1 style="text-align: center">Editar Respuestas</h1>
+
+                <form>
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Titulo: </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputTitle"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Respuesta </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputResponse"
+                      />
+                    </div>
+                  </div>
+                  <div class="uk-flex uk-flex-right">
+                    <div>
+                      <button
+                        class="uk-button uk-button-danger uk-margin-small-right"
+                        type="button"
+                        onclick="closeModal()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        class="uk-button uk-button-primary"
+                        type="button"
+                        id="modalbtnEdit"
+                        onclick="editDeliveryModal()"
+                      >
+                        Editar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div id="modal-center-2" class="uk-flex-top" uk-modal>
+              <div
+                class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"
+              >
+                <button
+                  class="uk-modal-close-default"
+                  type="button"
+                  uk-close
+                  onclick="closeModal()"
+                ></button>
+
+                <h1 style="text-align: center">Agregar Respuesta</h1>
+
+                <form>
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Titulo: </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputTitle2"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="uk-margin">
+                    <label class="uk-form-label">Respuesta </label>
+                    <div class="uk-inline">
+                      <a
+                        class="uk-form-icon"
+                        href="#"
+                        uk-icon="icon: pencil"
+                      ></a>
+                      <input
+                        class="uk-input uk-form-width-large"
+                        type="text"
+                        aria-label="Clickable icon"
+                        id="inputResponse2"
+                      />
+                    </div>
+                  </div>
+                  <div class="uk-flex uk-flex-right">
+                    <div>
+                      <button
+                        class="uk-button uk-button-danger uk-margin-small-right"
+                        type="button"
+                        onclick="closeModal()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        class="uk-button uk-button-primary"
+                        type="button"
+                        id="modalbtnEdit"
+                        onclick="creteResponse()"
+                      >
+                        Agregar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="uk-flex uk-flex-center">
+              <div>
+                <button
+                  class="uk-button uk-button-primary uk-margin-large-bottom"
+                  type="button"
+                  uk-icon="icon: plus-circle"
+                  id="modalbtnEdit"
+                  onclick="openModal()"
+                >
+                  Agregar Respuesta
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery-3.0.0.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/me/btnActionDelivers.js"></script>
+  <script src="js/me/btnActionResponses.js"></script>
+</html>
