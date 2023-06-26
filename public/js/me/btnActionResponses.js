@@ -1,26 +1,30 @@
-const btnEdit = document.querySelectorAll(".btnEdit");
-const btnDelete = document.getElementById("btnDelete");
-let dataId = "";
-const textAlert = document.getElementById("alert-success").querySelector("p");
-const modal = document.getElementById("modal-center");
-const modal2 = document.getElementById("modal-center-2");
-
-textAlert.innerHTML = "";
-const modalbtnEdit = document.getElementById("modalbtnEdit");
+const btnEditR = document.querySelectorAll(".btnEdit");
+const btnDeleteR = document.getElementById("btnDelete");
+const textAlertR = document
+  .getElementById("alert-success-R")
+  .querySelector("p");
+const modalR = document.getElementById("modal-center-R");
+const modal2R = document.getElementById("modal-center-2-R");
+const tableBodyR = document.getElementById("tableBodyR");
+textAlertR.innerHTML = "";
+const modalbtnEditR = document.getElementById("modalbtnEdit-R");
 
 function editResponses(ResId, ResTitle, ResResponse) {
-  const inputTitle = document.getElementById("inputTitle");
-  const inputResponse = document.getElementById("inputResponse");
-  modalbtnEdit.setAttribute("onclick", `editResponseModal(${ResId})`);
+  const inputT = document.getElementById("inputTitle-R");
+  const inputR = document.getElementById("inputResponse");
 
-  inputTitle.value = ResTitle;
-  inputResponse.value = ResResponse;
+  modalbtnEditR.setAttribute("onclick", `editResponseModal(${ResId})`);
+
+  inputT.value = ResTitle;
+  inputR.value = ResResponse;
 }
 
 function editResponseModal(ResId) {
+  const inputT = document.getElementById("inputTitle-R");
+  const inputR = document.getElementById("inputResponse");
   const data = {
-    ResTitle: inputTitle.value,
-    ResResponse: inputResponse.value,
+    ResTitle: inputT.value,
+    ResResponse: inputR.value,
   };
 
   fetch("/Api/Response/" + ResId, {
@@ -32,11 +36,11 @@ function editResponseModal(ResId) {
   })
     .then((resp) => resp.json())
     .then((data) => {
-      UIkit.modal("#modal-center").hide();
-      document.getElementById("alert-success").hidden = false;
-      textAlert.innerHTML = data;
+      UIkit.modal("#modal-center-R").hide();
+      document.getElementById("alert-success-R").hidden = false;
+      textAlertR.innerHTML = data;
       setTimeout(() => {
-        document.getElementById("alert-success").hidden = true;
+        document.getElementById("alert-success-R").hidden = true;
       }, 3000);
 
       // Esperar a que el primer fetch se complete antes de continuar
@@ -53,9 +57,9 @@ function getAllResponses() {
   })
     .then((resp) => resp.json())
     .then((data) => {
-      tableBody.innerHTML = "";
+      tableBodyR.innerHTML = "";
       data.forEach((response, index) => {
-        tableBody.innerHTML += `
+        tableBodyR.innerHTML += `
           <tr>
             <td>${response.ResId}</td>
             <td>${response.ResTitle}</td>
@@ -63,9 +67,9 @@ function getAllResponses() {
             <td style="width: 250px">
               <button 
                 class="uk-button uk-button-secondary uk-button-small"
-                uk-toggle="target: #modal-center"
+                uk-toggle="target: #modal-center-R"
                 uk-icon="icon: pencil" 
-                id="btnEdit"
+                id="btnEditR"
                 onclick="editResponses(${response.ResId}, '${response.ResTitle}', '${response.ResResponse}')"
               >
                 Editar
@@ -73,7 +77,7 @@ function getAllResponses() {
               <button 
                 class="uk-button uk-button-danger uk-button-small"
                 uk-icon="icon: trash"
-                id="btnDel"
+                id="btnDelR"
                 onclick="deleteResponses(${response.ResId})"
               >
                 Eliminar
@@ -103,13 +107,13 @@ function creteResponse() {
   })
     .then((resp) => resp.json())
     .then((data) => {
-      UIkit.modal("#modal-center-2").hide();
-      document.getElementById("alert-success").hidden = false;
-      textAlert.innerHTML = data;
+      UIkit.modal("#modal-center-2-R").hide();
+      document.getElementById("alert-success-R").hidden = false;
+      textAlertR.innerHTML = data;
       inputTitle.value = "";
       inputResponse.value = "";
       setTimeout(() => {
-        document.getElementById("alert-success").hidden = true;
+        document.getElementById("alert-success-R").hidden = true;
       }, 3000);
 
       // Esperar a que el primer fetch se complete antes de continuar
@@ -126,10 +130,10 @@ function deleteResponses(ResId) {
   })
     .then((resp) => resp.json())
     .then((data) => {
-      document.getElementById("alert-success").hidden = false;
-      textAlert.innerHTML = data;
+      document.getElementById("alert-success-R").hidden = false;
+      textAlertR.innerHTML = data;
       setTimeout(() => {
-        document.getElementById("alert-success").hidden = true;
+        document.getElementById("alert-success-R").hidden = true;
       }, 3000);
 
       // Esperar a que el primer fetch se complete antes de continuar
@@ -137,11 +141,11 @@ function deleteResponses(ResId) {
     });
 }
 
-function openModal() {
-  UIkit.modal(modal2).show();
+function openModalR() {
+  UIkit.modal(modal2R).show();
 }
 
 function closeModal() {
-  UIkit.modal(modal).hide();
-  UIkit.modal(modal2).hide();
+  UIkit.modal(modalR).hide();
+  UIkit.modal(modal2R).hide();
 }

@@ -422,6 +422,7 @@
             </div>
           </div>
         </section>
+        <!-- reponses -->
         <section id="window_responses" class="chat disable_window">
           <div class="header-chat">
             <div class="titlepage">
@@ -432,7 +433,7 @@
             <div
               class="uk-alert-success"
               uk-alert
-              id="alert-success"
+              id="alert-success-R"
               style="position: fixed; top: 10%; right: 1%"
               hidden
             >
@@ -450,7 +451,7 @@
                     <th>Acciones</th>
                   </tr>
                 </thead>
-                <tbody id="tableBody">
+                <tbody id="tableBodyR">
                   <% responses.forEach(function(response) { %>
                   <tr>
                     <td><%= response.ResId %></td>
@@ -459,7 +460,7 @@
                     <td style="width: 250px">
                       <button
                         class="uk-button uk-button-secondary uk-button-small"
-                        uk-toggle="target: #modal-center"
+                        uk-toggle="target: #modal-center-R"
                         uk-icon="icon: pencil"
                         id="btnEdit"
                         onclick="editResponses(`<%= response.ResId %>`, `<%= response.ResTitle %>`, `<%= response.ResResponse %>`)"
@@ -481,7 +482,7 @@
                 </tbody>
               </table>
             </div>
-            <div id="modal-center" class="uk-flex-top" uk-modal>
+            <div id="modal-center-R" class="uk-flex-top" uk-modal>
               <div
                 class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"
               >
@@ -507,7 +508,7 @@
                         class="uk-input uk-form-width-large"
                         type="text"
                         aria-label="Clickable icon"
-                        id="inputTitle"
+                        id="inputTitle-R"
                       />
                     </div>
                   </div>
@@ -542,8 +543,8 @@
                       <button
                         class="uk-button uk-button-primary"
                         type="button"
-                        id="modalbtnEdit"
-                        onclick="editDeliveryModal()"
+                        id="modalbtnEdit-R"
+                        onclick="editResponseModal()"
                       >
                         Editar
                       </button>
@@ -552,7 +553,7 @@
                 </form>
               </div>
             </div>
-            <div id="modal-center-2" class="uk-flex-top" uk-modal>
+            <div id="modal-center-2-R" class="uk-flex-top" uk-modal>
               <div
                 class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"
               >
@@ -613,7 +614,7 @@
                       <button
                         class="uk-button uk-button-primary"
                         type="button"
-                        id="modalbtnEdit"
+                        id="modalbtnEdit-R"
                         onclick="creteResponse()"
                       >
                         Agregar
@@ -629,8 +630,8 @@
                   class="uk-button uk-button-primary uk-margin-large-bottom"
                   type="button"
                   uk-icon="icon: plus-circle"
-                  id="modalbtnEdit"
-                  onclick="openModal()"
+                  id="modalbtnEdit-R"
+                  onclick="openModalR()"
                 >
                   Agregar Respuesta
                 </button>
