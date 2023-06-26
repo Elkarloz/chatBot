@@ -1,5 +1,5 @@
 const Delivery = require("../models/DeliveryModel.js");
-
+const regex = /^[0-9]+$/;
 const deliveryController = {};
 
 deliveryController.getDeliverys = async () => {
@@ -18,6 +18,15 @@ deliveryController.getDeliverys = async () => {
 };
 
 deliveryController.createDelivery = async (delivery) => {
+  const { DelName, DelPhone } = delivery;
+  if (!DelName || !DelPhone) {
+    return "Datos incompletos";
+  }
+
+  if (!regex.test(DelPhone)) {
+    return "El teléfono debe ser numérico";
+  }
+
   try {
     await Delivery.create(delivery);
 
@@ -29,6 +38,16 @@ deliveryController.createDelivery = async (delivery) => {
 };
 
 deliveryController.updateDelivery = async (id, delivery) => {
+  const { DelName, DelPhone } = delivery;
+
+  if (!DelName || !DelPhone) {
+    return "Datos incompletos";
+  }
+
+  if (!regex.test(DelPhone)) {
+    return "El teléfono debe ser solo números";
+  }
+
   try {
     await Delivery.update(delivery, {
       where: {

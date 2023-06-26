@@ -16,8 +16,14 @@ responseController.getResponses = async () => {
 };
 
 responseController.createResponse = async (response) => {
+  const { ResTitle, ResResponse } = response;
+
+  if (!ResTitle || !ResResponse) {
+    return "Datos incompletos";
+  }
+
   try {
-    const resp = await Respon.create(response);
+    await Respon.create(response);
 
     return "Respuesta creada";
   } catch (error) {
@@ -27,6 +33,11 @@ responseController.createResponse = async (response) => {
 };
 
 responseController.updateResponse = async (id, response) => {
+  const { ResTitle, ResResponse } = response;
+
+  if (!ResTitle || !ResResponse) {
+    return "Datos incompletos";
+  }
   try {
     await Respon.update(response, {
       where: {
