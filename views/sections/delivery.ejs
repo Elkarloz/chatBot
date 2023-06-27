@@ -1,0 +1,196 @@
+<section id="window_delivery" class="chat disable_window">
+  <div class="header-chat">
+    <div class="titlepage">
+      <h2>Reparti<span class="green">dores</span></h2>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div
+      class="uk-alert-success"
+      uk-alert
+      id="alert-success"
+      style="position: fixed; top: 10%; right: 1%"
+      hidden
+    >
+      <a class="uk-alert-close" uk-close></a>
+      <p></p>
+    </div>
+
+    <div class="col-md-12" style="max-height: 300px; overflow-y: auto">
+      <table class="uk-table uk-table-hover uk-table-divider">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <% deliverys.forEach(function(delivery) { %>
+          <tr>
+            <td id="dataId"><%= delivery.DelId %></td>
+            <td id="dataName"><%= delivery.DelName %></td>
+            <td id="dataPhone"><%= delivery.DelPhone %></td>
+            <td style="width: 250px">
+              <button
+                class="uk-button uk-button-secondary uk-button-small"
+                uk-toggle="target: #modal-center"
+                uk-icon="icon: pencil"
+                id="btnEdit"
+                onclick="editDelivery(`<%= delivery.DelId %>`, `<%= delivery.DelName %>`, `<%= delivery.DelPhone %>`)"
+              >
+                Editar
+              </button>
+              <button
+                class="uk-button uk-button-danger uk-button-small"
+                uk-icon="icon: trash"
+                id="btnDel"
+                onclick="deleteDelivery(`<%= delivery.DelId %>`)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <div id="modal-center" class="uk-flex-top" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button
+          class="uk-modal-close-default"
+          type="button"
+          uk-close
+          onclick="closeModal()"
+        ></button>
+
+        <h1 style="text-align: center">Editar Repartidores</h1>
+
+        <form>
+          <div class="uk-margin">
+            <label class="uk-form-label">Nombre: </label>
+            <div class="uk-inline">
+              <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+              <input
+                class="uk-input uk-form-width-large"
+                type="text"
+                aria-label="Clickable icon"
+                id="inputName"
+              />
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label">Teléfono </label>
+            <div class="uk-inline">
+              <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+              <input
+                class="uk-input uk-form-width-large"
+                type="text"
+                aria-label="Clickable icon"
+                id="inputPhone"
+              />
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-right">
+            <div>
+              <button
+                class="uk-button uk-button-danger uk-margin-small-right"
+                type="button"
+                onclick="closeModal()"
+              >
+                Cancel
+              </button>
+            </div>
+            <div>
+              <button
+                class="uk-button uk-button-primary"
+                type="button"
+                id="modalbtnEdit"
+                onclick="editDeliveryModal()"
+              >
+                Editar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="modal-center-2" class="uk-flex-top" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button
+          class="uk-modal-close-default"
+          type="button"
+          uk-close
+          onclick="closeModal()"
+        ></button>
+
+        <h1 style="text-align: center">Agregar Repartidor</h1>
+
+        <form>
+          <div class="uk-margin">
+            <label class="uk-form-label">Nombre: </label>
+            <div class="uk-inline">
+              <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+              <input
+                class="uk-input uk-form-width-large"
+                type="text"
+                aria-label="Clickable icon"
+                id="inputName2"
+              />
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label">Teléfono </label>
+            <div class="uk-inline">
+              <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+              <input
+                class="uk-input uk-form-width-large"
+                type="text"
+                aria-label="Clickable icon"
+                id="inputPhone2"
+              />
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-right">
+            <div>
+              <button
+                class="uk-button uk-button-danger uk-margin-small-right"
+                type="button"
+                onclick="closeModal()"
+              >
+                Cancel
+              </button>
+            </div>
+            <div>
+              <button
+                class="uk-button uk-button-primary"
+                type="button"
+                id="modalbtnEdit"
+                onclick="creteDelivery()"
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="uk-flex uk-flex-center">
+      <div>
+        <button
+          class="uk-button uk-button-primary uk-margin-large-bottom"
+          type="button"
+          uk-icon="icon: plus-circle"
+          id="modalbtnEdit"
+          onclick="openModal()"
+        >
+          Agregar Repartidor
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

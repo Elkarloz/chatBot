@@ -1,66 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-  <%- include("template/header.ejs") %>
-  <!-- body -->
-  <body class="main-layout">
-    <!-- loader  -->
-    <div class="loader_bg">
-      <div class="loader"><img src="images/loading.gif" alt="#" /></div>
-    </div>
-    <!-- end loader -->
-    <!-- header -->
-    <%- include("template/navbar.ejs") %>
-    <!-- end header inner -->
-    <!-- end header -->
-
-    <!-- design -->
-    <div class="design">
-      <div style="margin-top: 50px" class="container-fluid">
-        <div class="row d_flex">
-          <div class="col-md-8">
-            <div class="container">
-              <div class="carousel-caption relative">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="text_de">
-                      <div class="titlepage">
-                        <h2>Cargando <span class="green">Bot</span></h2>
-                      </div>
-                      <p>
-                        <span id="status_session"
-                          >Conectando con el servidor</span
-                        ><span id="dots">...</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style="display: flex; align-items: center; justify-content: center"
-            class="col-md-4 pad_roght0"
-          >
-            <div class="design_img">
-              <figure>
-                <img
-                  style="width: 250px"
-                  id="qr_code"
-                  src="images/qr.gif"
-                  alt="#"
-                />
-              </figure>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end design -->
-
-    <!--  footer -->
-    <%- include("template/footer.ejs") %>
-    <!-- end footer -->
-    <!-- Javascript files-->
-  </body>
-  <script src="js/chatBot.js"></script>
-</html>
+<%- include("template/header.ejs") %> <%- include("template/navbar.ejs") %>
+<!--Sections-->
+<%- include("sections/history.ejs") %><%- include("sections/chat.ejs") %> <%-
+include("sections/home.ejs") %> <%- include("sections/info.ejs") %> <%- include
+("sections/responses.ejs") %> <%- include ("sections/delivery.ejs") %>
+<!--End Sections-->
+<%- include ("template/footer.ejs") %>
