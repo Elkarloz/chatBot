@@ -18,8 +18,14 @@ const MClient = db.define(
     CliPhone: {
       type: Sequelize.STRING,
     },
+    CliImg:{
+      type: Sequelize.STRING,
+    },
     CliStatus: {
       type: Sequelize.INTEGER,
+    },
+    CliObservation: {
+      type: Sequelize.STRING,
     },
   },
   {

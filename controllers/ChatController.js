@@ -29,20 +29,6 @@ chatController.getSearchActivesChat = async (phone) => {
   return null;
 };
 
-chatController.getClient = async (phone) => {
-  try {
-    const client = await Client.findOne({
-      where: {
-        CliPhone: phone,
-      },
-    });
-    return client;
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
-};
-
 chatController.getChatActiveId = async (id) => {
   const rutaArchivo = "./chats/" + id + ".dace";
   return new Promise((resolve, reject) => {
@@ -66,28 +52,31 @@ chatController.getChatActiveId = async (id) => {
   });
 };
 
-chatController.getLastMessage = async (rutaArchivo) => {
-  return new Promise((resolve, reject) => {
-    const lector = readline.createInterface({
-      input: fs.createReadStream(rutaArchivo),
-      crlfDelay: Infinity,
-    });
+chatController.createChat = async (chat) => {
+  try {
+    await Chat.create(chat).then(async (chatRegister) => {
+      const id = chatRegister.chatId;
+      const fs = require("fs");
+      const content = "";
+      const routeFile = "./chats/" + id + ".dace";
+      await chatController.updateChat(id, {
+        chatBody: routeFile,
+        chatStatus: 1,
+      });
 
-    let ultimaLinea = "";
-    lector.on("line", (linea) => {
-      if (!linea.includes("host>>")) {
-        ultimaLinea = linea.split(">>")[1];
-      }
+      fs.writeFile(routeFile, content, (error) => {
+        if (error) {
+          console.error("Error al crear el archivo:", error);
+        } else {
+          console.log("El archivo se ha creado correctamente.");
+        }
+      });
     });
-
-    lector.on("close", () => {
-      resolve(ultimaLinea);
-    });
-
-    lector.on("error", (error) => {
-      reject(error);
-    });
-  });
+    return "Chat creado";
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
 };
 
 chatController.getChatsActives = async () => {
@@ -122,41 +111,28 @@ chatController.getChatsActives = async () => {
   }
 };
 
-chatController.createChat = async (chat) => {
-  try {
-    await Chat.create(chat).then(async (chatRegister) => {
-      const id = chatRegister.chatId;
-      const fs = require("fs");
-      const content = "";
-      const routeFile = "./chats/" + id + ".dace";
-      await chatController.updateChat(id, {
-        chatBody: routeFile,
-        chatStatus: 1,
-      });
-
-      fs.writeFile(routeFile, content, (error) => {
-        if (error) {
-          console.error("Error al crear el archivo:", error);
-        } else {
-          console.log("El archivo se ha creado correctamente.");
-        }
-      });
+chatController.getLastMessage = async (rutaArchivo) => {
+  return new Promise((resolve, reject) => {
+    const lector = readline.createInterface({
+      input: fs.createReadStream(rutaArchivo),
+      crlfDelay: Infinity,
     });
-    return "Chat creado";
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
-};
 
-chatController.createClient = async (client) => {
-  try {
-    await Client.create(client);
-    return "Cliente creado";
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
+    let ultimaLinea = "";
+    lector.on("line", (linea) => {
+      if (!linea.includes("host>>")) {
+        ultimaLinea = linea.split(">>")[1];
+      }
+    });
+
+    lector.on("close", () => {
+      resolve(ultimaLinea);
+    });
+
+    lector.on("error", (error) => {
+      reject(error);
+    });
+  });
 };
 
 chatController.updateChat = async (id, chat) => {
@@ -168,6 +144,32 @@ chatController.updateChat = async (id, chat) => {
     });
 
     return "Chat actualizado";
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+chatController.updateChatACtive = async (id, chat) => {
+  try {
+    await Chat.update(chat, {
+      where: {
+        chatClient: id,
+        chatStatus: 1,
+      },
+    });
+
+    return "Chat actualizado";
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+chatController.createClient = async (client) => {
+  try {
+    await Client.create(client);
+    return "Cliente creado";
   } catch (error) {
     console.log(error);
     throw new Error(error);
@@ -198,6 +200,35 @@ chatController.deleteChat = async (id) => {
     });
 
     return "Chat eliminado";
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+chatController.updateClientPhone = async (phone, client) => {
+  try {
+    await Client.update(client, {
+      where: {
+        CliPhone: phone,
+      },
+    });
+
+    return "Cliente actualizado";
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+chatController.getClient = async (phone) => {
+  try {
+    const client = await Client.findOne({
+      where: {
+        CliPhone: phone,
+      },
+    });
+    return client;
   } catch (error) {
     console.log(error);
     throw new Error(error);

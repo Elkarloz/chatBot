@@ -2,8 +2,29 @@
   <div class="header-chat">
     <i class="fa fa-align-justify fa-2x fa-menu"></i>
     <i class="icon icon-user-nav fa fa-user-o" aria-hidden="true"></i>
-    <p id="name_client" class="name">Sin conexión</p>
-    <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+    <p id="name_client" class="name">Seleccione un chat</p>
+
+    <div class="dropdown dropleft">
+      <a
+        role="button"
+        id="dropdownMenuLink"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" onclick="closeChat()">Cerrar chat</a>
+        <a
+          id="responsive-item"
+          class="dropdown-item dropdown-item-none"
+          onclick="openInfo()"
+          >Abrir panel de edición</a
+        >
+      </div>
+    </div>
   </div>
   <div class="messages-chat">
     <!--<div class="message">
@@ -88,8 +109,10 @@
       </div>
       <p class="time">15h09</p>-->
   </div>
+  <div class="card-option-smile"><%-include("tabs.ejs");%></div>
   <div class="footer-chat">
     <i
+      id="btn-smile-option"
       class="icon fa fa-smile-o clickable"
       style="font-size: 25pt"
       aria-hidden="true"

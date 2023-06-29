@@ -17,6 +17,21 @@ deliveryController.getDeliverys = async () => {
   }
 };
 
+deliveryController.getDelivery = async (id) => {
+  try {
+    const deliverys = await Delivery.findOne({
+      where: {
+        DelId: id,
+      },
+    });
+
+    return deliverys;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
 deliveryController.createDelivery = async (delivery) => {
   const { DelName, DelPhone } = delivery;
   if (!DelName || !DelPhone) {

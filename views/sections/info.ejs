@@ -12,7 +12,7 @@
       />
     </div>
     <div class="form-group">
-      <label for="CliName">Dirección</label>
+      <label for="CliAddress">Dirección</label>
       <input
         type="text"
         class="form-control form-control-sm"
@@ -32,13 +32,35 @@
         rows="10"
       ></textarea>
     </div>
-    <button class="btn btn-sm btn-primary">Habilitar edición</button>
+    <div class="row" style="margin-left: 10px">
+      <button id="activeFormInfo" class="btn btn-sm btn-primary">
+        Habilitar edición
+      </button>
+      <button id="saveFormInfo" class="btn btn-sm btn-primary disabled">
+        Guardar cambios
+      </button>
+    </div>
     <h1 class="title-delivery-option">Finalizar chat</h1>
     <div class="form-group">
-      <select class="form-control form-control-sm">
-        <option>Seleccione un repartidor</option>
+      <select id="delivery_select" class="form-control form-control-sm">
+        <option value="0">Seleccione un repartidor</option>
       </select>
     </div>
-    <button class="btn btn-sm btn-danger">Finalizar chat</button>
+    <div class="form-group">
+      <input
+        type="file"
+        class="form-control-sm form-control"
+        id="file_finish"
+      />
+    </div>
+    <button onclick="endChatFunction()" class="btn btn-sm btn-danger">
+      Finalizar chat
+    </button>
+    <button
+      onclick="openInfo()"
+      class="btn-window-close btn btn-sm btn-success"
+    >
+      Cerrar ventana
+    </button>
   </div>
 </section>

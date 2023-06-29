@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Poopins-Bold";
+  src: url("../fonts/Poppins-Bold.ttf");
+}
+#captionWelcome,
+#titleWelcome{
+  font-family: "Poopins-bold";
+}
+
 body {
   padding: 5%;
   background-color: #f5f5f5;
@@ -25,7 +34,7 @@ body {
   background: linear-gradient(#ff9800, #c06500);
   transition: all ease-in-out 0.5s;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
-  z-index: 999;
+  z-index: 98;
 }
 
 .menu .items {
@@ -130,7 +139,7 @@ body {
 .discussions .discussion .photo {
   margin-left: 20px;
   display: block;
-  width: 55px;
+  width: 70px;
   height: 45px;
   background: #e6e7ed;
   -moz-border-radius: 50px;
@@ -299,8 +308,6 @@ body {
 .chat .footer-chat .send {
   color: #fff;
   background-color: #ff9800;
-  position: absolute;
-  right: 50px;
   padding: 12px 12px 12px 12px;
   border-radius: 50px;
   font-size: 14pt;
@@ -325,6 +332,10 @@ body {
   height: 50px;
   margin-left: 20px;
   padding: 10px;
+}
+
+#responsive-item {
+  display: none;
 }
 
 .footer-chat *::-webkit-input-placeholder {
@@ -386,6 +397,10 @@ body {
   align-items: center;
   text-align: center;
   height: calc(100% - 90px);
+}
+
+.btn-window-close {
+  display: none !important;
 }
 
 #window_responses,
@@ -470,10 +485,39 @@ body {
     right: -300px;
     top: 0;
   }
+  .card-option-smile {
+    position: absolute;
+    bottom: 90px;
+    max-width: 300px;
+    height: 200px;
+    width: 100%;
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+  .btn-window-close-active {
+    display: block !important;
+    position: fixed;
+    z-index: 99;
+    bottom: 10px;
+    right: 10px;
+  }
+  .window_info_admin {
+    right: 0 !important;
+    z-index: 99;
+    width: 100vw !important;
+    display: block;
+    background-color: #fff;
+  }
   .discussions {
     position: fixed;
     top: 0;
     left: -357px;
+  }
+  .chat .footer-chat .send {
+    right: 15px;
+  }
+  #responsive-item {
+    display: block;
   }
   .menu {
     position: fixed;
@@ -536,4 +580,42 @@ body {
   border-radius: 0 !important;
   border: 1px solid #000 !important;
   cursor: pointer;
+}
+
+.card-option-smile {
+  position: absolute;
+  bottom: 90px;
+  margin-left: 10px;
+  max-width: 450px;
+  height: 250px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+.btn-response,
+.btn-emoji {
+  margin: 5px 10px !important;
+}
+
+#activeFormInfo {
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Oculta el contenido de texto que se desborde */
+  text-overflow: ellipsis;
+  margin-right: 10px;
+  max-width: 120px;
+}
+
+.btn-primary {
+  background-color: #ff9800 !important;
+}
+
+.btn-primary:hover {
+  background-color: #ffcc50 !important;
+}
+
+.btn-left {
+  margin-left: 10px;
 }

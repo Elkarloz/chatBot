@@ -12,6 +12,27 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/Cliente/:phone", async (req, res) => {
+  try {
+    const resp = await chatController.getClient(req.params.phone);
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).send({ message: "Error al obtener el cliente" });
+  }
+});
+
+router.post("/UpdateClient/:phone", async (req, res) => {
+  try {
+    const resp = await chatController.updateClientPhone(
+      req.params.phone,
+      req.body
+    );
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).send({ message: "Error al obtener el cliente" });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const resp = await chatController.getChatActiveId(req.params.id);
