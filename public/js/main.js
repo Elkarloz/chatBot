@@ -266,7 +266,6 @@ function setHistory(event) {
 
 function actionChat(event) {
   console.log("Mensaje recibido desde el servidor:", event.data);
-
   if (event.data.includes("QR:")) {
     codeQR(event);
   } else if (event.data == "SESSION:SESION ACTIVA.") {
@@ -284,13 +283,13 @@ function actionChat(event) {
   } else if (event.data.includes("NOTIFY:")) {
     soundNotify();
     try {
-      fetch("/Api/Push/new-message", {
+      /*fetch("/Api/Push/new-message", {
         method: "POST",
         body: JSON.stringify({ message: event.data.split("NOTIFY:")[1] }),
         headers: {
           "Content-Type": "application/json",
         },
-      });
+      }); */
     } catch (e) {
       console.log(e);
     }
@@ -791,36 +790,31 @@ const PUBLIC_VAPID_KEY =
 
 const subscribeToPushNotifications = async () => {
   try {
-    // Service Worker Registration
-    console.log("Registering a Service Worker");
     const registration = await navigator.serviceWorker.register("/worker.js", {
-      scope: "/"
+      scope: "/",
     });
 
-    // Check if there is an existing subscription
-    const existingSubscription = await registration.pushManager.getSubscription();
+    const existingSubscription =
+      await registration.pushManager.getSubscription();
     if (existingSubscription) {
-      console.log("Unsubscribing from the existing subscription...");
       await existingSubscription.unsubscribe();
     }
 
-    // Subscribe to Push Notifications with a new applicationServerKey
-    console.log("Subscribing to Push Notifications...");
     const newSubscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+      applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY),
     });
 
-    console.log("New subscription:", newSubscription);
+    const admUser = "croameneses@gmail.com";
 
-    // Send the new subscription to the server
-    console.log("Sending subscription to the server...");
+    // Enviar la solicitud POST al servidor con el encabezado personalizado
     await fetch("/Api/Push/subscription", {
       method: "POST",
       body: JSON.stringify(newSubscription),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+        "X-AdmUser": admUser,
+      },
     });
 
     console.log("Subscribed!");
@@ -846,7 +840,6 @@ function urlBase64ToUint8Array(base64String) {
 if ("serviceWorker" in navigator) {
   subscribeToPushNotifications();
 }
-
 
 connectWebSocket();
 setEmojis();

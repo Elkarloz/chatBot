@@ -1,7 +1,7 @@
 const botController = require("../controllers/BotController");
 const chatController = require("../controllers/ChatController");
 const textController = require("../controllers/textController");
-
+const PushController = require("../controllers/PushController");
 async function startModel(client, msg) {
   if (!msg.isGroupMsg) {
     const data = await chatController.getSearchActivesChat(msg.from);
@@ -86,6 +86,9 @@ async function msgDisableOne(Client, msg, CliName, client) {
           "NOTIFY:" + CliName + ", necesita que su pedido sea tomado."
         );
         botController.broadcastHistory();
+        //aqui la notificacion
+        const message = CliName + ", necesita que su pedido sea tomado.";
+        PushController.newMessage(message);
         break;
 
       case "2":

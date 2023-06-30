@@ -2,7 +2,7 @@ const express = require("express"),
   path = require("path"),
   route = require("./routes"),
   app = express(),
-  morgan = require("morgan"),
+  bodyParser = require("body-parser"),
   WebSocket = require("ws");
 
 require("dotenv").config();
@@ -11,6 +11,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(__dirname + "/public"));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use("/", route.start);
 app.use("/Api/Response", route.apiResponse);
