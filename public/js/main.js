@@ -155,7 +155,8 @@ function codeQrDefault() {
 
 function viewHome() {
   var html =
-    "<h1 id='titleWelcome'>Bienvenido a chatBot Zumitos</h1><p id='captionWelcome'>El chat personal de Zumitos es una herramienta integral que permite a los clientes interactuar directamente con la empresa de manera rápida y conveniente.</p><p class='text-success'>Estado de la conexion: Activo.</p>"+'<img src="images/favicon.png" width="100px">';
+    "<h1 id='titleWelcome'>Bienvenido a chatBot Zumitos</h1><p id='captionWelcome'>El chat personal de Zumitos es una herramienta integral que permite a los clientes interactuar directamente con la empresa de manera rápida y conveniente.</p><p class='text-success'>Estado de la conexion: Activo.</p>" +
+    '<img src="images/favicon.png" width="100px">';
   $("#div_qr_code").html(html);
   statusOs = true;
 }
@@ -280,9 +281,19 @@ function actionChat(event) {
     receiveMsgHost(event);
   } else if (event.data.includes("HISTORY:")) {
     setHistory(event);
-  }else if(event.data.includes("NOTIFY:")){
+  } else if (event.data.includes("NOTIFY:")) {
     soundNotify();
-    //Aqui va la logica de las notificaciones.
+    try {
+      fetch("/Api/Push/new-message", {
+        method: "POST",
+        body: JSON.stringify({ message: event.data.split("NOTIFY:")[1] }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
@@ -437,8 +448,8 @@ function openInfo() {
 function closeChat() {
   $("#name_client").text("Seleccione un chat");
   $(".messages-chat").html("");
-  chatPhone=0;
-  chatActive=0;
+  chatPhone = 0;
+  chatActive = 0;
   $(".form-control").val("");
 }
 
@@ -567,8 +578,8 @@ function endChatFunction() {
   }
 }
 
-function soundNotify(){
-  var audio = new Audio('/sounds/notification.mp3');
+function soundNotify() {
+  var audio = new Audio("/sounds/notification.mp3");
   audio.play();
 }
 
@@ -774,6 +785,68 @@ archivoInput.addEventListener("change", () => {
     }
   }
 });
+
+const PUBLIC_VAPID_KEY =
+  "BBWhAPd2a_7CQD0--ZxdKUCtxjPrWt3UbqrSL0JO_-D6pAMgpGnWNkK0zfqci9fbg5TPWFjjU1vPMjzd5lcHA48";
+
+const subscribeToPushNotifications = async () => {
+  try {
+    // Service Worker Registration
+    console.log("Registering a Service Worker");
+    const registration = await navigator.serviceWorker.register("/worker.js", {
+      scope: "/"
+    });
+
+    // Check if there is an existing subscription
+    const existingSubscription = await registration.pushManager.getSubscription();
+    if (existingSubscription) {
+      console.log("Unsubscribing from the existing subscription...");
+      await existingSubscription.unsubscribe();
+    }
+
+    // Subscribe to Push Notifications with a new applicationServerKey
+    console.log("Subscribing to Push Notifications...");
+    const newSubscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+    });
+
+    console.log("New subscription:", newSubscription);
+
+    // Send the new subscription to the server
+    console.log("Sending subscription to the server...");
+    await fetch("/Api/Push/subscription", {
+      method: "POST",
+      body: JSON.stringify(newSubscription),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    console.log("Subscribed!");
+  } catch (error) {
+    console.log("Error subscribing to push notifications:", error);
+  }
+};
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+// Service Worker Support
+if ("serviceWorker" in navigator) {
+  subscribeToPushNotifications();
+}
+
 
 connectWebSocket();
 setEmojis();

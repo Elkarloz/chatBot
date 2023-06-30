@@ -3,4 +3,5 @@ module.exports = {
   apiResponse: require("./ResponseRoute"),
   apiDelivery: require("./DeliveryRoute.js"),
   apiChat: require("./ChatRoute"),
+  apiPush: require("./WebPushRoute"),
 };
