@@ -462,7 +462,7 @@ function setEmojis() {
 
 function chargeResponsesBox() {
   $.ajax({
-    url: "/Api/Response",
+    url: "/Api/Response/p/" + chatPhone ,
     method: "GET",
     dataType: "json",
     success: function (response) {

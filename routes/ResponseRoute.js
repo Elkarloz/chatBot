@@ -12,6 +12,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/p/:phone", async (req, res) => {
+    try {
+    const resp = await responseController.getResponseParams(req.params.phone);
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).send({ message: "Error al obtener las respuestas" });
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const resp = await responseController.createResponse(req.body);
