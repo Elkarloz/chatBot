@@ -18,6 +18,7 @@ app.use("/Api/Response", route.apiResponse);
 app.use("/Api/Delivery", route.apiDelivery);
 app.use("/Api/Chat", route.apiChat);
 app.use("/Api/Push", route.apiPush);
+app.use("/Api/Admin", route.apiAdmin);
 
 const server = app.listen(3000, () => {
   console.log("Servidor corriendo en el puerto 3000...");
