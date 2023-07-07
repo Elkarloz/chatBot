@@ -15,7 +15,8 @@ router.post("/subscription", async (req, res) => {
 
 router.post("/new-message", async (req, res) => {
   try {
-    const resp = PushController.newMessage(req, res);
+    const aux = req.headers["x-admuser"];
+    const resp = PushController.newMessage(req, aux);
     res.status(200).json(resp);
   } catch (error) {
     res.status(500).send({ message: "Error al enviar la notificación" });

@@ -5,6 +5,7 @@ let menu = 0;
 let socket;
 let info = 0;
 let smile = 0;
+const admUser = "croameneses@gmail.com";
 const emojis = [
   "😀",
   "😃",
@@ -265,7 +266,6 @@ function setHistory(event) {
 }
 
 function actionChat(event) {
-  console.log("Mensaje recibido desde el servidor:", event.data);
   if (event.data.includes("QR:")) {
     codeQR(event);
   } else if (event.data == "SESSION:SESION ACTIVA.") {
@@ -281,15 +281,17 @@ function actionChat(event) {
   } else if (event.data.includes("HISTORY:")) {
     setHistory(event);
   } else if (event.data.includes("NOTIFY:")) {
+    console.log(event.data);
     soundNotify();
     try {
-      /*fetch("/Api/Push/new-message", {
+      fetch("/Api/Push/new-message", {
         method: "POST",
         body: JSON.stringify({ message: event.data.split("NOTIFY:")[1] }),
         headers: {
           "Content-Type": "application/json",
+          "X-AdmUser": admUser,
         },
-      }); */
+      });
     } catch (e) {
       console.log(e);
     }
@@ -462,7 +464,7 @@ function setEmojis() {
 
 function chargeResponsesBox() {
   $.ajax({
-    url: "/Api/Response/p/" + chatPhone ,
+    url: "/Api/Response/p/" + chatPhone,
     method: "GET",
     dataType: "json",
     success: function (response) {
@@ -804,8 +806,6 @@ const subscribeToPushNotifications = async () => {
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY),
     });
-
-    const admUser = "croameneses@gmail.com";
 
     // Enviar la solicitud POST al servidor con el encabezado personalizado
     await fetch("/Api/Push/subscription", {

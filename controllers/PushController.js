@@ -1,11 +1,10 @@
 const admin = require("../models/adminModel");
 const webpush = require("../middleware/webPush");
 const PushController = {};
-let pushSubscripton;
+
 PushController.updateToken = async (req, aux) => {
   try {
-    pushSubscripton = req.body;
-
+    const pushSubscripton = req.body;
     await admin.update(
       { AdmToken: JSON.stringify(pushSubscripton) },
       { where: { AdmUser: aux } }
@@ -16,20 +15,37 @@ PushController.updateToken = async (req, aux) => {
     console.log(error);
   }
 };
+
 let message = "";
-PushController.newMessage = async (req) => {
-  if (req.body) {
-    message = req.body;
-  }else{
-    message = req;
-  }
+PushController.newMessage = async (req, aux) => {
+  message = req.body.message;
+  const pushSubscripton = await admin.findOne({
+    where: { AdmUser: aux },
+    attributes: ["AdmToken"],
+  });
+
+  console.log(pushSubscripton.AdmToken);
+
   // Payload Notification
   const payload = JSON.stringify({
     title: "¡¡Tienes una nueva notificación!!",
     message,
   });
+
+  const tokenJson = JSON.parse(pushSubscripton.AdmToken);
+  const endpoint = tokenJson.endpoint;
+  const keys = tokenJson.keys;
+
+  const pushSubscription = {
+    endpoint: endpoint,
+    keys: {
+      p256dh: keys.p256dh,
+      auth: keys.auth,
+    },
+  };
+
   try {
-    await webpush.sendNotification(pushSubscripton, payload);
+    await webpush.sendNotification(pushSubscription, payload);
     return "Notificación enviada";
   } catch (error) {
     console.log(error);
