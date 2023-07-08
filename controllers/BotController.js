@@ -120,6 +120,7 @@ botController.receiveMessageFile = async (message) => {
 
 botController.finishChat = async (message) => {
   const msgs = message + "";
+  console.log(msgs)
   const msg = msgs.split(">>")[3];
   let delivery = msgs.split(">>")[4];
   const id = msgs.split(">>")[1];
@@ -128,7 +129,11 @@ botController.finishChat = async (message) => {
   const dataClient = await chatController.getClient(phone);
   const messageHost = "host>>" + msg + ">>" + day;
   const dataDelivery = await deliveryController.getDelivery(delivery);
-  delivery = "57" + dataDelivery.DelPhone + "@c.us";
+  if (dataDelivery.DelPhone.includes('$')) {
+    delivery = dataDelivery.DelPhone.replace("$(", "").replace(")", "") + "@c.us";
+  } else {
+    delivery = "52" + dataDelivery.DelPhone + "@c.us";
+  }
   const fs = require("fs");
   if (dataDelivery != null) {
     await clientSession.sendText(

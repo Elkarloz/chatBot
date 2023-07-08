@@ -589,14 +589,15 @@ function endChatFunction() {
               ">>" +
               temp
             );
+            closeChat();
           } else {
             error(
               "Se ha perdido la conexión con el servidor, inténtelo de nuevo."
             );
+            closeChat();
           }
         };
         reader.readAsDataURL(file);
-        closeChat();
       } else {
         error("No seleccionaste un repartidor válido.");
       }
