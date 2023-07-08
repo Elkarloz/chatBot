@@ -67,8 +67,6 @@ chatController.createChat = async (chat) => {
       fs.writeFile(routeFile, content, (error) => {
         if (error) {
           console.error("Error al crear el archivo:", error);
-        } else {
-          console.log("El archivo se ha creado correctamente.");
         }
       });
     });

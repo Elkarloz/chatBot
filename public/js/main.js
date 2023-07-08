@@ -295,7 +295,6 @@ function actionChat(event) {
   } else if (event.data.includes("HISTORY:")) {
     setHistory(event);
   } else if (event.data.includes("NOTIFY:")) {
-    console.log(event.data);
     soundNotify();
     try {
       fetch("/Api/Push/new-message", {
@@ -335,10 +334,8 @@ function chargeChat(id) {
       dataType: "json",
       success: function (response) {
         if (response.length != 0) {
-          console.log("SI")
           var html = "";
           for (let i = 0; i < response.length; i++) {
-            console.log(response[i])
             const element = response[i];
             if (!element.includes("host>>")) {
               if (element.split(">>")[1].includes("data")) {

@@ -120,7 +120,6 @@ botController.receiveMessageFile = async (message) => {
 
 botController.finishChat = async (message) => {
   const msgs = message + "";
-  console.log(msgs)
   const msg = msgs.split(">>")[3];
   let delivery = msgs.split(">>")[4];
   const id = msgs.split(">>")[1];

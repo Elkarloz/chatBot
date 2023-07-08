@@ -8,7 +8,9 @@ router.get("/", async (req, res) => {
     const resp = await deliveryController.getDeliverys();
     res.status(200).json(resp);
   } catch (error) {
-    res.status(500).send({ message: "Error al obtener los repartidores" });
+    res.status(500).send({
+      message: "Error al obtener los repartidores"
+    });
   }
 });
 
@@ -17,12 +19,13 @@ router.post("/", async (req, res) => {
     const del = await deliveryController.createDelivery(req.body);
     res.status(200).json(del);
   } catch (error) {
-    res.status(500).send({ message: "Error al crear el repartidor" });
+    res.status(500).send({
+      message: "Error al crear el repartidor"
+    });
   }
 });
 
 router.put("/:id", async (req, res) => {
-  console.log(req.params.id, req.body);
   try {
     const del = await deliveryController.updateDelivery(
       req.params.id,
@@ -30,7 +33,9 @@ router.put("/:id", async (req, res) => {
     );
     res.status(200).json(del);
   } catch (error) {
-    res.status(500).send({ message: "Error al actualizar el repartidor" });
+    res.status(500).send({
+      message: "Error al actualizar el repartidor"
+    });
   }
 });
 
@@ -40,7 +45,9 @@ router.delete("/:id", async (req, res) => {
 
     res.status(200).json(del);
   } catch (error) {
-    res.status(500).send({ message: "Error al eliminar el repartidor" });
+    res.status(500).send({
+      message: "Error al eliminar el repartidor"
+    });
   }
 });
 
