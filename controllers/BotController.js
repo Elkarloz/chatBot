@@ -6,10 +6,17 @@ const deliveryController = require("./deliveryController"),
   logger = winston.createLogger({
     level: "info",
     format: winston.format.json(),
-    defaultMeta: { service: "user-service" },
+    defaultMeta: {
+      service: "user-service"
+    },
     transports: [
-      new winston.transports.File({ filename: "error.log", level: "error" }),
-      new winston.transports.File({ filename: "combined.log" }),
+      new winston.transports.File({
+        filename: "error.log",
+        level: "error"
+      }),
+      new winston.transports.File({
+        filename: "combined.log"
+      }),
     ],
   });
 
@@ -87,6 +94,13 @@ botController.receiveMessageFile = async (message) => {
   const phone = msgs.split(">>")[2];
   const fs = require("fs");
   const messageHost = "host>>" + msg + ">>" + day;
+  if (msg.includes('image')) {
+    await clientSession.sendImageFromBase64(phone, msg, "ImagenZumitos");
+  } else if (msg.includes('audio')) {
+    await clientSession.sendPttFromBase64(phone, msg, "AudioZumitos");
+  } else {
+    await clientSession.sendFileFromBase64(phone, msg, "ArchivoZumitos")
+  }
   fs.appendFile("./chats/" + id + ".dace", messageHost + "\n", (error) => {
     if (error) {
       botController.addLogError(
@@ -127,8 +141,12 @@ botController.finishChat = async (message) => {
       "Pedido " + dataDelivery.DelName + "-" + day + ".pdf"
     );
     await clientSession.sendText(phone, textController.getMessageFinish());
-    await chatController.updateClient(dataClient.CliId, { CliStatus: 0 });
-    await chatController.updateChatACtive(dataClient.CliId, { chatStatus: 0 });
+    await chatController.updateClient(dataClient.CliId, {
+      CliStatus: 0
+    });
+    await chatController.updateChatACtive(dataClient.CliId, {
+      chatStatus: 0
+    });
     fs.appendFile("./chats/" + id + ".dace", messageHost + "\n", (error) => {
       if (error) {
         botController.addLogError(
@@ -143,11 +161,11 @@ botController.finishChat = async (message) => {
     });
     await botController.broadcastMessage(
       "MSGHOST:" +
-        id +
-        "::host>>" +
-        textController.getMessageHostFinish() +
-        ">>" +
-        day
+      id +
+      "::host>>" +
+      textController.getMessageHostFinish() +
+      ">>" +
+      day
     );
     await botController.broadcastHistory();
   }

@@ -38,11 +38,22 @@ async function msgActive(msg, client, data) {
   const idChat = data.chatBody.split("/")[2].replace(".dace", "");
   const day = new Date().toLocaleTimeString();
   let messageUser = "";
-  console.log(msg.type)
-  if(msg.type=="image"){
+  if (msg.type == "image") {
     const base64Temp = await client.downloadMedia(msg.id);
     messageUser = "user>>" + base64Temp + ">>" + day;
-  }else{
+  } else if (msg.type == "poll_creation") {
+    messageUser = "user>>El cliente ha enviado una encuesta, este mensaje es incompatible para este chatbot.>>" + day;
+  } else if (msg.type == "vcard") {
+    let temp = msg.content.split("\n");
+    temp = temp[2].replace('N:;', '').replace(';;;', '');
+    messageUser = "user>>" + "Tarjeta de contacto del número: " + temp + ">>" + day;
+  } else if (msg.type == "sticker") {
+    messageUser = "user>>" + "Has recibido un sticker, este mensaje es incompatible para este chatbot." + ">>" + day;
+  } else if (msg.type == "document") {
+    const base64Temp = await client.downloadMedia(msg.id);
+    messageUser = "user>>" + base64Temp + ">>" + day;
+  } else {
+    msg.body = msg.body.replace("\n", '');
     messageUser = "user>>" + msg.body + ">>" + day;
   }
   fs.appendFile(data.chatBody, messageUser + "\n", (error) => {
@@ -66,9 +77,11 @@ async function msgDisableOne(Client, msg, CliName, client) {
     //Estado del cliente 0
     await client.sendText(
       msg.from,
-      CliName + textController.getMessageClientZero()
+      textController.getMessageClientZero(CliName)
     );
-    await chatController.updateClient(Client.CliId, { CliStatus: 1 });
+    await chatController.updateClient(Client.CliId, {
+      CliStatus: 1
+    });
     //Fin de la instrucion del cliente 0
   } else if (Client.CliStatus == 1) {
     //Opciones del cliente en caso de estar en el estado 1
@@ -86,12 +99,16 @@ async function msgDisableOne(Client, msg, CliName, client) {
           "NOTIFY:" + CliName + ", necesita que su pedido sea tomado."
         );
         botController.broadcastHistory();
-
+        //aqui la notificacion
+        const message = CliName + ", necesita que su pedido sea tomado.";
+        PushController.newMessage(message);
         break;
 
       case "2":
         await client.sendText(msg.from, textController.getMessageMenu());
-        await chatController.updateClient(Client.CliId, { CliStatus: 0 });
+        await chatController.updateClient(Client.CliId, {
+          CliStatus: 0
+        });
         break;
 
       case "3":
@@ -105,8 +122,8 @@ async function msgDisableOne(Client, msg, CliName, client) {
         await client.sendText(
           msg.from,
           textController.getMessageErrorZeroPartOne() +
-            CliName +
-            textController.getMessageErrorZeroPartTwo()
+          CliName +
+          textController.getMessageErrorZeroPartTwo()
         );
         break;
     }
@@ -148,7 +165,7 @@ async function msgPendName(client, msg, Client) {
 async function msgRegisterName(client, msg, Client) {
   await client.sendText(
     msg.from,
-    msg.body + textController.getMessageStartTwo()
+    textController.getMessageStartTwo(msg.body)
   );
   await chatController.updateClient(Client.CliId, {
     CliName: msg.body,

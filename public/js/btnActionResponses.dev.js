@@ -49,6 +49,7 @@ function editResponseModal(ResId) {
 }
 
 function getAllResponses() {
+  chargeResponsesBox();
   fetch("/Api/Response/", {
     method: "GET",
     headers: {

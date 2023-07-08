@@ -1,4 +1,4 @@
-let statusOs = true;
+let statusOs = false;
 let chatPhone = 0;
 let chatActive = 0;
 let menu = 0;
@@ -122,6 +122,7 @@ const emojis = [
   "😿",
   "😾",
 ];
+
 const seleccionarBtn = document.getElementById("select-btn");
 const archivoInput = document.getElementById("file-input");
 
@@ -198,7 +199,9 @@ function receiveMsg(event) {
 
     $(".messages-chat")
       .append(html)
-      .animate({ scrollTop: $(".messages-chat").prop("scrollHeight") }, 500);
+      .animate({
+        scrollTop: $(".messages-chat").prop("scrollHeight")
+      }, 500);
   }
 }
 
@@ -211,17 +214,26 @@ function receiveMsgHost(event) {
         html =
           '<div class="message text-only"><div class="response"><p class="text"><img width="200px" src="' +
           content.split(">>")[1] +
-          '" alt="" /></p></div></div><p class="time">' +
+          '" alt="" /></p></div></div><p class="response-time time">' +
+          content.split(">>")[2] +
+          "</p>";
+      } else if (content.split(">>")[1].includes("audio")) {
+        html = '<div class="message text-only"><div class="response"><audio controls><source src="' + content.split(">>")[1] + '" type="audio/mpeg">Your browser does not support the audio element.</audio></div></div><p class="response-time time">' +
           content.split(">>")[2] +
           "</p>";
       } else {
         html =
           '<div class="message text-only"><div class="response"><p class="text"><a href="' +
           content.split(">>")[1] +
-          '" download="archivo.pdf"><img width="40px" src="images/pdf.png" alt="" />Archivo Pdf</a></p></div></div><p class="time">' +
+          '" download="archivo.pdf"><img width="40px" src="images/pdf.png" alt="" />Archivo Pdf</a></p></div></div><p class="response-time time">' +
           content.split(">>")[2] +
           "</p>";
       }
+      $(".messages-chat")
+        .append(html)
+        .animate({
+          scrollTop: $(".messages-chat").prop("scrollHeight")
+        }, 500);
     } else {
       html =
         '<div class="message text-only" bis_skin_checked="1"><div class="response" bis_skin_checked="1"><p class="text">' +
@@ -231,7 +243,9 @@ function receiveMsgHost(event) {
         "</p>";
       $(".messages-chat")
         .append(html)
-        .animate({ scrollTop: $(".messages-chat").prop("scrollHeight") }, 500);
+        .animate({
+          scrollTop: $(".messages-chat").prop("scrollHeight")
+        }, 500);
     }
   }
 }
@@ -286,7 +300,9 @@ function actionChat(event) {
     try {
       fetch("/Api/Push/new-message", {
         method: "POST",
-        body: JSON.stringify({ message: event.data.split("NOTIFY:")[1] }),
+        body: JSON.stringify({
+          message: event.data.split("NOTIFY:")[1]
+        }),
         headers: {
           "Content-Type": "application/json",
           "X-AdmUser": admUser,
@@ -308,6 +324,8 @@ function chargeChat(id) {
         chatActive = $(this).attr("data-id");
         chatPhone = $(this).attr("data-phone");
         chargeClient();
+        chargeResponsesBox();
+        setDeliverys();
         $("#name_client").text($(this).attr("data-client"));
       }
     });
@@ -317,8 +335,10 @@ function chargeChat(id) {
       dataType: "json",
       success: function (response) {
         if (response.length != 0) {
+          console.log("SI")
           var html = "";
           for (let i = 0; i < response.length; i++) {
+            console.log(response[i])
             const element = response[i];
             if (!element.includes("host>>")) {
               if (element.split(">>")[1].includes("data")) {
@@ -354,6 +374,10 @@ function chargeChat(id) {
                     '" alt="" /></p></div></div><p class="response-time time">' +
                     element.split(">>")[2] +
                     "</p>";
+                } else if (element.split(">>")[1].includes("audio")) {
+                  html += '<div class="message text-only"><div class="response"><audio controls><source src="' + element.split(">>")[1] + '" type="audio/mpeg">Your browser does not support the audio element.</audio></div></div><p class="response-time time">' +
+                    element.split(">>")[2] +
+                    "</p>";
                 } else {
                   html +=
                     '<div class="message text-only"><div class="response"><p class="text"><a href="' +
@@ -374,8 +398,9 @@ function chargeChat(id) {
           }
           $(".messages-chat")
             .html(html)
-            .animate(
-              { scrollTop: $(".messages-chat").prop("scrollHeight") },
+            .animate({
+                scrollTop: $(".messages-chat").prop("scrollHeight")
+              },
               500
             );
         }
@@ -396,14 +421,14 @@ function chargeClient() {
       if (response != null) {
         $("#CliName").val(response.CliName);
         $("#CliAddress").val(
-          response.CliAddress == null
-            ? "Sin Direccion registrada"
-            : response.CliAddress
+          response.CliAddress == null ?
+          "Sin Direccion registrada" :
+          response.CliAddress
         );
         $("#CliObservation").val(
-          response.CliObservation == null
-            ? "Sin observaciones registradas"
-            : response.CliObservation
+          response.CliObservation == null ?
+          "Sin observaciones registradas" :
+          response.CliObservation
         );
       }
     },
@@ -556,13 +581,13 @@ function endChatFunction() {
           if (socket.readyState === WebSocket.OPEN) {
             socket.send(
               "FINISH>>" +
-                chatActive +
-                ">>" +
-                chatPhone +
-                ">>" +
-                contenido +
-                ">>" +
-                temp
+              chatActive +
+              ">>" +
+              chatPhone +
+              ">>" +
+              contenido +
+              ">>" +
+              temp
             );
           } else {
             error(
@@ -605,6 +630,9 @@ $(document).ready(function () {
         case 6:
           $("#window_delivery").removeClass("disable_window");
           break;
+        case 7:
+          $("#window_config").removeClass("disable_window");
+          break;
         case 4:
           $("#window_responses").removeClass("disable_window");
           break;
@@ -614,6 +642,7 @@ $(document).ready(function () {
     }
   });
 });
+
 
 $(document).ready(function () {
   $(".fa-menu").click(function () {
@@ -807,7 +836,6 @@ const subscribeToPushNotifications = async () => {
       applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY),
     });
 
-    // Enviar la solicitud POST al servidor con el encabezado personalizado
     await fetch("/Api/Push/subscription", {
       method: "POST",
       body: JSON.stringify(newSubscription),
@@ -836,14 +864,10 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
-// Service Worker Support
+connectWebSocket();
+setEmojis();
+$(".card-option-smile").hide();
+$("#activeFormInfo").text("Habilitar edición");
 if ("serviceWorker" in navigator) {
   subscribeToPushNotifications();
 }
-
-connectWebSocket();
-setEmojis();
-chargeResponsesBox();
-setDeliverys();
-$(".card-option-smile").hide();
-$("#activeFormInfo").text("Habilitar edición");

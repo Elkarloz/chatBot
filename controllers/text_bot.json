@@ -1,0 +1,17 @@
+{
+  "getDelivery": "Hola {Rnombre}, Tenemos un pedido para la dirección {direccion}, el pedido deberá ser recogido en nuestra sucursal, por favor no tardar.",
+  "getMessageFinish": "Tu pedido ha sido atendido, en unos minutos estará disfrutando de tu entrega, hemos enviado nuestro repartidor a tu dirección, agradecemos tu compra en Zumitos.",
+  "getMessageHostFinish": "Tu pedido ha sido atendido, en unos minutos estará disfrutando de tu entrega, hemos enviado nuestro repartidor a tu dirección, agradecemos tu compra en Zumitos.",
+  "getMessageClientZero": "{nombre}, es un gusto ayudarte, selecciona la opción que necesitas:\n1.Pedir mi desayuno.\n2.Conocer el menú.\n3.Terminar.",
+  "getMessageWait": "Espera un momento a que uno de nuestros empleados tome tu pedido 👩🏻‍🍳.",
+  "getMessageMenu": "Observa nuestro menu en este URL 🧑🏻‍🍳",
+  "getMessageErrorZeroPartOne": "Opción ingresada incorrecta. Por favor ingresa un valor entre 1 - 2, digita el número en letras (uno, dos, tres) o bien, ingresa la frase que deseas ejecutar.\n\n",
+  "getMessageErrorZeroPartTwo": "{nombre}, es un gusto ayudarte, selecciona la opción que necesitas:\n1.Pedir mi desayuno.\n2.Conocer el menú.\n3.Terminar.",
+  "getMessageStart": "Hola 👋🏻\n\n Soy el asistente virtual Zumitos. Qué gusto saludarte.",
+  "getMessagePolitics": "Antes de continuar, es importante que nos autorices el tratamiento de tus datos personales.\n1. Acepto\n2. No acepto",
+  "getMessageQuestionName": "¿Podrías indicarme tu nombre completo?",
+  "getMessageDeniedPermissions": "No podemos continuar el chat, necesitamos tu autorización para poder registrarlo en nuestra base de datos.",
+  "getMessageErrorTwo": "Opción ingresada incorrecta. Por favor ingresa un valor entre 1 - 2, digita el número en letras (uno, dos, tres) o bien, ingresa la frase que deseas ejecutar.\nAntes de continuar, es importante que nos autorices el tratamiento de tus datos personales.\n1. Acepto\n2. No acepto",
+  "getMessageStartTwo": "{nombre}, es un gusto ayudarte, selecciona la opción que necesitas:\n1.Pedir mi desayuno.\n2.Conocer el menú.\n3.Terminar.",
+  " getDelivery": "Hola {Rnombre}, Tenemos un pedido para la dirección {direccion}, el pedido deberá ser recogido en nuestra sucursal, por favor no tardar."
+}
