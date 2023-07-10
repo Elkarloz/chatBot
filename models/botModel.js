@@ -99,9 +99,7 @@ async function msgDisableOne(Client, msg, CliName, client) {
           "NOTIFY:" + CliName + ", necesita que su pedido sea tomado."
         );
         botController.broadcastHistory();
-        //aqui la notificacion
-        const message = CliName + ", necesita que su pedido sea tomado.";
-        PushController.newMessage(message);
+        
         break;
 
       case "2":

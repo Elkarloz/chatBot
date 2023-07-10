@@ -1,25 +1,29 @@
 const { Router } = require("express");
 const router = Router();
-const PushController = require("../controllers/PushController");
+
+const webpush = require("../webpush.js");
+let pushSubscripton;
 
 router.post("/subscription", async (req, res) => {
-  try {
-    const aux = req.headers["x-admuser"];
-    const resp = PushController.updateToken(req, aux);
+  pushSubscripton = req.body;
+  console.log(pushSubscripton);
 
-    res.status(200).json(resp);
-  } catch (error) {
-    res.status(500).send({ message: "Error al actualizar el token" });
-  }
+  // Server's Response
+  res.status(201).json();
 });
 
 router.post("/new-message", async (req, res) => {
+  const { message } = req.body;
+  // Payload Notification
+  const payload = JSON.stringify({
+    title: "¡¡Tienes una nueva notificación!!",
+    message 
+  });
+  res.status(200).json();
   try {
-    const aux = req.headers["x-admuser"];
-    const resp = PushController.newMessage(req, aux);
-    res.status(200).json(resp);
+    await webpush.sendNotification(pushSubscripton, payload);
   } catch (error) {
-    res.status(500).send({ message: "Error al enviar la notificación" });
+    console.log(error);
   }
 });
 

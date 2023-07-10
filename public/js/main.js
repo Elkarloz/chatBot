@@ -6,6 +6,7 @@ let socket;
 let info = 0;
 let smile = 0;
 const admUser = "croameneses@gmail.com";
+const audio = new Audio("/sounds/notification.mp3");
 const emojis = [
   "😀",
   "😃",
@@ -199,9 +200,12 @@ function receiveMsg(event) {
 
     $(".messages-chat")
       .append(html)
-      .animate({
-        scrollTop: $(".messages-chat").prop("scrollHeight")
-      }, 500);
+      .animate(
+        {
+          scrollTop: $(".messages-chat").prop("scrollHeight"),
+        },
+        500
+      );
   }
 }
 
@@ -218,7 +222,10 @@ function receiveMsgHost(event) {
           content.split(">>")[2] +
           "</p>";
       } else if (content.split(">>")[1].includes("audio")) {
-        html = '<div class="message text-only"><div class="response"><audio controls><source src="' + content.split(">>")[1] + '" type="audio/mpeg">Your browser does not support the audio element.</audio></div></div><p class="response-time time">' +
+        html =
+          '<div class="message text-only"><div class="response"><audio controls><source src="' +
+          content.split(">>")[1] +
+          '" type="audio/mpeg">Your browser does not support the audio element.</audio></div></div><p class="response-time time">' +
           content.split(">>")[2] +
           "</p>";
       } else {
@@ -231,9 +238,12 @@ function receiveMsgHost(event) {
       }
       $(".messages-chat")
         .append(html)
-        .animate({
-          scrollTop: $(".messages-chat").prop("scrollHeight")
-        }, 500);
+        .animate(
+          {
+            scrollTop: $(".messages-chat").prop("scrollHeight"),
+          },
+          500
+        );
     } else {
       html =
         '<div class="message text-only" bis_skin_checked="1"><div class="response" bis_skin_checked="1"><p class="text">' +
@@ -243,9 +253,12 @@ function receiveMsgHost(event) {
         "</p>";
       $(".messages-chat")
         .append(html)
-        .animate({
-          scrollTop: $(".messages-chat").prop("scrollHeight")
-        }, 500);
+        .animate(
+          {
+            scrollTop: $(".messages-chat").prop("scrollHeight"),
+          },
+          500
+        );
     }
   }
 }
@@ -296,15 +309,13 @@ function actionChat(event) {
     setHistory(event);
   } else if (event.data.includes("NOTIFY:")) {
     soundNotify();
+
     try {
-      fetch("/Api/Push/new-message", {
+      fetch("Api/Push/new-message", {
         method: "POST",
-        body: JSON.stringify({
-          message: event.data.split("NOTIFY:")[1]
-        }),
+        body: JSON.stringify({ message: event.data.split("NOTIFY:")[1] }),
         headers: {
           "Content-Type": "application/json",
-          "X-AdmUser": admUser,
         },
       });
     } catch (e) {
@@ -372,7 +383,10 @@ function chargeChat(id) {
                     element.split(">>")[2] +
                     "</p>";
                 } else if (element.split(">>")[1].includes("audio")) {
-                  html += '<div class="message text-only"><div class="response"><audio controls><source src="' + element.split(">>")[1] + '" type="audio/mpeg">Your browser does not support the audio element.</audio></div></div><p class="response-time time">' +
+                  html +=
+                    '<div class="message text-only"><div class="response"><audio controls><source src="' +
+                    element.split(">>")[1] +
+                    '" type="audio/mpeg">Your browser does not support the audio element.</audio></div></div><p class="response-time time">' +
                     element.split(">>")[2] +
                     "</p>";
                 } else {
@@ -395,8 +409,9 @@ function chargeChat(id) {
           }
           $(".messages-chat")
             .html(html)
-            .animate({
-                scrollTop: $(".messages-chat").prop("scrollHeight")
+            .animate(
+              {
+                scrollTop: $(".messages-chat").prop("scrollHeight"),
               },
               500
             );
@@ -418,14 +433,14 @@ function chargeClient() {
       if (response != null) {
         $("#CliName").val(response.CliName);
         $("#CliAddress").val(
-          response.CliAddress == null ?
-          "Sin Direccion registrada" :
-          response.CliAddress
+          response.CliAddress == null
+            ? "Sin Direccion registrada"
+            : response.CliAddress
         );
         $("#CliObservation").val(
-          response.CliObservation == null ?
-          "Sin observaciones registradas" :
-          response.CliObservation
+          response.CliObservation == null
+            ? "Sin observaciones registradas"
+            : response.CliObservation
         );
       }
     },
@@ -578,13 +593,13 @@ function endChatFunction() {
           if (socket.readyState === WebSocket.OPEN) {
             socket.send(
               "FINISH>>" +
-              chatActive +
-              ">>" +
-              chatPhone +
-              ">>" +
-              contenido +
-              ">>" +
-              temp
+                chatActive +
+                ">>" +
+                chatPhone +
+                ">>" +
+                contenido +
+                ">>" +
+                temp
             );
             closeChat();
           } else {
@@ -603,7 +618,6 @@ function endChatFunction() {
 }
 
 function soundNotify() {
-  var audio = new Audio("/sounds/notification.mp3");
   audio.play();
 }
 
@@ -640,7 +654,6 @@ $(document).ready(function () {
     }
   });
 });
-
 
 $(document).ready(function () {
   $(".fa-menu").click(function () {
@@ -814,58 +827,7 @@ archivoInput.addEventListener("change", () => {
   }
 });
 
-const PUBLIC_VAPID_KEY =
-  "BBWhAPd2a_7CQD0--ZxdKUCtxjPrWt3UbqrSL0JO_-D6pAMgpGnWNkK0zfqci9fbg5TPWFjjU1vPMjzd5lcHA48";
-
-const subscribeToPushNotifications = async () => {
-  try {
-    const registration = await navigator.serviceWorker.register("/worker.js", {
-      scope: "/",
-    });
-
-    const existingSubscription =
-      await registration.pushManager.getSubscription();
-    if (existingSubscription) {
-      await existingSubscription.unsubscribe();
-    }
-
-    const newSubscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY),
-    });
-
-    await fetch("/Api/Push/subscription", {
-      method: "POST",
-      body: JSON.stringify(newSubscription),
-      headers: {
-        "Content-Type": "application/json",
-        "X-AdmUser": admUser,
-      },
-    });
-
-    console.log("Subscribed!");
-  } catch (error) {
-    console.log("Error subscribing to push notifications:", error);
-  }
-};
-
-function urlBase64ToUint8Array(base64String) {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
-
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
-
 connectWebSocket();
 setEmojis();
 $(".card-option-smile").hide();
 $("#activeFormInfo").text("Habilitar edición");
-if ("serviceWorker" in navigator) {
-  subscribeToPushNotifications();
-}
