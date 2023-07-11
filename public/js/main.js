@@ -128,7 +128,7 @@ const seleccionarBtn = document.getElementById("select-btn");
 const archivoInput = document.getElementById("file-input");
 
 function connectWebSocket() {
-  socket = new WebSocket("ws://localhost:3000");
+  socket = new WebSocket("ws://162.240.106.149:3000");
 
   socket.addEventListener("open", () => {});
 
