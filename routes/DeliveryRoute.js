@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const deliveryController = require("../controllers/DeliveryController.js");
+const deliveryController = require("../controllers/deliveryController.js");
 
 router.get("/", async (req, res) => {
   try {
