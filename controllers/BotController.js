@@ -215,11 +215,14 @@ botController.bucleAsync = async () => {
         },
         logQR: false,
         disableWelcome: true,
-        headless: false,
+        headless: true,
         debug: false,
         updatesLog: false,
-        useChrome: true,
+        useChrome: false,
         logger: logger,
+        browserArgs: [
+          '--no-sandbox',
+        ],
       })
       .then((client) => {
         if (client.connected == true) {
