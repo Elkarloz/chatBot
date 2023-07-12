@@ -32,13 +32,12 @@ const sslOptions = {
   cert: fs.readFileSync("/etc/letsencrypt/live/desarrollo.tuzumitos.com/fullchain.pem")
 };
 
-const server = https.createServer(app);
+const server = app.listen(3000, () => {
+  console.log("Servidor corriendo en el puerto 3000...");
+});
+
 const wss = new WebSocket.Server({
   server
 });
 const botController = require("./controllers/BotController");
 botController.main(wss);
-
-server.listen(3000, () => {
-  console.log("Servidor corriendo en el puerto 3000 con SSL...");
-});
