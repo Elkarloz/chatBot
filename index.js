@@ -32,7 +32,7 @@ const sslOptions = {
   cert: fs.readFileSync("/etc/letsencrypt/live/desarrollo.tuzumitos.com/fullchain.pem")
 };
 
-const server = https.createServer(sslOptions, app);
+const server = https.createServer(app);
 const wss = new WebSocket.Server({
   server
 });
