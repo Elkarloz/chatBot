@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const database = new Sequelize("dbchat", "superrootc2", "Helados123.", {
+const database = new Sequelize("dbchat", "root", "", {
   host: "localhost",
   dialect: "mysql",
   port: 3306,
@@ -11,7 +11,5 @@ const database = new Sequelize("dbchat", "superrootc2", "Helados123.", {
 });
 
 database.sync();
-
-
 
 module.exports = database;
