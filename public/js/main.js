@@ -128,7 +128,7 @@ const seleccionarBtn = document.getElementById("select-btn");
 const archivoInput = document.getElementById("file-input");
 
 function connectWebSocket() {
-  socket = new WebSocket("ws://162.240.106.149:3000");
+  socket = new WebSocket("ws://162.240.106.149:4000");
 
   socket.addEventListener("open", () => {});
 
@@ -200,8 +200,7 @@ function receiveMsg(event) {
 
     $(".messages-chat")
       .append(html)
-      .animate(
-        {
+      .animate({
           scrollTop: $(".messages-chat").prop("scrollHeight"),
         },
         500
@@ -238,8 +237,7 @@ function receiveMsgHost(event) {
       }
       $(".messages-chat")
         .append(html)
-        .animate(
-          {
+        .animate({
             scrollTop: $(".messages-chat").prop("scrollHeight"),
           },
           500
@@ -253,8 +251,7 @@ function receiveMsgHost(event) {
         "</p>";
       $(".messages-chat")
         .append(html)
-        .animate(
-          {
+        .animate({
             scrollTop: $(".messages-chat").prop("scrollHeight"),
           },
           500
@@ -313,7 +310,9 @@ function actionChat(event) {
     try {
       fetch("Api/Push/new-message", {
         method: "POST",
-        body: JSON.stringify({ message: event.data.split("NOTIFY:")[1] }),
+        body: JSON.stringify({
+          message: event.data.split("NOTIFY:")[1]
+        }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -409,8 +408,7 @@ function chargeChat(id) {
           }
           $(".messages-chat")
             .html(html)
-            .animate(
-              {
+            .animate({
                 scrollTop: $(".messages-chat").prop("scrollHeight"),
               },
               500
@@ -433,14 +431,14 @@ function chargeClient() {
       if (response != null) {
         $("#CliName").val(response.CliName);
         $("#CliAddress").val(
-          response.CliAddress == null
-            ? "Sin Direccion registrada"
-            : response.CliAddress
+          response.CliAddress == null ?
+          "Sin Direccion registrada" :
+          response.CliAddress
         );
         $("#CliObservation").val(
-          response.CliObservation == null
-            ? "Sin observaciones registradas"
-            : response.CliObservation
+          response.CliObservation == null ?
+          "Sin observaciones registradas" :
+          response.CliObservation
         );
       }
     },
@@ -593,13 +591,13 @@ function endChatFunction() {
           if (socket.readyState === WebSocket.OPEN) {
             socket.send(
               "FINISH>>" +
-                chatActive +
-                ">>" +
-                chatPhone +
-                ">>" +
-                contenido +
-                ">>" +
-                temp
+              chatActive +
+              ">>" +
+              chatPhone +
+              ">>" +
+              contenido +
+              ">>" +
+              temp
             );
             closeChat();
           } else {
