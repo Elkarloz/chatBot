@@ -38,10 +38,6 @@ deliveryController.createDelivery = async (delivery) => {
     return "Datos incompletos";
   }
 
-  if (!regex.test(DelPhone)) {
-    return "El teléfono debe ser numérico";
-  }
-
   try {
     await Delivery.create(delivery);
 
@@ -57,10 +53,6 @@ deliveryController.updateDelivery = async (id, delivery) => {
 
   if (!DelName || !DelPhone) {
     return "Datos incompletos";
-  }
-
-  if (!regex.test(DelPhone)) {
-    return "El teléfono debe ser solo números";
   }
 
   try {

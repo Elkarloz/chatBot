@@ -3,7 +3,9 @@ const router = express.Router();
 const controller = require("../../controllers/deliveryController");
 const controllerResponse = require("../../controllers/ResponseController");
 const textController = require("../../controllers/textController");
+const AuthMiddleware = require("../../middleware/session");
 
+const session = new AuthMiddleware();
 router.get("/", async function (req, res, next) {
   res.render("login", {
     title: "Chat Bot | Chat",
@@ -12,7 +14,7 @@ router.get("/", async function (req, res, next) {
   });
 });
 
-router.get("/home/", async function (req, res, next) {
+router.get("/home/", session.verifyAuth, async function (req, res, next) {
   res.render("index", {
     title: "Chat Bot | Chat",
     deliverys: await controller.getDeliverys(),

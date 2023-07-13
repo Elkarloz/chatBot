@@ -5,19 +5,31 @@ const path = require("path");
 const route = require("./routes");
 const bodyParser = require("body-parser");
 const WebSocket = require("ws");
+const session = require("express-session");
 
 require("dotenv").config();
 
 const app = express();
+app.use(
+  session({
+    secret: "9B9PyW4kEk03A35",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(__dirname + "/public"));
-app.use(express.json({
-  limit: "10mb"
-}));
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(
+  express.json({
+    limit: "10mb",
+  })
+);
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use(bodyParser.json());
 
 app.use("/", route.start);
@@ -32,7 +44,7 @@ const server = app.listen(80, () => {
 });
 
 const wss = new WebSocket.Server({
-  server
+  server,
 });
 const botController = require("./controllers/BotController");
 botController.main(wss);

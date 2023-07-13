@@ -2,8 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const responseController = require("../controllers/ResponseController");
+const AuthMiddleware = require("../middleware/session");
 
-router.get("/", async (req, res) => {
+const session = new AuthMiddleware();
+
+router.get("/", session.verifyAuth, async (req, res) => {
   try {
     const resp = await responseController.getResponses();
     res.status(200).json(resp);
@@ -12,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/p/:phone", async (req, res) => {
+router.get("/p/:phone", session.verifyAuth, async (req, res) => {
     try {
     const resp = await responseController.getResponseParams(req.params.phone);
     res.status(200).json(resp);
@@ -21,7 +24,7 @@ router.get("/p/:phone", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", session.verifyAuth, async (req, res) => {
   try {
     const resp = await responseController.createResponse(req.body);
     res.status(200).json(resp);
@@ -30,7 +33,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", session.verifyAuth, async (req, res) => {
   try {
     const resp = await responseController.updateResponse(
       req.params.id,
@@ -42,7 +45,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", session.verifyAuth, async (req, res) => {
   try {
     const resp = await responseController.deleteResponse(req.params.id);
 
