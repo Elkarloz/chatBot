@@ -27,13 +27,8 @@ app.use("/Api/Chat", route.apiChat);
 app.use("/Api/Push", route.apiPush);
 app.use("/Api/Admin", route.apiAdmin);
 
-const sslOptions = {
-  key: fs.readFileSync("/etc/letsencrypt/live/desarrollo.tuzumitos.com/privkey.pem"),
-  cert: fs.readFileSync("/etc/letsencrypt/live/desarrollo.tuzumitos.com/fullchain.pem")
-};
-
-const server = app.listen(3000, () => {
-  console.log("Servidor corriendo en el puerto 3000...");
+const server = app.listen(80, () => {
+  console.log("Servidor corriendo en el puerto 80...");
 });
 
 const wss = new WebSocket.Server({
