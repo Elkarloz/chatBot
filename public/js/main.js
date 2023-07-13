@@ -128,7 +128,7 @@ const seleccionarBtn = document.getElementById("select-btn");
 const archivoInput = document.getElementById("file-input");
 
 function connectWebSocket() {
-  socket = new WebSocket("wss://162.240.106.149:3000");
+  socket = new WebSocket("ws://162.240.106.149");
 
   socket.addEventListener("open", () => {});
 
@@ -264,7 +264,7 @@ function setHistory(event) {
   var history = event.data.split("HISTORY:")[1];
   history = JSON.parse(history);
   var html =
-    '<div class="discussion search"><div class="searchbar"><i class="fa fa-search" aria-hidden="true"></i><input type="text" placeholder="Buscar chat..." /></div></div>';
+    '<div class="discussion search"><h1 style="text-align:center;padding:10px;">Chats disponibles.</h1></div>';
   history.forEach((element) => {
     html +=
       '<div class="discussion" onclick="chargeChat(' +
