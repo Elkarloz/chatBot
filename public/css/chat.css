@@ -405,6 +405,7 @@ body {
 
 #window_responses,
 #window_delivery,
+#window_config,
 #window_start {
   width: calc(100% - 70px);
 }
@@ -485,6 +486,14 @@ body {
     right: -300px;
     top: 0;
   }
+  .chat-show {
+    position: fixed !important;
+    width: 100%;
+    height: 100%;
+    top: 0 !important;
+    z-index: 9;
+    left: 0 !important;
+}
   .card-option-smile {
     position: absolute;
     bottom: 90px;
@@ -532,6 +541,7 @@ body {
   }
   .chat,
   #window_responses,
+  #window_config,
   #window_delivery,
   #window_start {
     width: 100%;
