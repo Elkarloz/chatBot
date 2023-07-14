@@ -49,7 +49,7 @@ async function msgActive(msg, client, data) {
     messageUser = "user>>" + "Tarjeta de contacto del número: " + temp + ">>" + day;
   } else if (msg.type == "sticker") {
     messageUser = "user>>" + "Has recibido un sticker, este mensaje es incompatible para este chatbot." + ">>" + day;
-  } else if (msg.type == "document") {
+  } else if (msg.type == "document" || msg.type == "ptt") {
     const base64Temp = await client.downloadMedia(msg.id);
     messageUser = "user>>" + base64Temp + ">>" + day;
   } else {
@@ -99,7 +99,7 @@ async function msgDisableOne(Client, msg, CliName, client) {
           "NOTIFY:" + CliName + ", necesita que su pedido sea tomado."
         );
         botController.broadcastHistory();
-        
+
         break;
 
       case "2":

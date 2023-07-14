@@ -128,7 +128,8 @@ const seleccionarBtn = document.getElementById("select-btn");
 const archivoInput = document.getElementById("file-input");
 
 function connectWebSocket() {
-  socket = new WebSocket("ws://162.240.106.149");
+  //socket = new WebSocket("ws://162.240.106.149");
+  socket = new WebSocket("ws://localhost:3000");
 
   socket.addEventListener("open", () => {});
 
@@ -179,6 +180,13 @@ function receiveMsg(event) {
           '<div class="message text-only"><p class="text"><img width="200px" src="' +
           content.split(">>")[1] +
           '" alt="" /></p></div><p class="time">' +
+          content.split(">>")[2] +
+          "</p>";
+      } else if (content.split(">>")[1].includes("audio")) {
+        html =
+          '<div class="message text-only"><audio controls><source src="' +
+          content.split(">>")[1] +
+          '" type="audio/mpeg">Your browser does not support the audio element.</audio></div><p class=" time">' +
           content.split(">>")[2] +
           "</p>";
       } else {
@@ -354,6 +362,13 @@ function chargeChat(id) {
                     '<div class="message text-only"><p class="text"><img width="200px" src="' +
                     element.split(">>")[1] +
                     '" alt="" /></p></div><p class="time">' +
+                    element.split(">>")[2] +
+                    "</p>";
+                } else if (element.split(">>")[1].includes("audio")) {
+                  html +=
+                    '<div class="message text-only"><audio controls><source src="' +
+                    element.split(">>")[1] +
+                    '" type="audio/mpeg">Your browser does not support the audio element.</audio></div><p class=" time">' +
                     element.split(">>")[2] +
                     "</p>";
                 } else {
