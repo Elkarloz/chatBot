@@ -1,7 +1,7 @@
 <section id="window_chat" class="chat disable_window">
   <div class="header-chat">
     <i class="fa fa-align-justify fa-2x fa-menu"></i>
-    <i class="icon icon-user-nav fa fa-user-o" aria-hidden="true"></i>
+    <i onclick="showChatsAvalaibles()" style="cursor: pointer;" class="icon icon-user-nav fa fa-user-o" aria-hidden="true"></i>
     <p id="name_client" class="name">Seleccione un chat</p>
 
     <div class="dropdown dropleft">
@@ -18,11 +18,13 @@
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <a class="dropdown-item" onclick="closeChat()">Cerrar chat</a>
         <a
-          id="responsive-item"
-          class="dropdown-item dropdown-item-none"
+          class="dropdown-item dropdown-item-none responsive-item"
           onclick="openInfo()"
-          >Abrir panel de edición</a
-        >
+          >Abrir panel de edición</a>
+        <a
+        class="dropdown-item dropdown-item-none responsive-item"
+        onclick="openInfo()"
+        >Abrir panel de chats disponibles.</a>
       </div>
     </div>
   </div>

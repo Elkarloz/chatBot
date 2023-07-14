@@ -334,7 +334,7 @@ body {
   padding: 10px;
 }
 
-#responsive-item {
+.responsive-item {
   display: none;
 }
 

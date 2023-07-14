@@ -128,14 +128,16 @@ const seleccionarBtn = document.getElementById("select-btn");
 const archivoInput = document.getElementById("file-input");
 
 function connectWebSocket() {
-  //socket = new WebSocket("ws://162.240.106.149");
-  socket = new WebSocket("ws://localhost:3000");
+  socket = new WebSocket("ws://chat.tuzumitos.com");
 
   socket.addEventListener("open", () => {});
 
   socket.addEventListener("message", (event) => {
+    console.log(event.data + "");
     if (event.data == "SESSION:SESION ACTIVA.") {
       hideLoaderConnection();
+    } else if (event.data == "SESSION:desconnectedMobile") {
+      window.location.href = "/home";
     }
     actionChat(event);
   });
@@ -334,6 +336,7 @@ function actionChat(event) {
 function chargeChat(id) {
   if (statusOs) {
     $(".discussion").removeClass(".message-active");
+    hidesChatsAvalaibles();
     $(".discussion").each(function () {
       var dataId = $(this).data("id");
       if (dataId === id) {
@@ -847,6 +850,14 @@ archivoInput.addEventListener("change", () => {
     }
   }
 });
+
+function showChatsAvalaibles() {
+  $("#section-history").addClass('chat-show');
+}
+
+function hidesChatsAvalaibles() {
+  $("#section-history").removeClass('chat-show');
+}
 
 connectWebSocket();
 setEmojis();
