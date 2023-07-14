@@ -264,7 +264,7 @@ function setHistory(event) {
   var history = event.data.split("HISTORY:")[1];
   history = JSON.parse(history);
   var html =
-    '<div class="discussion search"><h1 style="text-align:center;padding:10px;">Chats disponibles.</h1></div>';
+    '<div class="discussion search"><h1 style="text-align:center;font-size: 100%;font-family: Poopins-Bold;padding: 0px;margin: 0;">Chats disponibles.</h1></div>';
   history.forEach((element) => {
     html +=
       '<div class="discussion" onclick="chargeChat(' +
@@ -408,6 +408,14 @@ function chargeChat(id) {
           }
           $(".messages-chat")
             .html(html)
+            .animate({
+                scrollTop: $(".messages-chat").prop("scrollHeight"),
+              },
+              500
+            );
+        } else {
+          $(".messages-chat")
+            .html("")
             .animate({
                 scrollTop: $(".messages-chat").prop("scrollHeight"),
               },
