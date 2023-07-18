@@ -210,7 +210,8 @@ botController.bucleAsync = async () => {
               sessionVerify = true;
               botController.broadcastMessage("SESSION:SESION ACTIVA.");
               botController.broadcastHistory();
-            } else if (statusSession == "desconnectedMobile") {
+            } else if (statusSession == "desconnectedMobile" && sessionVerify == true) {
+              firstClient.send("SESSION:" + "desconnectTotal");
               sessionVerify = false;
               sessionZumitos = undefined;
               clientSession = undefined;

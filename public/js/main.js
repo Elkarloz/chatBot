@@ -136,7 +136,7 @@ function connectWebSocket() {
     console.log(event.data + "");
     if (event.data == "SESSION:SESION ACTIVA.") {
       hideLoaderConnection();
-    } else if (event.data == "SESSION:desconnectedMobile") {
+    } else if (event.data == "SESSION:desconnectTotal") {
       window.location.href = "/home";
     }
     actionChat(event);
