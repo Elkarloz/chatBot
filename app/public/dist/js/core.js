@@ -1,4 +1,4 @@
-$('.select2').select2({
+/* $('.select2').select2({
     theme: 'bootstrap4'
 });
 
@@ -46,4 +46,4 @@ function enviarMensaje() {
         socket.emit('mensaje', mensaje);
         mensajeInput.value = '';
     }
-}
+} */

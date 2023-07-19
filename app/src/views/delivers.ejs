@@ -1,0 +1,96 @@
+<%- include("template/header.ejs") %>
+<div class="content-wrapper">
+  <div
+    style="height: 85vh; padding-top: 10px; padding-bottom: 10px"
+    class="container-fluid"
+  >
+    <div class="div-center">
+      <h1>Repartidores</h1>
+    </div>
+    <div class="div-center mt-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px">
+                <input
+                  type="text"
+                  name="table_search"
+                  class="form-control float-right"
+                  placeholder="Search"
+                />
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body table-responsive p-0" style="height: 300px">
+            <table
+              class="table table-head-fixed text-nowrap table-hover table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Teléfono</th>
+                  <th style="text-align: center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <% deliverys.forEach(function(delivery) { %>
+                <tr>
+                  <td id="dataId"><%= delivery.DelId %></td>
+                  <td id="dataName"><%= delivery.DelName %></td>
+                  <td id="dataPhone"><%= delivery.DelPhone %></td>
+                  <td style="width: 200px">
+                    <div class="div-center">
+                      <button
+                        type="button"
+                        class="btn btn-block btn-warning btn-sm mx-2"
+                        data-toggle="modal"
+                        data-target="#editModal1"
+                        onclick="editDelivery('<%= delivery.DelId %>', '<%= delivery.DelName %>', '<%= delivery.DelPhone %>')"
+                      >
+                        Editar
+                      </button>
+
+                      <button
+                        type="button"
+                        class="btn btn-block btn-danger btn-sm mt-0"
+                        onclick="deleteDelivery('<%= delivery.DelId %>')"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <div class="div-center mb-5 mt-3">
+            <button
+              type="button"
+              class="btn btn-success btn-block"
+              style="width: 250px"
+              data-toggle="modal"
+              data-target="#addModal1"
+            >
+              <i class="fa fa-plus-circle"></i>
+              Agregar repartidor
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("template/editModal1.ejs") %>
+<%- include("template/addModal1.ejs") %>
+
+<script src="/dist/js/btnActionDelivers.dev.js"></script>
+<%- include("template/footer.ejs") %>
