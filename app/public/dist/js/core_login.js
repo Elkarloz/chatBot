@@ -1,11 +1,11 @@
 $(document).ready(function () {
     $("#btn-login").on("click", function () {
         $.ajax({
-            url: "/api/login",
+            url: "/api/admin/login",
             type: "POST",
             data: {
-                user: $("#user").val(),
-                pass: $("#password").val(),
+                AdmUser: $("#user").val(),
+                AdmPass: $("#password").val(),
             },
             success: function () {
                 window.location.href = "/";
