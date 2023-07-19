@@ -193,54 +193,49 @@ botController.broadcastMessage = async (message) => {
 };
 
 botController.bucleAsync = async () => {
-  let resultado = false;
-  do {
-    resultado = await wppconnect
-      .create({
-        session: "zumitos",
-        catchQR: (base64Qrimg) => {
-          if (firstClient != null) {
-            firstClient.send("QR:" + JSON.stringify(base64Qrimg));
-          }
-        },
-        statusFind: (statusSession) => {
-          if (firstClient != null) {
-            firstClient.send("SESSION:" + statusSession);
-            if (statusSession == "inChat" || statusSession.includes("inChat")) {
-              sessionVerify = true;
-              botController.broadcastMessage("SESSION:SESION ACTIVA.");
-              botController.broadcastHistory();
-            } else if (statusSession == "desconnectedMobile" && sessionVerify == true) {
-              firstClient.send("SESSION:" + "desconnectTotal");
-              sessionVerify = false;
-              sessionZumitos = undefined;
-              clientSession = undefined;
-            }
-          }
-        },
-        logQR: false,
-        disableWelcome: true,
-        headless: true,
-        debug: false,
-        updatesLog: false,
-        useChrome: false,
-        logger: logger,
-        browserArgs: [
-          '--no-sandbox',
-        ],
-      })
-      .then((client) => {
-        if (client.connected == true) {
-          botController.start(client);
-          clientSession = client;
-          return client;
+  await wppconnect
+    .create({
+      session: "zumitos",
+      catchQR: (base64Qrimg) => {
+        if (firstClient != null) {
+          firstClient.send("QR:" + JSON.stringify(base64Qrimg));
         }
-        return false;
-      })
-      .catch((error) => console.log(error));
-  } while (!resultado);
-
-  return resultado;
+      },
+      statusFind: (statusSession) => {
+        if (firstClient != null) {
+          firstClient.send("SESSION:" + statusSession);
+          if (statusSession == "inChat" || statusSession.includes("inChat")) {
+            sessionVerify = true;
+            botController.broadcastMessage("SESSION:SESION ACTIVA.");
+            botController.broadcastHistory();
+          } else if (statusSession == "desconnectedMobile" && sessionVerify == true) {
+            firstClient.send("SESSION:" + "desconnectTotal");
+            sessionVerify = false;
+            sessionZumitos = undefined;
+            clientSession = undefined;
+          }
+        }
+      },
+      logQR: false,
+      disableWelcome: true,
+      headless: true,
+      debug: false,
+      updatesLog: false,
+      useChrome: false,
+      logger: logger,
+      browserArgs: [
+        '--no-sandbox',
+      ],
+    })
+    .then((client) => {
+      if (client.connected == true) {
+        botController.start(client);
+        clientSession = client;
+        return client;
+      }
+      return false;
+    })
+    .catch((error) => console.log(error));
 };
 
 botController.broadcastHistory = async () => {

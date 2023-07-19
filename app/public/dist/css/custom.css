@@ -1,0 +1,13 @@
+.contacts-list li:hover{
+    background-color: #44484d;
+}
+.div-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.img-qr{
+    width: 264px;
+    height: 264px;
+}

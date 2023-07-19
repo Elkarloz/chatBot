@@ -1,0 +1,152 @@
+<%- include("template/header.ejs") %>
+
+    <div class="content-wrapper">
+
+        <div style="height: 85vh;padding-top: 10px; padding-bottom: 10px;" class="container-fluid">
+            <div style="height: 100%;" class="row">
+                <div style="height: 100%;" class="col-md-9">
+                    <div style="height: 100%;" class="card card-success card-outline direct-chat direct-chat-success"
+                        bis_skin_checked="1">
+                        <div class="card-header" bis_skin_checked="1">
+                            <h3 class="card-title">ChatBot - <span class="client_name">Seleccione una
+                                    conversación</span></h3>
+                            <div class="card-tools" bis_skin_checked="1">
+                                <span id="status_new_sms" title="0 Mensajes nuevos" class="badge bg-success">0</span>
+                                <button type="button" class="btn btn-tool" title="Contacts"
+                                    data-widget="chat-pane-toggle">
+                                    <i class="fas fa-comments"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body" bis_skin_checked="1">
+
+                            <div class="direct-chat-messages" bis_skin_checked="1">
+
+                                <!--
+                                <div class="direct-chat-msg" bis_skin_checked="1">
+                                    <div class="direct-chat-infos clearfix" bis_skin_checked="1">
+                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                    </div>
+
+                                    <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg"
+                                        alt="Message User Image">
+
+                                    <div class="direct-chat-text" bis_skin_checked="1">
+                                        Is this template really for free? That's unbelievable!
+                                    </div>
+
+                                </div>
+
+
+                                <div class="direct-chat-msg right" bis_skin_checked="1">
+                                    <div class="direct-chat-infos clearfix" bis_skin_checked="1">
+                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                    </div>
+
+                                    <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg"
+                                        alt="Message User Image">
+
+                                    <div class="direct-chat-text" bis_skin_checked="1">
+                                        You better believe it!
+                                    </div>
+
+                                </div>
+                            -->
+
+                            </div>
+
+
+                            <div class="direct-chat-contacts" style="height: 100%;" bis_skin_checked="1">
+                                <ul class="contacts-list" id="contacts_list">
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="../dist/img/user1-128x128.jpg"
+                                                alt="User Avatar">
+                                            <div class="contacts-list-info" bis_skin_checked="1">
+                                                <span class="contacts-list-name">
+                                                    Count Dracula
+                                                    <small class="contacts-list-date float-right">2/28/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">How have you been? I was...</span>
+                                            </div>
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer" bis_skin_checked="1">
+                            <div class="input-group" bis_skin_checked="1">
+                                <input type="text" name="message" placeholder="Escriba el mensaje..."
+                                    class="form-control">
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-success">Enviar</button>
+                                </span>
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="nav-icon fas fa-upload"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-success shadow-sm" bis_skin_checked="1">
+                        <div class="card-header" bis_skin_checked="1">
+                            <h3 class="card-title">Área de lectura</h3>
+                            <div class="card-tools" bis_skin_checked="1">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body" bis_skin_checked="1">
+                            <p>Id del cliente: <span class="client_id"></span></p>
+                            <p>Nombre del cliente: <span class="client_name"></span></p>
+                            <p>Dirección del cliente: <span class="client_address"></span></p>
+                            <p>Observaciones del cliente: <span class="client_observations"></span></p>
+                        </div>
+
+                    </div>
+
+                    <div class="card card-success shadow-sm" bis_skin_checked="1">
+                        <div class="card-header" bis_skin_checked="1">
+                            <h3 class="card-title">Cierre de venta</h3>
+                            <div class="card-tools" bis_skin_checked="1">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body" bis_skin_checked="1">
+                            <div class="form-group">
+                                <label>Repartidor</label>
+                                <select class="form-control select2" style="width: 100%;">
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-success">Cerrar venta</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <%- include("template/footer.ejs") %>
