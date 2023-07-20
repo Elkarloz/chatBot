@@ -1,6 +1,5 @@
 class AuthMiddleware {
   async verifyAuth(req, res, next) {
-    console.log("entrando")
     if (req.session.status === undefined) {
       req.session.status = false;
     }
