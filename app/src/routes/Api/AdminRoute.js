@@ -23,4 +23,18 @@ router.post("/create", session.verifyAuth, async (req, res) => {
   }
 });
 
+router.post("/logout", session.verifyAuth, async (req, res) => {
+  try {
+    if (req.session.status === true) {
+      req.session.status = false;
+      res.status(200).send({ message: "Logout exitoso" });
+    } else {
+      res.status(401).send({ message: "No se ha iniciado sesión" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Error al intentar hacer logout" });
+  }
+});
+
+
 module.exports = router;

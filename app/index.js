@@ -9,6 +9,12 @@ const http = require("http");
 const socketIO = require("socket.io");
 const bot = require("./src/controllers/BotController.js");
 
+app.use((req, res, next) => {
+  res.header("Cache-Control", "no-store");
+  res.header("Pragma", "no-cache");
+  next();
+});
+
 app.use(
   session({
     secret: "9B9PyW4kEk03A35",
@@ -33,8 +39,8 @@ app.use(bodyParser.json());
 
 app.use("/", route.view);
 app.use("/api/admin", route.apiAdmin);
-app.use("/api/responses", route.apiResponse)
-app.use("/api/delivery", route.apiDelivery)
+app.use("/api/responses", route.apiResponse);
+app.use("/api/delivery", route.apiDelivery);
 
 const server = http.createServer(app);
 const io = socketIO(server);

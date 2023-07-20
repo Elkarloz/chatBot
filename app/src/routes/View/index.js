@@ -13,6 +13,10 @@ router.get("/", session.verifyAuth, async function (req, res, next) {
   res.render("home");
 });
 
+router.get("", session.verifyAuth, async function (req, res, next) {
+  res.render("auth/login");
+});
+
 router.get("/delivers", session.verifyAuth, async function (req, res, next) {
   res.render("delivers", {
     deliverys: await controllerdeliverys.getDeliverys(),
