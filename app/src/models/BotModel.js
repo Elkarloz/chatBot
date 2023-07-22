@@ -1,6 +1,8 @@
 const ClientModel = require('./ClientModel');
+const SaleModel = require('./SaleModel');
 const TextController = require('../controllers/TextController');
 const botController = require('../controllers/BotController');
+const deliveryController = require('../controllers/deliveryController');
 const BotModel = {};
 
 BotModel.start = (client, io, socket) => {
@@ -22,6 +24,9 @@ BotModel.bootstrap = async (client, msg, io) => {
             }
         });
 
+        const imgUser = msg.sender.profilePicThumbObj == null ? '/dist/img/AdminLTELogo.png' : msg.sender.profilePicThumbObj.img == undefined ? '/dist/img/AdminLTELogo.png' : msg.sender.profilePicThumbObj.img;
+        const nameUser = user == null ? msg.sender.pushname : user.CliName;
+
         if (user == null) {
             await ClientModel.create({
                 CliPhone: msg.from,
@@ -36,10 +41,10 @@ BotModel.bootstrap = async (client, msg, io) => {
             const dayUser = user.CliDate;
             const [añoFecha2, mesFecha2, diaFecha2] = dayUser.split('-').map(Number);
 
-            if (año === añoFecha2 && mes === mesFecha2 && dia === diaFecha2) {
-                await client.sendText(msg.from, TextController.getText('welcome'));
+            if (dia != diaFecha2) {
+                await client.sendText(msg.from, TextController.getText('welcome', user));
                 await ClientModel.update({
-                    CliDate: today
+                    CliDate: new Date(),
                 }, {
                     where: {
                         CliId: user.CliId,
@@ -53,18 +58,25 @@ BotModel.bootstrap = async (client, msg, io) => {
             io.emit('message', {
                 phone: msg.from,
                 type: msg.type,
-                body: base64
+                name: nameUser,
+                img: imgUser,
+                body: base64,
+                nameFile: msg.type == "document" ? msg.filename : null,
             });
         } else if (msg.type == "poll_creation") {
             io.emit('message', {
                 phone: msg.from,
                 type: "sms",
+                name: nameUser,
+                img: imgUser,
                 body: "Has recibido un mensaje que contiene una encuesta, por temas de incompatibilidad no podrá verla."
             });
         } else if (msg.type == "sticker") {
             io.emit('message', {
                 phone: msg.from,
                 type: "sms",
+                name: nameUser,
+                img: imgUser,
                 body: "Has recibido un mensaje que contiene un sticker, por temas de incompatibilidad no podrá verlo."
             });
         } else if (msg.type == "vcard") {
@@ -73,6 +85,8 @@ BotModel.bootstrap = async (client, msg, io) => {
             io.emit('message', {
                 phone: msg.from,
                 type: "sms",
+                name: nameUser,
+                img: imgUser,
                 body: "Tarjeta de contacto del número: " + temp
             });
         } else {
@@ -80,6 +94,8 @@ BotModel.bootstrap = async (client, msg, io) => {
             io.emit('message', {
                 phone: msg.from,
                 type: "sms",
+                name: nameUser,
+                img: imgUser,
                 body: msg.body
             });
         }
@@ -95,6 +111,9 @@ BotModel.grabber = async (socket, io, client) => {
     } while (chats.length == 0)
     chats = await BotModel.setRecord(chats, client);
     io.emit('record', chats);
+    io.emit('status', {
+        body: "Ok"
+    });
     await socket.on('message', async (data) => {
         switch (data.type) {
             case "sms":
@@ -106,11 +125,51 @@ BotModel.grabber = async (socket, io, client) => {
             case "audio":
                 await client.sendPttFromBase64(data.phone, data.body, "AudioZumitos");
                 break;
-            default:
+            case "document":
                 await client.sendFileFromBase64(data.phone, data.body, "ArchivoZumitos")
                 break;
         }
+        data.phone = "server";
+        data.name = "Server(Usted)";
+        data.img = '/dist/img/AdminLTELogo.png';
         io.emit('message', data);
+    });
+
+    await socket.on('media', async (data) => {
+        const base64 = await client.downloadMedia(data.msg);
+        io.emit('media', {
+            id: data.id,
+            body: base64,
+            type: data.type,
+            name: data.name
+        });
+
+    });
+
+
+    await socket.on('close_sale', async (data) => {
+        const user = await ClientModel.findOne({
+            where: {
+                CliPhone: data.client
+            }
+        });
+        await SaleModel.create({
+            SaleDelivery: data.delivery,
+            SaleClient: user.CliId,
+            SaleResume: data.body,
+        });
+
+        const delivery = await deliveryController.getDelivery(data.delivery);
+        let phone = delivery.DelPhone;
+
+        if (phone.includes('$')) {
+            phone = phone.replace('$(', "").replace(')', '') + "@c.us";
+        } else {
+            phone = "52" + phone + "@c.us";
+        }
+
+        const msg = "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #" + user.CliId + "\nNombre: " + user.CliName + "\nNumero: +" + user.CliPhone.split('@')[0] + "\nDirección: " + user.CliAddress + "\nUbicacion: " + user.CliLocation + "\nNota del pedido: " + (data.body == "" ? "Sin notas." : data.body) + "\nPedido realizado: " + new Date();
+        await client.sendText(phone, msg);
     });
 
 }
@@ -130,7 +189,7 @@ BotModel.setRecord = async (chats, client) => {
         const timeMessage = new Date(lastMessage.timestamp * 1000);
         const imgUser = lastMessage.sender.profilePicThumbObj == null ? null : lastMessage.sender.profilePicThumbObj.img;
 
-        if (lastMessage.type == "image" || lastMessage.type == "document" && lastMessage.type == 'ptt') {
+        if (lastMessage.type == "image" || lastMessage.type == "document" || lastMessage.type == 'ptt') {
             lastMessage = "Envió una archivo..."
         } else if (lastMessage.type == "poll_creation") {
             lastMessage = "Has recibido un mensaje que contiene una encuesta, por temas de incompatibilidad no podrá verla."
@@ -140,10 +199,13 @@ BotModel.setRecord = async (chats, client) => {
             let temp = lastMessage.content.split("\n");
             temp = temp[2].replace('N:;', '').replace(';;;', '');
             lastMessage = "Tarjeta de contacto del número: " + temp;
-        } else {
+        } else if (lastMessage.type == "chat") {
             lastMessage.body = lastMessage.body.replace("\n", '');
             lastMessage = lastMessage.body;
+        } else {
+            lastMessage = "Has recibido un mensaje que el chatBot no puede procesar o entender.";
         }
+
 
 
         if (user == null) {
@@ -151,6 +213,7 @@ BotModel.setRecord = async (chats, client) => {
                 CliName: chats[i].contact.formattedName,
                 CliDate: timeMessage,
                 CliImg: imgUser,
+                CliPhone: chats[i].contact.id._serialized,
                 CliLastMessage: lastMessage,
             })
         } else {
@@ -158,6 +221,7 @@ BotModel.setRecord = async (chats, client) => {
                 CliName: user.CliName,
                 CliDate: timeMessage,
                 CliImg: imgUser,
+                CliPhone: chats[i].contact.id._serialized,
                 CliLastMessage: lastMessage,
             });
         }

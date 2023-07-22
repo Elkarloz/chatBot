@@ -63,8 +63,14 @@ textController.getTextAll = () => {
     return json;
 }
 
-textController.getText = element => {
-    return getTextFunction(element);
+textController.getText = (item, user) => {
+    let element = getTextFunction(item);
+    element = element.replace("{direccion}", user.CliAddress != null ? user.CliAddress : 'Desconocido');
+    element = element.replace("{nombre}", user.CliName != null ? user.CliName : 'Desconocido');
+    element = element.replace("{link}", user.CliLocation != null ? user.CliLocation : 'Desconocido');
+    element = element.replace("{telefono}", user.CliPhone != null ? user.CliPhone : 'Desconocido');
+    element = element.replace("{observaciones}", user.CliObservation != null ? user.CliObservation : 'Desconocido');
+    return element;
 };
 
 module.exports = textController;

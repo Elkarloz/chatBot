@@ -53,3 +53,10 @@ TypeError: today.getDay is not a function
 TypeError: today.getDay is not a function
 TypeError: today.getDay is not a function
 TypeError: today.getDay is not a function
+ReferenceError: today is not defined
+TypeError: Cannot read properties of undefined (reading 'replace')
+TypeError: Cannot read properties of undefined (reading 'replace')
+TypeError: Cannot read properties of undefined (reading 'replace')
+TypeError: Cannot read properties of undefined (reading 'CliAddress')
+ReferenceError: today is not defined
+ReferenceError: today is not defined

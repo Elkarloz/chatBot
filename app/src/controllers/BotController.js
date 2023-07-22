@@ -32,6 +32,8 @@ const botController = {};
 botController.start = async (io) => {
     io.on('connection', async (socket) => {
         console.log('Nuevo cliente conectado:', socket.id);
+        socket.join(socket.id);
+
         socketClient.push(socket);
 
         if (!sessionBot && !tried) {
@@ -46,12 +48,16 @@ botController.start = async (io) => {
             io.emit('status', {
                 body: "Conectando con la session activa."
             });
-            BotModel.start(sessionClient, io, socket);
+            BotModel.grabber(socket, io, sessionClient);
         } else {
             io.emit('status', {
                 body: "Estableciendo session."
             });
         }
+
+        socket.on('request', async (data) => {
+            io.to(socket.id).emit('background', await sessionClient.getMessages(data.chat));
+        });
 
 
         socket.on('disconnect', () => {

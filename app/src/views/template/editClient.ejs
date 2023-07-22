@@ -1,0 +1,47 @@
+<div class="modal fade" id="editClient" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalTitle">Editar informacion del cliente.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="">Id Cliente</label>
+                        <input disabled type="Name" id="edit_client_id" class="form-control client_id"
+                            placeholder="Escribe la informacion con la que editara el dato." />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nombre del cliente</label>
+                        <input type="text" id="edit_client_name" class="client_name form-control"
+                            placeholder="Escribe la informacion con la que editara el dato." />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Dirección del cliente</label>
+                        <input type="text" class="client_address form-control" id="edit_client_address"
+                            placeholder="Escribe la informacion con la que editara el dato." />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Link de ubicacion del cliente</label>
+                        <input type="text" class="client_location form-control" id="edit_client_location"
+                            placeholder="Escribe la informacion con la que editara el dato." />
+                    </div>
+                    <div class="form-group" bis_skin_checked="1">
+                        <label>Observaciones del cliente.</label>
+                        <textarea id="edit_client_observation" class="form-control client_observations" rows="3"
+                            placeholder="Escribe la informacion con la que editara el dato."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="editClient()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>

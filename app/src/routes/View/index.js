@@ -10,7 +10,9 @@ router.get("/Login", async function (req, res, next) {
 });
 
 router.get("/", session.verifyAuth, async function (req, res, next) {
-  res.render("home");
+  res.render("home", {
+    deliverys: await controllerdeliverys.getDeliverys(),
+  });
 });
 
 router.get("", session.verifyAuth, async function (req, res, next) {
