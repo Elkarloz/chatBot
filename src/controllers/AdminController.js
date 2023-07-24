@@ -1,10 +1,13 @@
-const admin = require("../models/adminModel");
+const admin = require("../models/AdminModel.js");
 const adminController = {};
 const Crypto = require("../middleware/crypto");
 
 adminController.login = async (req, res) => {
   try {
-    const { AdmPass, AdmUser } = req;
+    const {
+      AdmPass,
+      AdmUser
+    } = req;
 
     const usu = await admin.findOne({
       where: {
@@ -28,7 +31,10 @@ adminController.login = async (req, res) => {
 
 adminController.create = async (req, res) => {
   try {
-    const { AdmUser, AdmPass } = req;
+    const {
+      AdmUser,
+      AdmPass
+    } = req;
 
     const isCreated = await admin.findOne({
       where: {
