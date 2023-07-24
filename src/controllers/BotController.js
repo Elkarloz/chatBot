@@ -117,7 +117,7 @@ botController.startBucle = async (io, socket) => {
             return false;
         })
         .catch((error) => {
-            console.log("Ocurrio un error");
+            console.log("Ocurrio un error" + error);
             if (socketClient.length == 0) {
                 tried = false;
             }
