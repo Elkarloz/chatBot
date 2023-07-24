@@ -397,7 +397,7 @@
                         if (chatActive != "0") {
                             const msg = $(this).attr("data-response");
                             $('#message-input-server').val(msg);
-                            sendMessage();
+                            //sendMessage();
                         }
                     });
                 }
