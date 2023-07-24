@@ -103,14 +103,13 @@
             }
         }
         if (data.type == "sms") {
-            toastr.info("<b>" + data.name + ":</b><br>" + data.body);
             $('#chat' + (data.phone).split('@')[0]).text(data.body);
         } else if (data.type == "image") {
-            toastr.info("<b>" + data.name + ":</b><br>" + "Te envio una imagen.");
+            $('#chat' + (data.phone).split('@')[0]).text("Te envio una imagen.");
         } else if (data.type == "document") {
-            toastr.info("<b>" + data.name + ":</b><br>" + "Te envio un archivo.");
+            $('#chat' + (data.phone).split('@')[0]).text("Te envio un archivo.");
         } else if (data.type == "audio") {
-            toastr.info("<b>" + data.name + ":</b><br>" + "Te envio un audio.");
+            $('#chat' + (data.phone).split('@')[0]).text("Te envio un audio.");
         }
     });
 
