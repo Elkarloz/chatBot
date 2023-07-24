@@ -96,7 +96,7 @@ botController.startBucle = async (io, socket) => {
                         sessionStatus = false;
                         sessionClient = undefined;
                         tried = false;
-                        sessionStatus = false;
+                        sessionBot = false;
                     }
                 },
                 logQR: false,
