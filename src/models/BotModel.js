@@ -30,6 +30,7 @@ BotModel.bootstrap = async (client, msg, io) => {
         if (user == null) {
             await ClientModel.create({
                 CliPhone: msg.from,
+                //CliName: nameUser,
                 CliDate: new Date(),
             });
             await client.sendText(msg.from, TextController.getText('unknown', null, null));
@@ -180,7 +181,7 @@ BotModel.grabber = async (socket, io, client) => {
         }
 
         let msg = TextController.getText('sale', null, null);
-        await client.sendText(phone, msg);
+        await client.sendText(user.CliPhone, msg);
         msg = TextController.getText('sale_delivery', user, data.body);
         await client.sendText(phone, msg);
     });
