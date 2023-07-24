@@ -31,9 +31,25 @@ $('#message-input-server').keypress(function (event) {
 });
 
 if (route == "/") {
-    //modal.show();
+    modal.show();
 }
 
+if (route == "/client" || route == "/Client" || route == "/Interacciones" || route == "/interacciones") {
+    $(function () {
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            language: {
+                url: '/plugins/datatables/es-CO.json',
+            },
+        });
+    });
+}
 
 const socket = io();
 
@@ -41,7 +57,6 @@ socket.on('qr_code', (data) => {
     console.log(data);
     $("#qr_code").attr("src", data.body.replace('"', "").replace('"', ""));
 });
-
 
 socket.on('message', (data) => {
     console.log(data);
@@ -79,6 +94,7 @@ socket.on('message', (data) => {
     } else {
         toastr.info("<b>" + data.name + ":</b><br>" + data.body);
     }
+    $('#chat' + (data.phone).split('@')[0]).text(data.body);
 });
 
 socket.on('status', (data) => {
@@ -88,6 +104,8 @@ socket.on('status', (data) => {
         setTimeout(() => {
             modal.hide();
         }, 3000);
+    } else if (data.body == "Estableciendo session.") {
+        modal.show();
     }
 });
 
@@ -108,6 +126,11 @@ socket.on('media', (data) => {
         var html = '<audio style="width: 100%;" controls><source src="' + data.body + '" type="audio/mpeg">Su navegador no es compatible con el elemento de audio.</audio>';
         $('#' + data.id).html(html);
     }
+});
+
+socket.on('close', (data) => {
+    console.log(data);
+    logout();
 });
 
 socket.on('background', (data) => {
@@ -149,7 +172,6 @@ socket.on('background', (data) => {
                 html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + 'Se elimino este mensaje' + '</div></div>';
             }
         } else if (msg.type != "e2e_notification") {
-            /*html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + msg.body + '</div></div>';*/
             if (msg.type == "location") { //
                 html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="https://www.google.com/maps?q=' + msg.lat + ',' + msg.lng + '" target="_blank">Ubicacion, click aqui para ver</a>' + '</div></div>';
             } else if (msg.type == "chat") {
@@ -218,6 +240,7 @@ function chargeClient(data) {
                 $(".client_address").val(response.CliAddress == "" || response.CliAddress == null ? 'Desconocido' : response.CliAddress);
                 $(".client_observations").val(response.CliObservation == "" || response.CliObservation == null ? 'Desconocido' : response.CliObservation);
                 $(".client_id").val(response.CliId == "" || response.CliId == null ? 'Desconocido' : response.CliId);
+                $(".client_phone").val(response.CliPhone == "" || response.CliPhone == null ? 'Desconocido' : response.CliPhone);
 
                 $(".client_location").text(response.CliLocation == "" || response.CliLocation == null ? 'Desconocido' : response.CliLocation);
                 $(".client_name").text(response.CliName == "" || response.CliName == null ? 'Desconocido' : response.CliName);
@@ -281,7 +304,7 @@ function closeSale() {
 function setRecord(data) {
     var html = "";
     for (let i = 0; i < data.length; i++) {
-        html += '<li onclick="openChat(' + "'" + data[i].CliPhone + "'" + ')" ><a href="#"><img class="contacts-list-img" src="' + (data[i].CliImg != null ? data[i].CliImg : '/dist/img/AdminLTELogo.png') + '" alt="User Avatar"><div class="contacts-list-info" bis_skin_checked="1"><span class="contacts-list-name">' + data[i].CliName + '<small class="contacts-list-date float-right">' + data[i].CliDate + '</small></span><span class="contacts-list-msg">' + data[i].CliLastMessage + '.</span></div></a></li>';
+        html += '<li onclick="openChat(' + "'" + data[i].CliPhone + "'" + ')" ><a href="#"><img class="contacts-list-img" src="' + (data[i].CliImg != null ? data[i].CliImg : '/dist/img/AdminLTELogo.png') + '" alt="User Avatar"><div class="contacts-list-info" bis_skin_checked="1"><span class="contacts-list-name">' + data[i].CliName + '<small class="contacts-list-date float-right">' + data[i].CliDate + '</small></span><span class="contacts-list-msg" id="chat' + data[i].CliPhone.split('@')[0] + '">' + data[i].CliLastMessage + '.</span></div></a></li>';
     }
     $('#contacts_list').html(html);
 }
@@ -304,35 +327,6 @@ async function logout() {
     }
 }
 
-selectBtn.addEventListener("click", () => {
-    fileInput.click();
-});
-
-fileInput.addEventListener("change", () => {
-    const archivo = fileInput.files[0];
-    $("#input-file-send").val("");
-    if (archivo) {
-        const extension = archivo.name.split(".").pop().toLowerCase();
-        const tiposPermitidos = ["pdf", "jpeg", "jpg", "png", "gif", "mp3", "wav"];
-        const reader = new FileReader();
-
-        if (tiposPermitidos.includes(extension) && chatActive != "0") {
-            reader.onload = () => {
-                const contenido = reader.result;
-                console.log(contenido)
-                socket.emit('message', {
-                    type: extension == "jpeg" || extension == "jpg" || extension == "png" || extension == "gif" ? 'image' : extension == "pdf" ? 'document' : 'audio',
-                    phone: chatActive,
-                    body: contenido
-                });
-            };
-            reader.readAsDataURL(archivo);
-        } else {
-            toastr.error("El tipo de archivo no es admitido para su envió.");
-        }
-    }
-});
-
 function editClient() {
     $.ajax({
         url: "/api/client",
@@ -344,11 +338,15 @@ function editClient() {
             CliAddress: $('#edit_client_address').val(),
             CliObservation: $('#edit_client_observation').val(),
             CliLocation: $('#edit_client_location').val(),
-            CliPhone: chatActive,
+            CliPhone: route == "/client" || route == "/Client" ? $("#edit_client_phone").val() : chatActive,
         },
         success: function (response) {
             toastr.success(response);
-            chargeClient(chatActive);
+            if (route == "/client" || route == "/Client") {
+                window.location.href = "/client";
+            } else {
+                chargeClient(chatActive);
+            }
         },
         error: function (xhr, status, error) {
             toastr.error(error);
@@ -369,10 +367,17 @@ function getResponsesFast() {
                 var html = '';
                 for (let i = 0; i < response.length; i++) {
                     const element = response[i];
-                    html += '<div class="col-md-3 div-response"><button data-response="' + element.ResResponse + '" class="btn btn-secondary btn-sm btn-response">' + element.ResTitle + '</button></div>';
+                    html += '<div class="col-md-3 div-response"><span data-response="' + element.ResResponse + '" class="btn btn-secondary btn-sm btn-response">' + element.ResTitle + '</span></div>';
 
                 }
                 $('#content-responses-charge').html(html);
+                $(".btn-response").click(function () {
+                    if (chatActive != "0") {
+                        const msg = $(this).attr("data-response");
+                        $('#message-input-server').val(msg);
+                        sendMessage();
+                    }
+                });
             }
         },
         error: function (xhr, status, error) {
@@ -380,3 +385,40 @@ function getResponsesFast() {
         },
     });
 }
+
+function setLogoutWhatsapp() {
+    socket.emit('close', {
+        token: true
+    });
+}
+
+try {
+    selectBtn.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener("change", () => {
+        const archivo = fileInput.files[0];
+        $("#input-file-send").val("");
+        if (archivo) {
+            const extension = archivo.name.split(".").pop().toLowerCase();
+            const tiposPermitidos = ["pdf", "jpeg", "jpg", "png", "gif", "mp3", "wav"];
+            const reader = new FileReader();
+
+            if (tiposPermitidos.includes(extension) && chatActive != "0") {
+                reader.onload = () => {
+                    const contenido = reader.result;
+                    console.log(contenido)
+                    socket.emit('message', {
+                        type: extension == "jpeg" || extension == "jpg" || extension == "png" || extension == "gif" ? 'image' : extension == "pdf" ? 'document' : 'audio',
+                        phone: chatActive,
+                        body: contenido
+                    });
+                };
+                reader.readAsDataURL(archivo);
+            } else {
+                toastr.error("El tipo de archivo no es admitido para su envió.");
+            }
+        }
+    });
+} catch (error) {}

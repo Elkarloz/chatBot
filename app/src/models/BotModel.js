@@ -32,7 +32,7 @@ BotModel.bootstrap = async (client, msg, io) => {
                 CliPhone: msg.from,
                 CliDate: new Date(),
             });
-            await client.sendText(msg.from, TextController.getText('unknown'));
+            await client.sendText(msg.from, TextController.getText('unknown', null, null));
         } else {
             const fecha = new Date();
             const año = fecha.getFullYear();
@@ -42,7 +42,7 @@ BotModel.bootstrap = async (client, msg, io) => {
             const [añoFecha2, mesFecha2, diaFecha2] = dayUser.split('-').map(Number);
 
             if (dia != diaFecha2) {
-                await client.sendText(msg.from, TextController.getText('welcome', user));
+                await client.sendText(msg.from, TextController.getText('welcome', user, null));
                 await ClientModel.update({
                     CliDate: new Date(),
                 }, {
@@ -146,6 +146,17 @@ BotModel.grabber = async (socket, io, client) => {
 
     });
 
+    await socket.on('close', async (data) => {
+        await client.logout();
+        await client.close();
+        io.emit('status', {
+            body: "Estableciendo session."
+        });
+        io.emit('close', {
+            token: true,
+        });
+    });
+
 
     await socket.on('close_sale', async (data) => {
         const user = await ClientModel.findOne({
@@ -168,7 +179,9 @@ BotModel.grabber = async (socket, io, client) => {
             phone = "52" + phone + "@c.us";
         }
 
-        const msg = "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #" + user.CliId + "\nNombre: " + user.CliName + "\nNumero: +" + user.CliPhone.split('@')[0] + "\nDirección: " + user.CliAddress + "\nUbicacion: " + user.CliLocation + "\nNota del pedido: " + (data.body == "" ? "Sin notas." : data.body) + "\nPedido realizado: " + new Date();
+        let msg = TextController.getText('sale', null, null);
+        await client.sendText(phone, msg);
+        msg = TextController.getText('sale_delivery', user, data.body);
         await client.sendText(phone, msg);
     });
 

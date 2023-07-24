@@ -39,8 +39,15 @@ textController.resetText = () => {
     let text = "Hola {nombre}, ¿Gustas Ordenar?";
     setTextFunction(key, text);
     key = 'unknown';
-    text = "Tu pedido ha sido atendido, en unos minutos estará disfrutando de tu entrega, hemos enviado nuestro repartidor a tu dirección, agradecemos tu compra en Zumitos.";
+    text = "Hola, ¿Antes de ordenar podemos saber tu nombre y dirección para agilizar el proceso?";
     setTextFunction(key, text);
+    key = 'sale';
+    text = "Tu pedido ya va en camino, nuestro repartidor muy pronto se comunicará contigo.";
+    setTextFunction(key, text);
+    key = 'sale_delivery';
+    text = "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #{id}\nNombre: {nombre}\nNumero: {telefono}\nDirección: {direccion}\nUbicacion: {link}\nNota del pedido: {notas}\nPedido realizado: {fecha}";
+    setTextFunction(key, text);
+
 }
 
 textController.setEditText = (data) => {
@@ -63,13 +70,31 @@ textController.getTextAll = () => {
     return json;
 }
 
-textController.getText = (item, user) => {
+textController.getText = (item, user, add) => {
     let element = getTextFunction(item);
-    element = element.replace("{direccion}", user.CliAddress != null ? user.CliAddress : 'Desconocido');
-    element = element.replace("{nombre}", user.CliName != null ? user.CliName : 'Desconocido');
-    element = element.replace("{link}", user.CliLocation != null ? user.CliLocation : 'Desconocido');
-    element = element.replace("{telefono}", user.CliPhone != null ? user.CliPhone : 'Desconocido');
-    element = element.replace("{observaciones}", user.CliObservation != null ? user.CliObservation : 'Desconocido');
+    if (user != null) {
+        element = element.replace("{direccion}", user.CliAddress != null ? user.CliAddress : 'Desconocido');
+        element = element.replace("{nombre}", user.CliName != null ? user.CliName : 'Desconocido');
+        element = element.replace("{link}", user.CliLocation != null ? user.CliLocation : 'Desconocido');
+        element = element.replace("{telefono}", user.CliPhone != null ? "+" + user.CliPhone.split('@')[0] : 'Desconocido');
+        element = element.replace("{observaciones}", user.CliObservation != null ? user.CliObservation : 'Desconocido');
+        element = element.replace("{id}", user.CliId != null ? user.CliId : 'Desconocido');
+    } else {
+        element = element.replace("{direccion}", "");
+        element = element.replace("{id}", "");
+        element = element.replace("{nombre}", "");
+        element = element.replace("{link}", "");
+        element = element.replace("{telefono}", "");
+        element = element.replace("{observaciones}", "");
+    }
+
+    if (add != null) {
+        element = element.replace("{notas}", (add == "" ? "Sin notas." : add));
+    } else {
+        element = element.replace("{notas}", "");
+    }
+    element = element.replace("{fecha}", new Date());
+
     return element;
 };
 

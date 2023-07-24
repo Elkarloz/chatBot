@@ -88,18 +88,19 @@ botController.startBucle = async (io, socket) => {
                     io.emit('status', {
                         body: "Ok"
                     });
-                } else if (statusSession == "desconnectedMobile" && sessionStatus == true) {
+                } else if (statusSession == "desconnectedMobile" && sessionStatus == true || statusSession == "browserClose") {
                     io.emit('status', {
                         body: "Desconectado"
                     });
                     sessionStatus = false;
                     sessionClient = undefined;
+                    tried = false;
                     sessionBot = false;
                 }
             },
             logQR: false,
             disableWelcome: true,
-            headless: false,
+            headless: true,
             debug: false,
             updatesLog: false,
             useChrome: false,

@@ -9,45 +9,60 @@
 
 </div>
 
-<div class="modal fade" id="modal-xl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-    data-backdrop="static">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Establezca una sesión de WhatsApp</h4>
-            </div>
-            <div class="modal-body">
-                <div class="div-center">
-                    <img class="img-qr" src="/dist/img/qr.gif" id="qr_code" alt="Codigo QR">
+
+<%- include("closeModal.ejs") %>
+    <%- include("editClient.ejs") %>
+        <div class="modal fade" id="modal-xl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Establezca una sesión de WhatsApp</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="div-center">
+                            <img class="img-qr" src="/dist/img/qr.gif" id="qr_code" alt="Codigo QR">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <p>Escanea el codigo QR para usar el aplicativo web.</p>
+                        <p>Estado del bot: <span class="status_bot"></span></p>
+                    </div>
                 </div>
+
             </div>
-            <div class="modal-footer justify-content-between">
-                <p>Escanea el codigo QR para usar el aplicativo web.</p>
-                <p>Estado del bot: <span class="status_bot"></span></p>
-            </div>
+
         </div>
 
-    </div>
 
-</div>
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <script>
+            window.addEventListener("unload", function () {
+                // Limpiar la caché de sesión cuando el usuario abandona la página
+                sessionStorage.clear();
+            });
+        </script>
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/plugins/select2/js/select2.full.min.js"></script>
+        <script src="/plugins/toastr/toastr.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/dist/js/adminlte.min.js?v=3.2.0"></script>
+        <script src="/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+        <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="/plugins/jszip/jszip.min.js"></script>
+        <script src="/plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="/plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+        <script src="/dist/js/core.js"></script>
+        </body>
 
 
-<script src="/plugins/jquery/jquery.min.js"></script>
-<script>
-    window.addEventListener("unload", function () {
-        // Limpiar la caché de sesión cuando el usuario abandona la página
-        sessionStorage.clear();
-    });
-</script>
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/plugins/select2/js/select2.full.min.js"></script>
-<script src="/plugins/toastr/toastr.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/dist/js/adminlte.min.js?v=3.2.0"></script>
-<script src="/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-<script src="/dist/js/core.js"></script>
-</body>
 
-
-
-</html>
+        </html>

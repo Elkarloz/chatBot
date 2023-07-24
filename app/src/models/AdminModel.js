@@ -2,8 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../config/db/database");
 
 const MAdmin = db.define(
-  "tbladmin",
-  {
+  "tbladmin", {
     AdmUser: {
       type: Sequelize.STRING,
       primaryKey: true,
@@ -11,11 +10,7 @@ const MAdmin = db.define(
     AdmPass: {
       type: Sequelize.STRING,
     },
-    AdmToken: {
-      type: Sequelize.STRING,
-    },
-  },
-  {
+  }, {
     tableName: "tbladmin",
   }
 );

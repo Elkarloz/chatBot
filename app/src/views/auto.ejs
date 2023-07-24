@@ -1,0 +1,127 @@
+<%- include("template/header.ejs") %>
+    <div class="content-wrapper">
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Respuestas Auto</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Chat</a></li>
+                            <li class="breadcrumb-item active">Respuestas Auto</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Tabla de Respuestas auto</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Llave</th>
+                                            <th>Data</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <% var i=0; for (let key in json) { i++; if (json.hasOwnProperty(key)) { %>
+                                            <tr>
+                                                <td>
+                                                    <%=i%>
+                                                </td>
+                                                <td>
+                                                    <%=key%>
+                                                </td>
+                                                <td>
+                                                    <%= json[key]%>
+                                                </td>
+                                                <td>
+                                                    <button onclick="setDataResAuto('<%=key%>', '<%= json[key]%>')"
+                                                        class="btn btn-success">Editar</button>
+                                                </td>
+                                            </tr>
+                                            <% }} %>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Llave</th>
+                                            <th>Data</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+    <%- include("template/respoModal.ejs") %>
+        <%- include("template/footer.ejs") %>
+            <script>
+                const respoModal = document.getElementById('respoModal');
+                const respoModalBootstrap = new bootstrap.Modal(respoModal);
+                respoModalBootstrap._config.backdrop = 'static';
+
+                function setDataResAuto(id, data) {
+                    $("#keyResponse").val(id);
+                    $("#dataResponse").val(data);
+                    let help = "";
+                    switch (id) {
+                        case "sale_delivery":
+                            help = "Manual de instrucción.<ul><li>Las opciones disponibles para un registro son: {nombre},{direccion},{telefono}, {observaciones}, {notas}, {fecha}, {link}</li><li>Si deseas agregar saltos de linea puedes hacerlo añadiendo a tu texto $n estos dos simbolos seran interpretados como saltos de linea.</li></ul>";
+                            break;
+                        case "sale":
+                        case "welcome":
+                            help = "Manual de instrucción.<ul><li>Las opciones disponibles para un registro son: {nombre},{direccion},{telefono}, {observaciones}, {link}</li><li>Si deseas agregar saltos de linea puedes hacerlo añadiendo a tu texto $n estos dos simbolos seran interpretados como saltos de linea.</li></ul>";
+                            break;
+
+                        default:
+                            help = "Manual de instruccion.<ul><li>Si deseas agregar saltos de linea puedes hacerlo añadiendo a tu texto $n estos dos simbolos seran interpretados como saltos de linea.</li><li>Esta opcion no permite parametros de la Base de datos.</li>";
+                            break;
+                    }
+                    $("#text-help-register").html(help);
+                    respoModalBootstrap.show();
+                }
+
+                function saveDataResponse() {
+                    $.ajax({
+                        url: "/api/auto",
+                        method: "POST",
+                        dataType: "json",
+                        data: {
+                            key: $('#keyResponse').val(),
+                            text: $("#dataResponse").val(),
+                        },
+                        success: function (response) {
+                            window.location.href = "/Interacciones";
+                        },
+                        error: function (xhr, status, error) {
+                            toastr.error(error);
+                        },
+                    });
+                }
+            </script>

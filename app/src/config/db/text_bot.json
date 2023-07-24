@@ -1,4 +1,6 @@
 {
   "welcome": "Hola {nombre}, ¿Gustas Ordenar?",
-  "unknown": "Tu pedido ha sido atendido, en unos minutos estará disfrutando de tu entrega, hemos enviado nuestro repartidor a tu dirección, agradecemos tu compra en Zumitos."
+  "unknown": "Hola, ¿Antes de ordenar podemos saber tu nombre y dirección para agilizar el proceso?",
+  "sale": "Tu pedido ya va en camino, nuestro repartidor muy pronto se comunicará contigo.",
+  "sale_delivery": "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #{id}\nNombre: {nombre}\nNumero: {telefono}\nDirección: {direccion}\nUbicacion: {link}\nNota del pedido: {notas}\nPedido realizado: {fecha}"
 }

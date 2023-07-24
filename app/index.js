@@ -42,6 +42,7 @@ app.use("/api/admin", route.apiAdmin);
 app.use("/api/responses", route.apiResponse);
 app.use("/api/delivery", route.apiDelivery);
 app.use("/api/client", route.apiClient);
+app.use("/api/auto", route.apiAuto);
 
 const server = http.createServer(app);
 const io = socketIO(server);

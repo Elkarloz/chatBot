@@ -28,7 +28,7 @@ router.post("/compile", async (req, res) => {
       element.ResResponse = element.ResResponse.replace("{direccion}", client.dataValues.CliAddress != null ? client.dataValues.CliAddress : 'Desconocido');
       element.ResResponse = element.ResResponse.replace("{nombre}", client.dataValues.CliName != null ? client.dataValues.CliName : 'Desconocido');
       element.ResResponse = element.ResResponse.replace("{link}", client.dataValues.CliLocation != null ? client.dataValues.CliLocation : 'Desconocido');
-      element.ResResponse = element.ResResponse.replace("{telefono}", client.dataValues.CliPhone != null ? client.dataValues.CliPhone : 'Desconocido');
+      element.ResResponse = element.ResResponse.replace("{telefono}", client.dataValues.CliPhone != null ? client.dataValues.CliPhone.split('@')[0] : 'Desconocido');
       element.ResResponse = element.ResResponse.replace("{observaciones}", client.dataValues.CliObservation != null ? client.dataValues.CliObservation : 'Desconocido');
       temp.push(element);
     });
