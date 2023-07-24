@@ -95,7 +95,6 @@ botController.startBucle = async (io, socket) => {
                     sessionStatus = false;
                     sessionClient = undefined;
                     tried = false;
-                    sessionBot = false;
                 }
             },
             logQR: false,
@@ -118,6 +117,7 @@ botController.startBucle = async (io, socket) => {
             return false;
         })
         .catch((error) => {
+            console.log("Ocurrio un error");
             if (socketClient.length == 0) {
                 tried = false;
             }
