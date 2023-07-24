@@ -1,15 +1,20 @@
 const express = require("express");
-const https = require("https");
-const fs = require("fs");
 const path = require("path");
-const route = require("./routes");
+const route = require("./src/routes");
 const bodyParser = require("body-parser");
-const WebSocket = require("ws");
 const session = require("express-session");
-
-require("dotenv").config();
-
+const port = 3000;
 const app = express();
+const http = require("http");
+const socketIO = require("socket.io");
+const bot = require("./src/controllers/BotController.js");
+
+app.use((req, res, next) => {
+  res.header("Cache-Control", "no-store");
+  res.header("Pragma", "no-cache");
+  next();
+});
+
 app.use(
   session({
     secret: "9B9PyW4kEk03A35",
@@ -17,34 +22,33 @@ app.use(
     saveUninitialized: true,
   })
 );
+
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(__dirname + "/public"));
-app.use(
+app.set("views", path.join(__dirname, "/src/views"));
+app.use([
+  express.static(__dirname + "/public"),
   express.json({
     limit: "10mb",
-  })
-);
-app.use(
+  }),
   express.urlencoded({
     extended: true,
-  })
-);
+  }),
+]);
+
 app.use(bodyParser.json());
 
-app.use("/", route.start);
-app.use("/Api/Response", route.apiResponse);
-app.use("/Api/Delivery", route.apiDelivery);
-app.use("/Api/Chat", route.apiChat);
-app.use("/Api/Push", route.apiPush);
-app.use("/Api/Admin", route.apiAdmin);
+app.use("/", route.view);
+app.use("/api/admin", route.apiAdmin);
+app.use("/api/responses", route.apiResponse);
+app.use("/api/delivery", route.apiDelivery);
+app.use("/api/client", route.apiClient);
+app.use("/api/auto", route.apiAuto);
 
-const server = app.listen(80, () => {
-  console.log("Servidor corriendo en el puerto 80...");
-});
+const server = http.createServer(app);
+const io = socketIO(server);
 
-const wss = new WebSocket.Server({
-  server,
+bot.start(io);
+
+server.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });
-const botController = require("./controllers/BotController");
-botController.main(wss);

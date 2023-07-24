@@ -1,0 +1,38 @@
+2023/07/23-22:26:06.713 5b54 Reusing MANIFEST D:\Alejandro Cardenas\Documents\GitHub\chatBot\app\tokens\zumitos\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/07/23-22:26:06.715 5b54 Recovering log #1750
+2023/07/23-22:26:06.743 5b54 Reusing old log D:\Alejandro Cardenas\Documents\GitHub\chatBot\app\tokens\zumitos\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/001750.log 
+2023/07/23-22:26:20.500 5b54 Level-0 table #1758: started
+2023/07/23-22:26:20.667 5b54 Level-0 table #1758: 1145173 bytes OK
+2023/07/23-22:26:20.706 5b54 Delete type=0 #1750
+2023/07/23-22:26:21.282 3648 Compacting 1@1 + 6@2 files
+2023/07/23-22:26:21.377 3648 Generated table #1759@1: 29731 keys, 2198000 bytes
+2023/07/23-22:26:21.452 3648 Generated table #1760@1: 4831 keys, 2167017 bytes
+2023/07/23-22:26:21.571 3648 Generated table #1761@1: 24794 keys, 2251632 bytes
+2023/07/23-22:26:21.712 3648 Generated table #1762@1: 75289 keys, 2218711 bytes
+2023/07/23-22:26:21.779 3648 Generated table #1763@1: 39659 keys, 848410 bytes
+2023/07/23-22:26:21.779 3648 Compacted 1@1 + 6@2 files => 9683770 bytes
+2023/07/23-22:26:21.808 3648 compacted to: files[ 0 0 5 0 0 0 0 ]
+2023/07/23-22:26:21.808 3648 Delete type=2 #1748
+2023/07/23-22:26:21.808 3648 Delete type=2 #1749
+2023/07/23-22:26:21.808 3648 Delete type=2 #1752
+2023/07/23-22:26:21.808 3648 Delete type=2 #1753
+2023/07/23-22:26:21.809 3648 Delete type=2 #1754
+2023/07/23-22:26:21.809 3648 Delete type=2 #1755
+2023/07/23-22:26:21.809 3648 Delete type=2 #1758
+2023/07/23-22:26:24.695 3648 Level-0 table #1765: started
+2023/07/23-22:26:24.843 3648 Level-0 table #1765: 907085 bytes OK
+2023/07/23-22:26:24.871 3648 Delete type=0 #1757
+2023/07/23-22:26:52.490 3648 Compacting 1@1 + 5@2 files
+2023/07/23-22:26:52.772 3648 Generated table #1766@1: 29821 keys, 2198811 bytes
+2023/07/23-22:26:52.980 3648 Generated table #1767@1: 4831 keys, 2167017 bytes
+2023/07/23-22:26:53.164 3648 Generated table #1768@1: 24675 keys, 2251860 bytes
+2023/07/23-22:26:53.283 3648 Generated table #1769@1: 74695 keys, 2216266 bytes
+2023/07/23-22:26:53.363 3648 Generated table #1770@1: 42201 keys, 903889 bytes
+2023/07/23-22:26:53.363 3648 Compacted 1@1 + 5@2 files => 9737843 bytes
+2023/07/23-22:26:53.402 3648 compacted to: files[ 0 0 5 0 0 0 0 ]
+2023/07/23-22:26:53.402 3648 Delete type=2 #1759
+2023/07/23-22:26:53.402 3648 Delete type=2 #1760
+2023/07/23-22:26:53.402 3648 Delete type=2 #1761
+2023/07/23-22:26:53.402 3648 Delete type=2 #1762
+2023/07/23-22:26:53.402 3648 Delete type=2 #1763
+2023/07/23-22:26:53.402 3648 Delete type=2 #1765

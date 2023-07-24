@@ -1,3 +1,5 @@
-node_modules
-tokens/
-chats/
+.node_modules
+.tokens
+.error.log
+.error.dace
+.combined.log
