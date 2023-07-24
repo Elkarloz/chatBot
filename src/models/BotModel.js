@@ -176,7 +176,7 @@ BotModel.grabber = async (socket, io, client) => {
         if (phone.includes('$')) {
             phone = phone.replace('$(', "").replace(')', '') + "@c.us";
         } else {
-            phone = "52" + phone + "@c.us";
+            phone = "521" + phone + "@c.us";
         }
 
         let msg = TextController.getText('sale', null, null);
