@@ -1,7 +1,6 @@
 <%- include("template/header.ejs") %>
 
     <div class="content-wrapper">
-
         <div style="min-height: 100vh; height: 110vh;padding-top: 10px; padding-bottom: 10px;" class="container-fluid">
             <div style="height: 100%;" class="row">
                 <div style="height: 100%;" class="col-md-9">
@@ -76,14 +75,10 @@
                                                 </span>
                                                 <span class="contacts-list-msg">How have you been? I was...</span>
                                             </div>
-
                                         </a>
                                     </li>-->
-
                                 </ul>
-
                             </div>
-
                         </div>
 
                         <div class="card-footer" bis_skin_checked="1">
@@ -173,14 +168,14 @@
                         <div class="card-body" bis_skin_checked="1">
                             <div class="form-group">
                                 <label>Repartidor</label>
-                                <select id="select-delivery" class="form-control select2" style="width: 100%;">}
+                                <select id="select-delivery" class="form-control select2" style="width: 100%;">
                                     <option selected value="0">Seleccione un repartidor</option>
                                     <% for(var i=0; i<deliverys.length; i++) {%>
                                         <option value="<%=deliverys[i].DelId%>">
                                             <%=deliverys[i].DelName%>
                                         </option>
+                                        <% } %>
                                 </select>
-                                <% } %>
                             </div>
                             <button onclick="closeModalBootstrap.show();" class="btn btn-success">Cerrar
                                 venta</button>
