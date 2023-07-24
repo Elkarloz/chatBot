@@ -10,30 +10,30 @@
 </div>
 
 
-<%- include("closeModal.ejs") %>
-    <%- include("editClient.ejs") %>
-        <div class="modal fade" id="modal-xl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Establezca una sesión de WhatsApp</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="div-center">
-                            <img class="img-qr" src="/dist/img/qr.gif" id="qr_code" alt="Codigo QR">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <p>Escanea el codigo QR para usar el aplicativo web.</p>
-                        <p>Estado del bot: <span class="status_bot"></span></p>
-                    </div>
-                </div>
-
+<div class="modal fade" id="modal-xl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    data-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Establezca una sesión de WhatsApp</h4>
             </div>
-
+            <div class="modal-body">
+                <div class="div-center">
+                    <img class="img-qr" src="/dist/img/qr.gif" id="qr_code" alt="Codigo QR">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p>Escanea el codigo QR para usar el aplicativo web.</p>
+                <p>Estado del bot: <span class="status_bot"></span></p>
+            </div>
         </div>
 
+    </div>
+</div>
+
+<%- include("closeModal.ejs") %>
+
+    <%- include("editClient.ejs") %>
 
         <script src="/plugins/jquery/jquery.min.js"></script>
         <script>
@@ -60,7 +60,7 @@
         <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <script src="/dist/js/core.js"></script>
+        <script src="/dist/js/core.js" defer></script>
         </body>
 
 

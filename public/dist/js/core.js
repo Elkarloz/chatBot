@@ -1,4 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
     const myModal = document.getElementById('modal-xl');
     const modal = new bootstrap.Modal(myModal);
     modal._config.backdrop = 'static';
@@ -423,4 +422,3 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     } catch (error) {}
-});
