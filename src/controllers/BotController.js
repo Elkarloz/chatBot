@@ -69,60 +69,65 @@ botController.start = async (io) => {
 
 botController.startBucle = async (io, socket) => {
 
-    return await wppconnect
-        .create({
-            session: "zumitos",
-            catchQR: (base64Qrimg) => {
-                if (io != null) {
-                    io.emit('qr_code', {
-                        body: JSON.stringify(base64Qrimg)
+    try {
+        return await wppconnect
+            .create({
+                session: "zumitos",
+                catchQR: (base64Qrimg) => {
+                    if (io != null) {
+                        io.emit('qr_code', {
+                            body: JSON.stringify(base64Qrimg)
+                        });
+                    }
+                },
+                statusFind: (statusSession) => {
+                    io.emit('status', {
+                        body: statusSession
                     });
+                    if (statusSession == "inChat" || statusSession.includes("inChat")) {
+                        sessionStatus = true;
+                        io.emit('status', {
+                            body: "Ok"
+                        });
+                    } else if (statusSession == "desconnectedMobile" && sessionStatus == true) {
+                        io.emit('status', {
+                            body: "Desconectado"
+                        });
+                        sessionStatus = false;
+                        sessionClient = undefined;
+                        tried = false;
+                        sessionStatus = false;
+                    }
+                },
+                logQR: false,
+                disableWelcome: true,
+                headless: true,
+                debug: false,
+                updatesLog: false,
+                useChrome: false,
+                logger: logger,
+                browserArgs: [
+                    '--no-sandbox',
+                ],
+            })
+            .then(async (client) => {
+                if (client.connected == true) {
+                    BotModel.start(client, io, socket);
+                    sessionClient = client;
+                    return true;
                 }
-            },
-            statusFind: (statusSession) => {
-                io.emit('status', {
-                    body: statusSession
-                });
-                if (statusSession == "inChat" || statusSession.includes("inChat")) {
-                    sessionStatus = true;
-                    io.emit('status', {
-                        body: "Ok"
-                    });
-                } else if (statusSession == "desconnectedMobile" && sessionStatus == true || statusSession == "browserClose" && sessionStatus == true) {
-                    io.emit('status', {
-                        body: "Desconectado"
-                    });
-                    sessionStatus = false;
-                    sessionClient = undefined;
+                return false;
+            })
+            .catch((error) => {
+                if (socketClient.length == 0) {
                     tried = false;
                 }
-            },
-            logQR: false,
-            disableWelcome: true,
-            headless: true,
-            debug: false,
-            updatesLog: false,
-            useChrome: false,
-            logger: logger,
-            browserArgs: [
-                '--no-sandbox',
-            ],
-        })
-        .then(async (client) => {
-            if (client.connected == true) {
-                BotModel.start(client, io, socket);
-                sessionClient = client;
-                return true;
-            }
-            return false;
-        })
-        .catch((error) => {
-            console.log("Ocurrio un error" + error);
-            if (socketClient.length == 0) {
-                tried = false;
-            }
-            return false;
-        });
+                return false;
+            });
+    } catch (error) {
+        console.log("Ocurrio un error: " + error);
+    }
+
 };
 
 
