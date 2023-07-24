@@ -63,13 +63,13 @@
         if (data.phone == chatActive) {
             var html = "";
             if (data.type == "sms") {
-                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + data.body + '</div></div>';
+                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + data.body + '</div></div>';
             } else if (data.type == "image") {
-                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img src="' + msg.body + '" width="100%" alt="Imagen">' + '</div></div>';
+                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img src="' + msg.body + '" width="100%" alt="Imagen">' + '</div></div>';
             } else if (data.type == "document") {
-                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="' + data.body + '" download="' + data.nameFile + '" class="btn btn-success">Descargar documento (Documento.pdf).</a>' + '</div></div>';
+                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="' + data.body + '" download="' + data.nameFile + '" class="btn btn-success">Descargar documento (Documento.pdf).</a>' + '</div></div>';
             } else if (data.type == "audio") {
-                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div ><audio style="width: 100%;" controls><source src="' + data.body + '" type="audio/mpeg">Su navegador no es compatible con el elemento de audio.</audio></div>' + '</div></div>';
+                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div ><audio style="width: 100%;" controls><source src="' + data.body + '" type="audio/mpeg">Su navegador no es compatible con el elemento de audio.</audio></div>' + '</div></div>';
             }
             $('#direct-chat-view').append(html).animate({
                     scrollTop: $("#direct-chat-view").prop("scrollHeight"),
@@ -79,13 +79,13 @@
         } else if (data.phone == "server") {
             var html = "";
             if (data.type == "sms") {
-                html = '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + data.body + '</div></div>';
+                html = '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + data.body + '</div></div>';
             } else if (data.type == "image") {
-                html = '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img src="' + data.body + '" width="100%" alt="Imagen">' + '</div></div>';
+                html = '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img src="' + data.body + '" width="100%" alt="Imagen">' + '</div></div>';
             } else if (data.type == "document") {
-                html = '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="' + data.body + '" download="archivo.pdf" class="btn btn-success">Descargar documento (Documento.pdf).</a>' + '</div></div>';
+                html = '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="' + data.body + '" download="archivo.pdf" class="btn btn-success">Descargar documento (Documento.pdf).</a>' + '</div></div>';
             } else if (data.type == "audio") {
-                html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div ><audio style="width: 100%;" controls><source src="' + data.body + '" type="audio/mpeg">Su navegador no es compatible con el elemento de audio.</audio></div>' + '</div></div>';
+                html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div ><audio style="width: 100%;" controls><source src="' + data.body + '" type="audio/mpeg">Su navegador no es compatible con el elemento de audio.</audio></div>' + '</div></div>';
             }
             $('#direct-chat-view').append(html).animate({
                     scrollTop: $("#direct-chat-view").prop("scrollHeight"),
@@ -126,7 +126,7 @@
             setTimeout(() => {
                 modal.hide();
             }, 3000);
-        } else if (data.body == "Estableciendo session.") {
+        } else if (data.body == "Estableciendo session." || data.body == "Desconectado") {
             modal.show();
         }
     });
@@ -152,7 +152,7 @@
 
     socket.on('close', (data) => {
         console.log(data);
-        logout();
+        //logout();
     });
 
     socket.on('background', (data) => {
@@ -163,11 +163,11 @@
             const img = (msg.sender.profilePicThumbObj != null ? ("img" in msg.sender.profilePicThumbObj ? msg.sender.profilePicThumbObj.img : '/dist/img/AdminLTELogo.png') : '/dist/img/AdminLTELogo.png');
             if (!msg.fromMe && msg.type != "e2e_notification") {
                 if (msg.type == "location") {
-                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="https://www.google.com/maps?q=' + msg.lat + ',' + msg.lng + '" target="_blank">Ubicacion, click aqui para ver</a>' + '</div></div>';
+                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="https://www.google.com/maps?q=' + msg.lat + ',' + msg.lng + '" target="_blank">Ubicacion, click aqui para ver</a>' + '</div></div>';
                 } else if (msg.type == "chat") {
-                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + msg.body + '</div></div>';
+                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + msg.body + '</div></div>';
                 } else if (msg.type == "image") {
-                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img id="i' + msg.timestamp + '" src="data:image/jpeg;base64,' + msg.body + '" width="100%" alt="Imagen">' + '</div></div>';
+                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img id="i' + msg.timestamp + '" src="data:image/jpeg;base64,' + msg.body + '" width="100%" alt="Imagen">' + '</div></div>';
                     socket.emit('media', {
                         msg: msg.id,
                         id: 'i' + msg.timestamp,
@@ -175,7 +175,7 @@
                         name: 'null',
                     });
                 } else if (msg.type == "document") {
-                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="javascript:waitFile()" id="i' + msg.timestamp + '" class="btn btn-success">Descargar documento (' + msg.filename + ').</a>' + '</div></div>';
+                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="javascript:waitFile()" id="i' + msg.timestamp + '" class="btn btn-success">Descargar documento (' + msg.filename + ').</a>' + '</div></div>';
                     socket.emit('media', {
                         msg: msg.id,
                         id: 'i' + msg.timestamp,
@@ -183,7 +183,7 @@
                         name: msg.filename,
                     });
                 } else if (msg.type == "ptt") {
-                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div id="i' + msg.timestamp + '"><span class="btn btn-danger">Estamos cargando el audio para que puedas escucharlo.</span></div>' + '</div></div>';
+                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div id="i' + msg.timestamp + '"><span class="btn btn-danger">Estamos cargando el audio para que puedas escucharlo.</span></div>' + '</div></div>';
                     socket.emit('media', {
                         msg: msg.id,
                         id: 'i' + msg.timestamp,
@@ -191,15 +191,15 @@
                         name: "null",
                     });
                 } else if (msg.type == "revoked") {
-                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + 'Se elimino este mensaje' + '</div></div>';
+                    html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + 'Se elimino este mensaje' + '</div></div>';
                 }
             } else if (msg.type != "e2e_notification") {
                 if (msg.type == "location") { //
-                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="https://www.google.com/maps?q=' + msg.lat + ',' + msg.lng + '" target="_blank">Ubicacion, click aqui para ver</a>' + '</div></div>';
+                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="https://www.google.com/maps?q=' + msg.lat + ',' + msg.lng + '" target="_blank">Ubicacion, click aqui para ver</a>' + '</div></div>';
                 } else if (msg.type == "chat") {
-                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + msg.body + '</div></div>';
+                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + msg.body + '</div></div>';
                 } else if (msg.type == "image") {
-                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img id="i' + msg.timestamp + '" src="data:image/jpeg;base64,' + msg.body + '" width="100%" alt="Imagen">' + '</div></div>';
+                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img id="i' + msg.timestamp + '" src="data:image/jpeg;base64,' + msg.body + '" width="100%" alt="Imagen">' + '</div></div>';
                     socket.emit('media', {
                         msg: msg.id,
                         id: 'i' + msg.timestamp,
@@ -207,7 +207,7 @@
                         name: 'null',
                     });
                 } else if (msg.type == "document") {
-                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="javascript:waitFile()" id="i' + msg.timestamp + '" class="btn btn-success">Descargar documento (' + msg.filename + ').</a>' + '</div></div>';
+                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="javascript:waitFile()" id="i' + msg.timestamp + '" class="btn btn-success">Descargar documento (' + msg.filename + ').</a>' + '</div></div>';
                     socket.emit('media', {
                         msg: msg.id,
                         id: 'i' + msg.timestamp,
@@ -215,7 +215,7 @@
                         name: msg.filename,
                     });
                 } else if (msg.type == "ptt") {
-                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div id="i' + msg.timestamp + '"><span class="btn btn-danger">Estamos cargando el audio para que puedas escucharlo.</span></div>' + '</div></div>';
+                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div id="i' + msg.timestamp + '"><span class="btn btn-danger">Estamos cargando el audio para que puedas escucharlo.</span></div>' + '</div></div>';
                     socket.emit('media', {
                         msg: msg.id,
                         id: 'i' + msg.timestamp,
@@ -223,7 +223,7 @@
                         name: "null",
                     });
                 } else if (msg.type == "revoked") {
-                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + new Date(msg.timestamp * 1000) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + 'Se elimino este mensaje' + '</div></div>';
+                    html += '<div class="direct-chat-msg right" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + msg.sender.pushname + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date(msg.timestamp * 1000)) + '</span></div><img class="direct-chat-img" src="' + img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + 'Se elimino este mensaje' + '</div></div>';
                 }
             }
         }
@@ -248,6 +248,7 @@
         chargeClient(chat);
         chatActive = chat;
         getResponsesFast();
+        $("#openchat-btn").click();
     }
 
     function chargeClient(data) {
@@ -326,7 +327,7 @@
     function setRecord(data) {
         var html = "";
         for (let i = 0; i < data.length; i++) {
-            html += '<li onclick="openChat(' + "'" + data[i].CliPhone + "'" + ')" ><a href="#"><img class="contacts-list-img" src="' + (data[i].CliImg != null ? data[i].CliImg : '/dist/img/AdminLTELogo.png') + '" alt="User Avatar"><div class="contacts-list-info" bis_skin_checked="1"><span class="contacts-list-name">' + data[i].CliName + '<small class="contacts-list-date float-right">' + data[i].CliDate + '</small></span><span class="contacts-list-msg" id="chat' + data[i].CliPhone.split('@')[0] + '">' + data[i].CliLastMessage + '.</span></div></a></li>';
+            html += '<li onclick="openChat(' + "'" + data[i].CliPhone + "'" + ')" ><a href="#"><img class="contacts-list-img" src="' + (data[i].CliImg != null ? data[i].CliImg : '/dist/img/AdminLTELogo.png') + '" alt="User Avatar"><div class="contacts-list-info" bis_skin_checked="1"><span class="contacts-list-name">' + data[i].CliName + '<small class="contacts-list-date float-right">' + formatFecha(data[i].CliDate) + '</small></span><span class="contacts-list-msg" id="chat' + data[i].CliPhone.split('@')[0] + '">' + data[i].CliLastMessage + '.</span></div></a></li>';
         }
         $('#contacts_list').html(html);
     }
@@ -448,4 +449,16 @@
     function soundNotify() {
         var audio = new Audio("/sounds/notification.mp3");
         audio.play();
+    }
+
+    function formatFecha(fechaString) {
+        const fecha = new Date(fechaString);
+        const año = fecha.getFullYear();
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const dia = String(fecha.getDate()).padStart(2, '0');
+        const horas = String(fecha.getHours() % 12 || 12).padStart(2, '0');
+        const minutos = String(fecha.getMinutes()).padStart(2, '0');
+        const ampm = fecha.getHours() >= 12 ? 'pm' : 'am';
+
+        return `${año}-${mes}-${dia} ${horas}:${minutos} ${ampm}`;
     }

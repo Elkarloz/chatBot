@@ -30,7 +30,7 @@ BotModel.bootstrap = async (client, msg, io) => {
         if (user == null) {
             await ClientModel.create({
                 CliPhone: msg.from,
-                //CliName: nameUser,
+                CliName: nameUser,
                 CliDate: new Date(),
             });
             await client.sendText(msg.from, TextController.getText('unknown', null, null));
