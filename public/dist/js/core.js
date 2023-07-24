@@ -61,6 +61,7 @@
     socket.on('message', (data) => {
         console.log(data);
         if (data.phone == chatActive) {
+            var html = "";
             if (data.type == "sms") {
                 html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + data.body + '</div></div>';
             } else if (data.type == "image") {
@@ -68,7 +69,7 @@
             } else if (data.type == "document") {
                 html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="' + data.body + '" download="' + data.nameFile + '" class="btn btn-success">Descargar documento (Documento.pdf).</a>' + '</div></div>';
             } else if (data.type == "audio") {
-                html += '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div ><audio style="width: 100%;" controls><source src="' + data.body + '" type="audio/mpeg">Su navegador no es compatible con el elemento de audio.</audio></div>' + '</div></div>';
+                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + new Date() + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<div ><audio style="width: 100%;" controls><source src="' + data.body + '" type="audio/mpeg">Su navegador no es compatible con el elemento de audio.</audio></div>' + '</div></div>';
             }
             $('#direct-chat-view').append(html).animate({
                     scrollTop: $("#direct-chat-view").prop("scrollHeight"),
@@ -102,14 +103,19 @@
                 toastr.info("<b>" + data.name + ":</b><br>" + "Te envio un audio.");
             }
         }
+
         if (data.type == "sms") {
             $('#chat' + (data.phone).split('@')[0]).text(data.body);
+            soundNotify();
         } else if (data.type == "image") {
             $('#chat' + (data.phone).split('@')[0]).text("Te envio una imagen.");
+            soundNotify();
         } else if (data.type == "document") {
             $('#chat' + (data.phone).split('@')[0]).text("Te envio un archivo.");
+            soundNotify();
         } else if (data.type == "audio") {
             $('#chat' + (data.phone).split('@')[0]).text("Te envio un audio.");
+            soundNotify();
         }
     });
 
@@ -305,7 +311,7 @@
         const value = $("#msg-add-delivery").val();
         const delivery = $('#select-delivery').val();
         const mensaje = value.trim();
-        if (mensaje != '' && chatActive != "" && delivery != "0") {
+        if (chatActive != "" && delivery != "0") {
             socket.emit('close_sale', {
                 delivery: delivery,
                 body: mensaje,
@@ -438,3 +444,8 @@
             }
         });
     } catch (error) {}
+
+    function soundNotify() {
+        var audio = new Audio("/sounds/notification.mp3");
+        audio.play();
+    }
