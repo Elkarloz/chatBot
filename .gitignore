@@ -1,5 +1,5 @@
-node_modules
-tokens
-.error.log
-.error.dace
-.combined.log
+node_modules/
+tokens/
+error.log
+error.dace
+combined.log
