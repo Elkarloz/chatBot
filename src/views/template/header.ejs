@@ -23,6 +23,7 @@
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
 
+    <input type="text" class="none" id="token_admin" value="<%=admin%>">
     <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__shake" src="/dist/img/favicon.png" alt="Preloader" height="120" width="160">
     </div>
@@ -79,39 +80,53 @@
                 <p>Chat</p>
               </a>
             </li>
-            <li class="nav-header">BASE DE DATOS</li>
-            <li class="nav-item">
-              <a href="/delivers" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Repartidores</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/Client" class="nav-link">
-                <i class="nav-icon fas fa-mouse-pointer"></i>
-                <p>Clientes</p>
-              </a>
-            </li>
-            <li class="nav-header">CONFIGURACIONES DEL BOT</li>
-            <li class="nav-item">
-              <a href="/Responses" class="nav-link">
-                <i class="nav-icon fas fa-robot"></i>
-                <p>Respuestas seleccionables</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/Interacciones" class="nav-link">
-                <i class="nav-icon fas fa-reply"></i>
-                <p>Respuestas automáticas</p>
-              </a>
-            </li>
-            <li class="nav-header">OPCIONES DE LA WEB</li>
-            <li class="nav-item">
-              <a href="/Login" class="nav-link" onclick="logout()">
-                <i class="nav-icon far fa-circle text-danger"></i>
-                <p class="text">Cerrar Session</p>
-              </a>
-            </li>
+            <% if(role=="admin" ){ %>
+              <li class="nav-header">BASE DE DATOS</li>
+              <li class="nav-item">
+                <a href="/delivers" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>Repartidores</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/Sales" class="nav-link">
+                  <i class="nav-icon fas fa-dollar-sign"></i>
+                  <p>Ventas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/Client" class="nav-link">
+                  <i class="nav-icon fas fa-mouse-pointer"></i>
+                  <p>Clientes</p>
+                </a>
+              </li>
+              <li class="nav-header">CONFIGURACIONES DEL BOT</li>
+              <li class="nav-item">
+                <a href="/Responses" class="nav-link">
+                  <i class="nav-icon fas fa-robot"></i>
+                  <p>Respuestas seleccionables</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/Interacciones" class="nav-link">
+                  <i class="nav-icon fas fa-reply"></i>
+                  <p>Respuestas automáticas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/Schedule" class="nav-link">
+                  <i class="nav-icon fas fa-calendar"></i>
+                  <p>Horario</p>
+                </a>
+              </li>
+              <% } %>
+                <li class="nav-header">OPCIONES DE LA WEB</li>
+                <li class="nav-item">
+                  <a href="/Login" class="nav-link" onclick="logout()">
+                    <i class="nav-icon far fa-circle text-danger"></i>
+                    <p class="text">Cerrar Session</p>
+                  </a>
+                </li>
           </ul>
         </nav>
       </div>

@@ -7,7 +7,7 @@ const AuthMiddleware = require("../../middleware/session");
 
 const session = new AuthMiddleware();
 
-router.get("/", session.verifyAuth, async (req, res) => {
+router.get("/", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const resp = await responseController.getResponses();
     res.status(200).json(resp);
@@ -40,7 +40,7 @@ router.post("/compile", async (req, res) => {
   }
 });
 
-router.get("/p/:phone", session.verifyAuth, async (req, res) => {
+router.get("/p/:phone", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const resp = await responseController.getResponseParams(req.params.phone);
     res.status(200).json(resp);
@@ -51,7 +51,7 @@ router.get("/p/:phone", session.verifyAuth, async (req, res) => {
   }
 });
 
-router.post("/", session.verifyAuth, async (req, res) => {
+router.post("/", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const resp = await responseController.createResponse(req.body);
     res.status(200).json(resp);
@@ -62,7 +62,7 @@ router.post("/", session.verifyAuth, async (req, res) => {
   }
 });
 
-router.put("/:id", session.verifyAuth, async (req, res) => {
+router.put("/:id", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const resp = await responseController.updateResponse(
       req.params.id,
@@ -76,7 +76,7 @@ router.put("/:id", session.verifyAuth, async (req, res) => {
   }
 });
 
-router.delete("/:id", session.verifyAuth, async (req, res) => {
+router.delete("/:id", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const resp = await responseController.deleteResponse(req.params.id);
 

@@ -7,8 +7,14 @@ const session = new AuthMiddleware();
 router.post("/login", async (req, res) => {
   try {
     const resp = await adminController.login(req.body);
-    req.session.status = true;
-    res.status(200).json(resp);
+    if (resp != false) {
+      req.session.status = true;
+      req.session.role = resp.role;
+      req.session.admin = resp.admin;
+      res.status(200).json("Credenciales correctas");
+    } else {
+      res.status(400).json("Creedenciales incorrectas");
+    }
   } catch (error) {
     res.status(500).send({
       message: "Error al intentar hacer login"

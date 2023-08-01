@@ -5,4 +5,5 @@ module.exports = {
     apiDelivery: require("./Api/DeliveryRoute.js"),
     apiClient: require("./Api/ClientRoute.js"),
     apiAuto: require("./Api/AutoRoute.js"),
+    apiSale: require("./Api/SaleRoute.js"),
 };

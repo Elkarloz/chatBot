@@ -8,10 +8,38 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="form-group">
+                    <label>Repartidor</label>
+                    <select id="select-delivery" class="form-control select2" style="width: 100%;">
+                        <option selected value="-1">Seleccione un repartidor</option>
+                        <option value="0">Recoger en local</option>
+                        <% if(typeof deliverys !='undefined' ){ for(var i=0; i<deliverys.length; i++) {%>
+                            <option value="<%=deliverys[i].DelId%>">
+                                <%=deliverys[i].DelName%>
+                            </option>
+                            <% } }%>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <select disabled id="select-address" class="form-control extra-address-select" style="width: 100%;">
+                        <option value="-1">Dirección temporal</option>
+                        <option selected value="0">Dirección predeterminada</option>
+                    </select>
+                </div>
+                <div id="address-div-custom-temp" class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" id="address-custom-temp" class="form-control" placeholder="Dirección temporal">
+                </div>
                 <div class="form-group" bis_skin_checked="1">
                     <label>Resumen de venta.</label>
+                    <textarea id="resume-close-buy" class="form-control" rows="3"
+                        placeholder="Resumen de venta..."></textarea>
+                </div>
+                <div class="form-group" bis_skin_checked="1">
+                    <label id="label-delivery-note">Nota para repartidor.</label>
                     <textarea id="msg-add-delivery" class="form-control" rows="3"
-                        placeholder="Mensaje adicional para el repartidor..."></textarea>
+                        placeholder="Nota para el repartidor..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -19,6 +47,30 @@
                     Cerrar
                 </button>
                 <button type="button" class="btn btn-primary" onclick="closeSale()">Cerrar venta</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="closeModal2" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalTitle">Cancelar Venta</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" bis_skin_checked="1">
+                    <label>Motivo de cancelación.</label>
+                    <textarea id="reason-cancel" class="form-control" rows="3"
+                        placeholder="Motivo de cancelación..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="openSale()" type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancelar acción
+                </button>
+                <button type="button" class="btn btn-danger" onclick="cancelSale()">Cancelar venta</button>
             </div>
         </div>
     </div>

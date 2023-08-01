@@ -17,6 +17,21 @@ clientController.getClient = async (phone) => {
     }
 };
 
+clientController.getClientId = async (id) => {
+    try {
+        const client = await Client.findOne({
+            where: {
+                CliId: id,
+            },
+        });
+
+        return client;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+};
+
 clientController.getClients = async () => {
     try {
         const clients = await Client.findAll();
@@ -55,6 +70,23 @@ clientController.updateClient = async (client) => {
         await Client.update(client, {
             where: {
                 CliId: client.CliId,
+            },
+        });
+
+        return "Cliente actualizado";
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+};
+
+clientController.updateClientAddress = async (CliId, CliAddressExtra) => {
+    try {
+        await Client.update({
+            CliAddressExtra: CliAddressExtra
+        }, {
+            where: {
+                CliId: CliId,
             },
         });
 

@@ -1,62 +1,14 @@
 function getAllDeliverys() {
-  fetch("/api/Delivery/", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((resp) => {
-      if (!resp.redirected) {
-        return resp.json();
-      } else {
-        window.location.href = "/login";
-      }
-    })
-    .then((data) => {
-      const tableBody = document.getElementById("tableBody");
-      let html = "";
-
-      data.forEach((delivery) => {
-        html += `
-          <tr>
-            <td>${delivery.DelId}</td>
-            <td>${delivery.DelName}</td>
-            <td>${delivery.DelPhone}</td>
-            <td style="width: 200px;">
-              <div class="div-center">
-                <button
-                  type="button"
-                  class="btn btn-block btn-warning btn-sm mx-2"
-                  data-toggle="modal" data-target="#editModal1"
-                  onclick="editDelivery('${delivery.DelId}', '${delivery.DelName}', '${delivery.DelPhone}')"
-                >
-                  Editar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-block btn-danger btn-sm mt-0"
-                  onclick="deleteDelivery('${delivery.DelId}')"
-                >
-                  Eliminar
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-      });
-
-      tableBody.innerHTML = html;
-    })
-    .catch((error) => {
-      console.error("Error al obtener los datos:", error);
-    });
+  window.location.href = "/delivers";
 }
 
 function editDelivery(dataId, dataName, dataPhone) {
   const inputName = document.getElementById("exampleInputName1");
   const inputPhone = document.getElementById("exampleInputPhone1");
   const modalbtnEdit = document.getElementById("modalbtnEdit");
+  const modalbtnDelete = document.getElementById("modalbtnDelete");
 
+  modalbtnDelete.setAttribute("onclick", `deleteDelivery(${dataId})`);
   modalbtnEdit.setAttribute("onclick", `editDeliveryModal(${dataId})`);
 
   inputPhone.value = dataPhone;
@@ -73,12 +25,12 @@ function editDeliveryModal(dataId) {
   };
 
   fetch("/Api/Delivery/" + dataId, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
     .then((resp) => {
       if (!resp.redirected) {
         return resp.json();
@@ -117,12 +69,12 @@ function creteDelivery() {
   };
 
   fetch("/Api/Delivery/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
     .then((resp) => {
       if (!resp.redirected) {
         return resp.json();
@@ -141,7 +93,7 @@ function creteDelivery() {
       });
       inputName.value = "";
       inputPhone.value = "";
-      
+
       return getAllDeliverys();
     })
     .catch((error) => {
@@ -157,11 +109,11 @@ function creteDelivery() {
 
 function deleteDelivery(dataId) {
   fetch("/Api/Delivery/" + dataId, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
     .then((resp) => {
       if (!resp.redirected) {
         return resp.json();

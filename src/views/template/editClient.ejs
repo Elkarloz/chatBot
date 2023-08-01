@@ -26,6 +26,27 @@
                         <input type="text" class="client_phone none" id="edit_client_phone">
                     </div>
                     <div class="form-group">
+                        <label for="">Direcciones extra del cliente</label>
+                        <select id="extra-address-select-delete" class="form-control extra-address-select"
+                            style="width: 100%;">
+                            <option value="-1">Dirección temporal</option>
+                            <option selected value="0">Dirección predeterminada</option>
+                        </select>
+                        <% if(role=="admin" ){%>
+                            <button style="margin-top: 10px;" onclick="deleteExtraAddress()"
+                                class="btn btn-danger btn-xs">Eliminar</button>
+                            <% } %>
+                                <button style="margin-top: 10px;" onclick="$('#extra-add-client-div').show()"
+                                    class="btn btn-primary btn-xs">Agregar</button>
+                    </div>
+                    <div id="extra-add-client-div" class="form-group">
+                        <label for="">Dirección extra (Agregar)</label>
+                        <input type="text" id="extra-add-client" class="form-control"
+                            placeholder="Escribe la dirección que deseas agregar.">
+                        <button style="margin-top: 10px;" onclick="addExtraAddress()"
+                            class="btn btn-success btn-xs">Agregar</button>
+                    </div>
+                    <div class="form-group">
                         <label for="">Link de ubicacion del cliente</label>
                         <input type="text" class="client_location form-control" id="edit_client_location"
                             placeholder="Escribe la informacion con la que editara el dato." />

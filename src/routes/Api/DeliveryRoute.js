@@ -6,7 +6,7 @@ const AuthMiddleware = require("../../middleware/session");
 
 const session = new AuthMiddleware();
 
-router.get("/", session.verifyAuth, async (req, res) => {
+router.get("/", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const resp = await deliveryController.getDeliverys();
     res.status(200).json(resp);
@@ -17,7 +17,7 @@ router.get("/", session.verifyAuth, async (req, res) => {
   }
 });
 
-router.post("/", session.verifyAuth, async (req, res) => {
+router.post("/", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const del = await deliveryController.createDelivery(req.body);
     res.status(200).json(del);
@@ -28,7 +28,7 @@ router.post("/", session.verifyAuth, async (req, res) => {
   }
 });
 
-router.put("/:id", session.verifyAuth, async (req, res) => {
+router.put("/:id", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const del = await deliveryController.updateDelivery(
       req.params.id,
@@ -42,7 +42,7 @@ router.put("/:id", session.verifyAuth, async (req, res) => {
   }
 });
 
-router.delete("/:id", session.verifyAuth, async (req, res) => {
+router.delete("/:id", session.verifyAuth(["admin", "standard"]), async (req, res) => {
   try {
     const del = await deliveryController.deleteDelivery(req.params.id);
 

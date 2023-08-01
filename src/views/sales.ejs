@@ -5,12 +5,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Clientes</h1>
+                        <h1>Ventas</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Chat</a></li>
-                            <li class="breadcrumb-item active">Clientes</li>
+                            <li class="breadcrumb-item active">Ventas</li>
                         </ol>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Tabla de clientes</h3>
+                                <h3 class="card-title">Tabla de ventas</h3>
                             </div>
 
                             <div class="card-body">
@@ -31,60 +31,62 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Telefono</th>
+                                            <th>Estado</th>
+                                            <th>Repartidor</th>
+                                            <th>Cliente</th>
+                                            <th>Empleado</th>
+                                            <th>Fecha</th>
                                             <th>Observaciones</th>
-                                            <th>Ubicacion</th>
-                                            <th>Dirección</th>
-                                            <th>Direcciones extra</th>
-                                            <th>Zona</th>
+                                            <th>Tipo</th>
+                                            <th>Razon de estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <% clients.forEach(client=> { if(client.CliName) { %>
-                                            <tr style="cursor: pointer;"
-                                                onclick="editClientModalBootstrap.show();chargeClient('<%=client.CliPhone%>');chatActive='<%=client.CliPhone%>';">
+                                        <% sales.forEach(sale=> { %>
+                                            <tr>
                                                 <td>
-                                                    <%=client.CliId%>
+                                                    <%=sale.SaleId%>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliName%>
+                                                    <%=sale.SaleStatus%>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliPhone.split('@')[0]%>
+                                                    <%=sale.SaleDelivery%>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliObservation%>
+                                                    <%=sale.SaleClient%>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliLocation%>
+                                                    <%=sale.SaleAdmin%>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliAddress%>
+                                                    <%=sale.SaleDate%>
                                                 </td>
                                                 <td>
-                                                    <ul>
-                                                        <%-client.CliAddressExtra-%>
-                                                    </ul>
+                                                    <%=sale.SaleResume%>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliZone%>
+                                                    <%=sale.SaleCondition%>
+                                                </td>
+                                                <td>
+                                                    <%=sale.SaleReason%>
                                                 </td>
                                             </tr>
-                                            <% }}); %>
+                                            <% }); %>
 
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Telefono</th>
+                                            <th>Estado</th>
+                                            <th>Repartidor</th>
+                                            <th>Cliente</th>
+                                            <th>Empleado</th>
+                                            <th>Fecha</th>
                                             <th>Observaciones</th>
-                                            <th>Ubicacion</th>
-                                            <th>Dirección</th>
-                                            <th>Direcciones extra</th>
-                                            <th>Zona</th>
+                                            <th>Tipo</th>
+                                            <th>Razon de estado</th>
                                         </tr>
                                     </tfoot>
                                 </table>

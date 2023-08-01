@@ -3,11 +3,17 @@ const db = require("../config/db/database");
 
 const MAdmin = db.define(
   "tbladmin", {
-    AdmUser: {
-      type: Sequelize.STRING,
+    AdmId: {
+      type: Sequelize.INTEGER,
       primaryKey: true,
     },
+    AdmUser: {
+      type: Sequelize.STRING,
+    },
     AdmPass: {
+      type: Sequelize.STRING,
+    },
+    AdmRole: {
       type: Sequelize.STRING,
     },
   }, {

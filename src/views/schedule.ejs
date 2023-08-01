@@ -1,0 +1,124 @@
+<%- include("template/header.ejs") %>
+    <div class="content-wrapper">
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Horario de bot</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Chat</a></li>
+                            <li class="breadcrumb-item active">Horario de bot</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Tabla de horario</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Dia</th>
+                                            <th>Rango de horas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <% var i=0; for (let key in json) { i++; if (json.hasOwnProperty(key)) { %>
+                                            <tr style="cursor: pointer;"
+                                                onclick="setDataSchedule('<%=key%>', '<%= json[key]%>')">
+                                                <td>
+                                                    <%=i%>
+                                                </td>
+                                                <td>
+                                                    <%=key%>
+                                                </td>
+                                                <td>
+                                                    <%= json[key]%>
+                                                </td>
+                                            </tr>
+                                            <% }} %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Dia</th>
+                                            <th>Rango de horas</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <div class="modal fade" id="scheduleModalEdit" tabindex="-1" role="dialog" aria-labelledby="addModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalTitle">Editar horario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="">Key</label>
+                            <input type="Name" disabled class="form-control" id="keySchedule" />
+                        </div>
+                        <div class="form-group">
+                            <label for="dataResponse">Data</label>
+                            <input type="Phone" class="form-control" id="dataSchedule"
+                                placeholder="Escribe el horario de la siguiente forma 14:00-15:00..." />
+                        </div>
+                        <div class="container-fluid">
+                            <b>
+                                <p>
+                                    Ayuda:
+                                <ul>
+                                    <li>Para registrar un horario valido, tenga que presente que se usa el formato
+                                        24hr; si desea establecer un horario de 2pm a 3pm deberia escribir
+                                        14:00-15:00.</li>
+                                    <li>Si deseas que el bot no funcione ese dia escriba el siguiente
+                                        horario 00:00-00:00.</li>
+                                </ul>
+                                </p>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cerrar
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveDataSchedule()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include("template/footer.ejs") %>
+        <script src="/dist/js/schedule.js" defer></script>

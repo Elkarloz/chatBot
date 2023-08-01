@@ -13,18 +13,21 @@ adminController.login = async (req, res) => {
       where: {
         AdmUser: AdmUser,
       },
-      attributes: ["AdmPass"],
+      attributes: ["AdmPass", "AdmRole", "AdmId"],
     });
 
     const encryptedPass = await Crypto.verify(AdmPass, usu.dataValues.AdmPass);
-
     if (encryptedPass) {
-      return "Credenciales correctas";
+      return {
+        role: usu.dataValues.AdmRole,
+        admin: usu.dataValues.AdmId
+      };
     } else {
-      return "Creedenciales incorrectas";
+      return false;
     }
   } catch (error) {
     console.log(error);
+    return false;
     throw new Error(error);
   }
 };
@@ -56,6 +59,22 @@ adminController.create = async (req, res) => {
     } else {
       return "Error al crear el usuario";
     }
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+adminController.getAdmin = async (id) => {
+  try {
+    const Adm = await admin.findOne({
+      where: {
+        AdmId: id,
+      },
+      attributes: ["AdmUser", "AdmRole", "AdmId"],
+    });
+
+    return Adm;
   } catch (error) {
     console.log(error);
     throw new Error(error);

@@ -1,6 +1,6 @@
 <%- include("template/header.ejs") %>
   <div class="content-wrapper">
-    <div style="height: 85vh; padding-top: 10px; padding-bottom: 10px" class="container-fluid">
+    <div style="padding-top: 10px; padding-bottom: 10px" class="container-fluid">
       <div class="div-center">
         <h1>Repartidores</h1>
       </div>
@@ -8,45 +8,39 @@
         <div class="col-12">
           <div class="card">
 
-            <div class="card-body table-responsive p-0" style="height: 300px">
-              <table class="table table-head-fixed text-nowrap table-hover table-bordered">
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th style="text-align: center">Acciones</th>
+                    <th>Telefono</th>
                   </tr>
                 </thead>
-                <tbody id="tableBody">
-                  <% deliverys.forEach(function(delivery) { %>
-                    <tr>
-                      <td id="dataId">
-                        <%= delivery.DelId %>
-                      </td>
-                      <td id="dataName">
-                        <%= delivery.DelName %>
-                      </td>
-                      <td id="dataPhone">
-                        <%= delivery.DelPhone %>
-                      </td>
-                      <td style="width: 200px">
-                        <div class="div-center">
-                          <button type="button" class="btn btn-block btn-warning btn-sm mx-2" data-toggle="modal"
-                            data-target="#editModal1"
-                            onclick="editDelivery('<%= delivery.DelId %>', '<%= delivery.DelName %>', '<%= delivery.DelPhone %>')">
-                            Editar
-                          </button>
+                <tbody>
 
-                          <button type="button" class="btn btn-block btn-danger btn-sm mt-0"
-                            onclick="deleteDelivery('<%= delivery.DelId %>')">
-                            Eliminar
-                          </button>
-                        </div>
+                  <% deliverys.forEach(delivery=> { %>
+                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#editModal1"
+                      onclick="editDelivery('<%= delivery.DelId %>', '<%= delivery.DelName %>', '<%= delivery.DelPhone %>')">
+                      <td>
+                        <%=delivery.DelId%>
                       </td>
-                    </tr>
-                    <% }); %>
+                      <td>
+                        <%=delivery.DelName%>
+                      </td>
+                      <td>
+                        <%=delivery.DelPhone.split('@')[0]%>
+                      </td>
+                      <% }); %>
+
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                  </tr>
+                </tfoot>
               </table>
             </div>
             <div class="div-center mb-5 mt-3">

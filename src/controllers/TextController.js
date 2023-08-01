@@ -44,6 +44,9 @@ textController.resetText = () => {
     key = 'sale';
     text = "Tu pedido ya va en camino, nuestro repartidor muy pronto se comunicará contigo.";
     setTextFunction(key, text);
+    key = 'sale_pick';
+    text = "Tu pedido está siendo preparado, para que puedas recogerlo.\nNota:{notas}";
+    setTextFunction(key, text);
     key = 'sale_delivery';
     text = "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #{id}\nNombre: {nombre}\nNumero: {telefono}\nDirección: {direccion}\nUbicacion: {link}\nNota del pedido: {notas}\nPedido realizado: {fecha}";
     setTextFunction(key, text);
@@ -70,10 +73,15 @@ textController.getTextAll = () => {
     return json;
 }
 
-textController.getText = (item, user, add) => {
+textController.getText = (item, user, add, address) => {
     let element = getTextFunction(item);
     if (user != null) {
-        element = element.replace("{direccion}", user.CliAddress != null ? user.CliAddress : 'Desconocido');
+        if (address == null) {
+            element = element.replace("{direccion}", user.CliAddress != null ? user.CliAddress : 'Desconocido');
+
+        } else {
+            element = element.replace("{direccion}", address);
+        }
         element = element.replace("{nombre}", user.CliName != null ? user.CliName : 'Desconocido');
         element = element.replace("{link}", user.CliLocation != null ? user.CliLocation : 'Desconocido');
         element = element.replace("{telefono}", user.CliPhone != null ? "+" + user.CliPhone.split('@')[0] : 'Desconocido');

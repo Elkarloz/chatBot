@@ -14,10 +14,16 @@ const MClient = db.define(
     CliAddress: {
       type: Sequelize.STRING,
     },
+    CliAddressExtra: {
+      type: Sequelize.TEXT,
+    },
     CliPhone: {
       type: Sequelize.STRING,
     },
     CliLocation: {
+      type: Sequelize.TEXT,
+    },
+    CliZone: {
       type: Sequelize.TEXT,
     },
     CliObservation: {
