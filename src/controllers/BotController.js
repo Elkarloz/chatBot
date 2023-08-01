@@ -36,6 +36,11 @@ botController.start = async (io) => {
 
         socketClient.push(socket);
 
+        socket.on('disconnect', () => {
+            console.log('Cliente desconectado:', socket.id);
+            socketClient.splice(socketClient.indexOf(socket), 1);
+        });
+
         if (!sessionBot && !tried) {
             tried = true;
             io.emit('status', {
@@ -57,12 +62,6 @@ botController.start = async (io) => {
 
         socket.on('request', async (data) => {
             io.to(socket.id).emit('background', await sessionClient.getMessages(data.chat));
-        });
-
-
-        socket.on('disconnect', () => {
-            console.log('Cliente desconectado:', socket.id);
-            socketClient.splice(socketClient.indexOf(socket), 1);
         });
     });
 };
@@ -101,7 +100,7 @@ botController.startBucle = async (io, socket) => {
                 },
                 logQR: false,
                 disableWelcome: true,
-                headless: true,
+                headless: false,
                 debug: false,
                 updatesLog: false,
                 useChrome: false,
