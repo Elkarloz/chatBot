@@ -50,6 +50,9 @@ textController.resetText = () => {
     key = 'sale_delivery';
     text = "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #{id}\nNombre: {nombre}\nNumero: {telefono}\nDirección: {direccion}\nUbicacion: {link}\nNota del pedido: {notas}\nPedido realizado: {fecha}";
     setTextFunction(key, text);
+    key = 'resume_day';
+    text = "El sistema ha validado todos los chats no convertidos, en total del dia ha sido de {notas}.";
+    setTextFunction(key, text);
 
 }
 

@@ -10,27 +10,32 @@
             <div class="modal-body">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="">Id Cliente</label>
+                        <label for="">Id</label>
                         <input disabled type="Name" id="edit_client_id" class="form-control client_id"
                             placeholder="Escribe la informacion con la que editara el dato." />
                     </div>
                     <div class="form-group">
-                        <label for="">Nombre del cliente</label>
+                        <label for="">Nombre Completo</label>
                         <input type="text" id="edit_client_name" class="client_name form-control"
                             placeholder="Escribe la informacion con la que editara el dato." />
                     </div>
                     <div class="form-group">
-                        <label for="">Dirección del cliente</label>
+                        <label for="">Dirección predeterminada</label>
                         <input type="text" class="client_address form-control" id="edit_client_address"
                             placeholder="Escribe la informacion con la que editara el dato." />
                         <input type="text" class="client_phone none" id="edit_client_phone">
                     </div>
                     <div class="form-group">
-                        <label for="">Direcciones extra del cliente</label>
+                        <label for="">Zona</label>
+                        <input type="text" class="client_zone form-control" id="edit_client_zone"
+                            placeholder="Escribe la informacion con la que editara el dato." />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Direcciones extra</label>
                         <select id="extra-address-select-delete" class="form-control extra-address-select"
                             style="width: 100%;">
-                            <option value="-1">Dirección temporal</option>
-                            <option selected value="0">Dirección predeterminada</option>
+                            <option class="address_default_option" value="0">Dirección predeterminada</option>
+                            <option class="address_default_option" value="-1">Dirección temporal</option>
                         </select>
                         <% if(role=="admin" ){%>
                             <button style="margin-top: 10px;" onclick="deleteExtraAddress()"
@@ -47,12 +52,12 @@
                             class="btn btn-success btn-xs">Agregar</button>
                     </div>
                     <div class="form-group">
-                        <label for="">Link de ubicacion del cliente</label>
+                        <label for="">Ubicacion url</label>
                         <input type="text" class="client_location form-control" id="edit_client_location"
                             placeholder="Escribe la informacion con la que editara el dato." />
                     </div>
                     <div class="form-group" bis_skin_checked="1">
-                        <label>Observaciones del cliente.</label>
+                        <label>Observaciones</label>
                         <textarea id="edit_client_observation" class="form-control client_observations" rows="3"
                             placeholder="Escribe la informacion con la que editara el dato."></textarea>
                     </div>

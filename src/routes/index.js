@@ -6,4 +6,5 @@ module.exports = {
     apiClient: require("./Api/ClientRoute.js"),
     apiAuto: require("./Api/AutoRoute.js"),
     apiSale: require("./Api/SaleRoute.js"),
+    apiTemp: require('./Api/TempRoute.js'),
 };

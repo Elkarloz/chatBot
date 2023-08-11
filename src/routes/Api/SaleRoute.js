@@ -1,6 +1,6 @@
 const express = require("express");
 const saleController = require("../../controllers/SaleController.js");
-const deliveryController = require("../../controllers/deliveryController.js");
+const tempController = require("../../controllers/TempController.js");
 const clienController = require("../../controllers/ClientController.js");
 const AuthMiddleware = require("../../middleware/session");
 const router = express.Router();
@@ -65,6 +65,10 @@ router.post("/cancel", async (req, res) => {
         } = req.body;
         const client = await clienController.getClient(phone);
         const sale = await saleController.cancelSale(client.dataValues.CliId, reason);
+        await tempController.changeStatus({
+            TempClient: phone,
+            TempStatus: 2
+        });
         res.status(200).json(sale);
     } catch (error) {
         res.status(500).send({
@@ -72,5 +76,6 @@ router.post("/cancel", async (req, res) => {
         });
     }
 });
+
 
 module.exports = router;

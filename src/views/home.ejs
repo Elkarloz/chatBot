@@ -9,13 +9,13 @@
                         <div class="card-header" bis_skin_checked="1">
                             <h3 class="card-title">ChatBot - <span class="client_name">Seleccione una
                                     conversación</span></h3>
-                            <div class="card-tools" bis_skin_checked="1">
+                            <div class="card-tools close_day_class" bis_skin_checked="1">
                                 <button onclick="openSale()" id="option_sale" style="margin-right: 10px;"
                                     class="btn btn-sm btn-success">Abrir
                                     una venta.</button>
                                 <span id="status_new_sms" title="Chats disponibles" class="badge bg-success">0</span>
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
-                                        class="fas fa-expand"></i>
+                                <button type="button" id="maximus-chat-option" class="btn btn-tool"
+                                    data-card-widget="maximize"><i class="fas fa-expand"></i>
                                 </button>
                                 <button type="button" id="openchat-btn" class="btn btn-tool" title="Contacts"
                                     data-widget="chat-pane-toggle">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
 
-                        <div class="card-body" bis_skin_checked="1">
+                        <div id="card_body_close_day" class="card-body" bis_skin_checked="1">
 
                             <div id="direct-chat-view" style="height: 100%;" class="direct-chat-messages"
                                 bis_skin_checked="1">
@@ -64,6 +64,47 @@
 
                             </div>
 
+                            <div id="body_close_day" class="none col-md-6">
+                                <br>
+                                <div class="container">
+                                    <h3>Área de gestión.</h3>
+                                    <div class="form-group">
+                                        <p style="margin-bottom: 0;">Motivo:</p>
+                                        <select id="resume_type_reason" class="select2 form-control">
+                                            <option>Fuera de horario</option>
+                                            <option>Captado en tienda y se recibe mensaje solo para hacer registro.
+                                            </option>
+                                            <option>Spam</option>
+                                            <option>Pidió menú, pero no contestó.</option>
+                                            <option>Pidió menú e hizo consultas pero no concretó nada.</option>
+                                            <option>Pregunto informacion general del establecimiento.</option>
+                                            <option>Otro</option>
+                                        </select>
+                                    </div>
+                                    <div id="other_resume_day" class="form-group none">
+                                        <p style="margin-bottom: 0;">Otro:</p>
+                                        <textarea id="resume_type_reason_textarea"
+                                            class="text-data form-control"></textarea>
+                                    </div>
+                                    <h3>Área de lectura.</h3>
+                                    <p>Id: <span class="client_id text-data"></span></p>
+                                    <p>Nombre: <span class="client_name text-data"></span></p>
+                                    <p>Dirección: <span class="client_address text-data"></span></p>
+                                    <h3>Área de cierre.</h3>
+                                    <p>Chats no convertidos: <span id="chats_no_converse">0</span></p>
+                                    <button id="next_btn_resume" class="btn btn-warning">Siguiente</button>
+                                    <button id="cancel_btn_resume" onclick="window.location.href='/'"
+                                        class="btn btn-danger">Cancelar cierre
+                                        del
+                                        diá.</button>
+                                    <br>
+                                    <small class="text-danger">*Atención dentro de este apartado recibirás mensajes de
+                                        los chats que están en pantalla, pero más no podrás responderlos, hasta que
+                                        finalice el resumen del día.</small>
+                                </div>
+                            </div>
+
+
 
                             <div class="direct-chat-contacts" style="height: 100%;" bis_skin_checked="1">
                                 <ul class="contacts-list" id="contacts_list">
@@ -84,7 +125,7 @@
                             </div>
                         </div>
 
-                        <div class="card-footer" bis_skin_checked="1">
+                        <div class="card-footer close_day_class" bis_skin_checked="1">
                             <div class="input-group" bis_skin_checked="1">
                                 <input type="text" name="message" id="message-input-server"
                                     placeholder="Escriba el mensaje..." class="form-control">
@@ -125,11 +166,11 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card card-primary shadow-sm" bis_skin_checked="1">
+                    <div class="card card-orange shadow-sm" bis_skin_checked="1">
                         <div class="card-header" bis_skin_checked="1">
-                            <h3 class="card-title">Área de lectura</h3>
+                            <h3 class="card-title text-white">Área de lectura</h3>
                             <div class="card-tools" bis_skin_checked="1">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <button type="button" class="btn btn-tool text-white" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -137,29 +178,30 @@
                         </div>
 
                         <div class="card-body" bis_skin_checked="1">
-                            <p>Id del cliente: <span class="client_id text-data"></span></p>
-                            <p>Nombre del cliente: <span class="client_name text-data"></span></p>
-                            <p>Dirección del cliente: <span class="client_address text-data"></span><br><small
+                            <p>Id: <span class="client_id text-data"></span></p>
+                            <p>Nombre: <span class="client_name text-data"></span></p>
+                            <p>Dirección: <span class="client_address text-data"></span><br><small
                                     id="client-extra-address-small" class="text-danger"></small></p>
-                            <p>Link de ubicacion:</p>
+                            <p>Zona: <span class="client_zone text-data"></span></p>
+                            <p>Ubicacion url:</p>
                             <div class="form-group">
                                 <textarea class="client_location text-data form-control" disabled></textarea>
                             </div>
-                            <p>Observaciones del cliente:</p>
+                            <p>Observaciones:</p>
                             <div class="form-group">
                                 <textarea class="client_observations text-data form-control" disabled></textarea>
                             </div>
                             <button onclick="editClientModalBootstrap.show();" disabled id="edit-client-chat-view"
-                                class="btn btn-primary">Editar</button>
+                                class="btn btn-warning">Editar</button>
                         </div>
 
                     </div>
 
-                    <div class="card card-secondary shadow-sm" bis_skin_checked="1">
+                    <div class="card card-orange shadow-sm" bis_skin_checked="1">
                         <div class="card-header" bis_skin_checked="1">
-                            <h3 class="card-title">Cierre de venta</h3>
+                            <h3 class="card-title text-white">Área de cierre</h3>
                             <div class="card-tools" bis_skin_checked="1">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <button type="button" class="btn btn-tool text-white" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -167,9 +209,9 @@
                         </div>
 
                         <div class="card-body" bis_skin_checked="1">
-                            <button onclick="closeModalBootstrap.show();" id="close_sale"
-                                class="btn btn-secondary">Cerrar
+                            <button onclick="requestType();" id="close_sale" class="btn btn-warning">Cerrar
                                 venta</button>
+                            <button onclick="closeDay();" id="close_sale" class="btn btn-success">Cerrar día</button>
                         </div>
 
                     </div>

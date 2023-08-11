@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Repartidor</label>
+                    <label id="type_dom_close">Repartidor</label>
                     <select id="select-delivery" class="form-control select2" style="width: 100%;">
                         <option selected value="-1">Seleccione un repartidor</option>
                         <option value="0">Recoger en local</option>
@@ -20,7 +20,7 @@
                             <% } }%>
                     </select>
                 </div>
-                <div class="form-group">
+                <div id="type_dom_address" class="form-group">
                     <label>Dirección</label>
                     <select disabled id="select-address" class="form-control extra-address-select" style="width: 100%;">
                         <option value="-1">Dirección temporal</option>
@@ -32,21 +32,24 @@
                     <input type="text" id="address-custom-temp" class="form-control" placeholder="Dirección temporal">
                 </div>
                 <div class="form-group" bis_skin_checked="1">
-                    <label>Resumen de venta.</label>
+                    <label>Nota para cocina.</label>
                     <textarea id="resume-close-buy" class="form-control" rows="3"
-                        placeholder="Resumen de venta..."></textarea>
+                        placeholder="Nota para cocina..."></textarea>
                 </div>
                 <div class="form-group" bis_skin_checked="1">
-                    <label id="label-delivery-note">Nota para repartidor.</label>
+                    <label id="label-delivery-note">Nota exclusiva para repartidor.</label>
                     <textarea id="msg-add-delivery" class="form-control" rows="3"
-                        placeholder="Nota para el repartidor..."></textarea>
+                        placeholder="Nota exclusiva para repartidor..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     Cerrar
                 </button>
-                <button type="button" class="btn btn-primary" onclick="closeSale()">Cerrar venta</button>
+                <button onclick="requestType()" type="button" class="btn btn-secondary">
+                    Cambiar tipo de entrega
+                </button>
+                <button type="button" class="btn btn-warning" onclick="closeSale()">Cerrar venta</button>
             </div>
         </div>
     </div>

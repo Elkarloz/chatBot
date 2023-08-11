@@ -5,6 +5,7 @@ const botController = require('../controllers/BotController');
 const scheduleController = require("../controllers/ScheduleController");
 const deliveryController = require('../controllers/deliveryController');
 const saleController = require('../controllers/SaleController');
+const tempController = require('../controllers/TempController');
 const BotModel = {};
 
 BotModel.start = (client, io, socket) => {
@@ -25,6 +26,13 @@ BotModel.bootstrap = async (client, msg, io) => {
                 CliPhone: msg.from
             }
         });
+
+        const varTemp = await tempController.isActive(msg.from);
+        if (!(varTemp)) {
+            await tempController.create({
+                TempClient: msg.from,
+            });
+        }
 
         const imgUser = msg.sender.profilePicThumbObj == null ? '/dist/img/AdminLTELogo.png' : msg.sender.profilePicThumbObj.img == undefined ? '/dist/img/AdminLTELogo.png' : msg.sender.profilePicThumbObj.img;
         const nameUser = user == null ? msg.sender.pushname : user.CliName;
@@ -48,7 +56,7 @@ BotModel.bootstrap = async (client, msg, io) => {
             if (user == null) {
                 await ClientModel.create({
                     CliPhone: msg.from,
-                    CliName: nameUser,
+                    //CliName: nameUser,
                     CliDate: new Date(),
                 });
                 await client.sendText(msg.from, TextController.getText('unknown', null, null, null));
@@ -195,6 +203,10 @@ BotModel.grabber = async (socket, io, client) => {
 
 
     await socket.on('close_sale', async (data) => {
+        await tempController.changeStatus({
+            TempClient: data.client,
+            TempStatus: 2
+        });
         const user = await ClientModel.findOne({
             where: {
                 CliPhone: data.client
@@ -207,7 +219,6 @@ BotModel.grabber = async (socket, io, client) => {
                 "Domicilio",
                 data.delivery,
                 data.address == "0" ? user.CliAddress : data.address,
-                "Se realizó una venta correctamente."
             );
 
             const delivery = await deliveryController.getDelivery(data.delivery);
@@ -228,6 +239,10 @@ BotModel.grabber = async (socket, io, client) => {
 
 
     await socket.on('close_sale_pick_up', async (data) => {
+        await tempController.changeStatus({
+            TempClient: data.client,
+            TempStatus: 2
+        });
         const user = await ClientModel.findOne({
             where: {
                 CliPhone: data.client
@@ -240,13 +255,23 @@ BotModel.grabber = async (socket, io, client) => {
                 "PickUp",
                 null,
                 null,
-                "Se realizó una venta correctamente."
             );
             let msg = TextController.getText('sale_pick', null, data.body, null);
             await client.sendText(user.CliPhone, msg);
         }
     });
 
+    await socket.on('resume', async (data) => {
+        await client.sendText("573204777967@c.us", TextController.getText('resume_day', null, data.cant, null));
+        io.emit('message', {
+            phone: "Sistema",
+            type: "sms",
+            name: "Servidor",
+            img: null,
+            body: "Fue enviado el mensaje de finalizacion de resumen de día.",
+            UnreadCount: 0,
+        });
+    })
 }
 
 BotModel.setRecord = async (chats, client) => {

@@ -37,13 +37,14 @@ app.use([
 
 app.use(bodyParser.json());
 
-app.use("/", route.view);
 app.use("/api/admin", route.apiAdmin);
 app.use("/api/responses", route.apiResponse);
 app.use("/api/delivery", route.apiDelivery);
 app.use("/api/client", route.apiClient);
 app.use("/api/auto", route.apiAuto);
 app.use("/api/sale", route.apiSale);
+app.use("/api/temp", route.apiTemp);
+app.use("/", route.view);
 
 const server = http.createServer(app);
 const io = socketIO(server);

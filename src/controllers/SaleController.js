@@ -2,6 +2,7 @@ const Sale = require("../models/SaleModel");
 const clientController = require("./ClientController");
 const adminController = require("./AdminController");
 const deliveryController = require("./deliveryController");
+const tempController = require("./TempController");
 
 const saleController = {};
 
@@ -46,9 +47,8 @@ saleController.getSalesView = async () => {
         sale.SaleStatus = sale.SaleStatus == 0 ? 'Cancelado' : sale.SaleStatus == 1 ? 'Abierta' : 'Cerrada';
         sale.SaleDelivery = sale.SaleDelivery == null ? 'No aplica.' : delivery == null ? 'El repartidor fue eliminado de la base de datos.' : delivery.DelName;
         sale.SaleClient = client.CliName;
-        sale.SaleReason = sale.SaleReason == "" ? 'No registro.' : sale.SaleReason;
         sale.SaleAdmin = (admin.AdmUser).toUpperCase();
-        sale.SaleResume = sale.SaleResume == null ? 'No registra un resume.' : sale.SaleResume == "" ? 'No registra un resume' : sale.SaleResume;
+        sale.SaleResume = sale.SaleResume == null ? 'No registra un nota para cocina.' : sale.SaleResume == "" ? 'No registra un resume' : sale.SaleResume;
         sale.SaleCondition = sale.SaleCondition == null ? "Cancelo pedido." : sale.SaleCondition;
         sale.SaleAddress = sale.SaleAddress == null ? 'No aplica.' : sale.SaleAddress;
         temp.push(sale);
@@ -101,11 +101,10 @@ saleController.cancelSale = async (client, reason) => {
 };
 
 
-saleController.closeSale = async (client, resume, condition, delivery, address, reason) => {
+saleController.closeSale = async (client, resume, condition, delivery, address) => {
     try {
         await Sale.update({
             SaleStatus: 2,
-            SaleReason: reason,
             SaleDelivery: delivery,
             SaleAddress: address,
             SaleCondition: condition,
