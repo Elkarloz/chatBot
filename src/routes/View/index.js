@@ -8,6 +8,7 @@ const textController = require("../../controllers/TextController");
 const scheduleController = require("../../controllers/ScheduleController");
 const saleController = require("../../controllers/SaleController");
 const deliveryController = require("../../controllers/deliveryController");
+const tempController = require("../../controllers/TempController");
 const session = new AuthMiddleware();
 
 router.get("/Login", async function (req, res, next) {
@@ -93,4 +94,11 @@ router.get("/schedule", session.verifyAuth(["admin"]), async function (req, res,
   });
 });
 
+router.get("/temp", session.verifyAuth(["admin"]), async function (req, res, next) {
+  res.render("temp", {
+    temps: await tempController.getAll(),
+    role: req.session.role,
+    admin: req.session.admin,
+  });
+});
 module.exports = router;

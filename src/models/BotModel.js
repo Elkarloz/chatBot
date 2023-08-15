@@ -232,7 +232,7 @@ BotModel.grabber = async (socket, io, client) => {
 
             let msg = TextController.getText('sale', null, null, null);
             await client.sendText(user.CliPhone, msg);
-            msg = TextController.getText('sale_delivery', user, data.body, data.address == "0" ? null : data.address);
+            msg = TextController.getText(data.addres == "0" ? 'sale_delivery_2' : 'sale_delivery', user, data.body, data.address == "0" ? null : data.address);
             await client.sendText(phone, msg);
         }
     });

@@ -5,12 +5,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Ventas</h1>
+                        <h1>Chats</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Chat</a></li>
-                            <li class="breadcrumb-item active">Ventas</li>
+                            <li class="breadcrumb-item active">Chats</li>
                         </ol>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Tabla de ventas</h3>
+                                <h3 class="card-title">Tabla de chats (no verificados)/(verificados)</h3>
                             </div>
 
                             <div class="card-body">
@@ -31,66 +31,40 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Estado</th>
-                                            <th>Repartidor</th>
-                                            <th>Cliente</th>
-                                            <th>Empleado</th>
+                                            <th>Usuario</th>
                                             <th>Fecha</th>
-                                            <th>Nota para cocina</th>
-                                            <th>Tipo</th>
+                                            <th>Estado</th>
+                                            <th>Razón</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% sales.forEach(sale=> { %>
+                                        <% temps.forEach(temp=> { %>
                                             <tr>
                                                 <td>
-                                                    <%=sale.SaleId%>
+                                                    <%=temp.TempId%>
                                                 </td>
                                                 <td>
-                                                    <%=sale.SaleStatus%>
+                                                    <%=(temp.TempClient.split("@")[0])%>
                                                 </td>
                                                 <td>
-                                                    <%=sale.SaleDelivery%>
+                                                    <%=formatFecha(temp.TempDate)%>
                                                 </td>
                                                 <td>
-                                                    <%=sale.SaleClient%>
+                                                    <%=(temp.TempStatus==0?'No verificado':'Verificado')%>
                                                 </td>
                                                 <td>
-                                                    <%=sale.SaleAdmin%>
-                                                </td>
-                                                <td>
-                                                    <%=formatFecha(sale.SaleDate)%>
-                                                </td>
-                                                <td>
-                                                    <ul>
-                                                        <li>
-                                                            <%=sale.SaleResume%>
-                                                        </li>
-                                                        <br>
-                                                        <% if(sale.SaleReason!=null){ %>
-                                                            <li>
-                                                                Razon de cancelación: <%=sale.SaleReason%>
-                                                            </li>
-                                                            <% }%>
-                                                    </ul>
-                                                </td>
-                                                <td>
-                                                    <%=sale.SaleCondition%>
+                                                    <%=temp.TempReason%>
                                                 </td>
                                             </tr>
                                             <% }); %>
-
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Estado</th>
-                                            <th>Repartidor</th>
-                                            <th>Cliente</th>
-                                            <th>Empleado</th>
+                                            <th>Usuario</th>
                                             <th>Fecha</th>
-                                            <th>Observaciones</th>
-                                            <th>Tipo</th>
+                                            <th>Estado</th>
+                                            <th>Razón</th>
                                         </tr>
                                     </tfoot>
                                 </table>

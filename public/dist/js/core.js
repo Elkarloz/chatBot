@@ -42,7 +42,7 @@
         modal.show();
     }
 
-    if (route == "/client" || route == "/Client" || route == "/Interacciones" || route == "/interacciones" || route == "/delivers" || route == "/Delivers" || route == "/Sales" || route == "/sales" || route == "/Schedule" || route == "/schedule") {
+    if (route == "/client" || route == "/Client" || route == "/Interacciones" || route == "/interacciones" || route == "/delivers" || route == "/Delivers" || route == "/Sales" || route == "/sales" || route == "/Schedule" || route == "/schedule" || route == "/Temp" || route == "/temp") {
         $(function () {
             $(document).ready(function () {
                 $('#example1').DataTable({
@@ -490,18 +490,22 @@
             if (count != 0) {
                 $('#countChat' + id).addClass('bg-warning');
                 $('#countChat' + id).removeClass('bg-info');
+                $('#liChat' + id).addClass("bg-success");
             } else {
                 $('#countChat' + id).removeClass('bg-warning');
                 $('#countChat' + id).addClass('bg-info');
+                $('#liChat' + id).removeClass("bg-success");
             }
             $('#countChat' + id).text(count);
         } else {
             if (count != 0) {
                 $('#countChat' + id).addClass('bg-warning');
+                $('#liChat' + id).addClass("bg-success");
                 $('#countChat' + id).removeClass('bg-info');
             } else {
                 $('#countChat' + id).removeClass('bg-warning');
                 $('#countChat' + id).addClass('bg-info');
+                $('#liChat' + id).removeClass("bg-success");
             }
             $('#countChat' + id).text(count);
         }
@@ -511,6 +515,11 @@
         socket.emit('request', {
             chat: chat
         });
+        statusSale = "0";
+        $("#close_sale").prop('disabled', true);
+        $("#option_sale").removeClass("btn-danger");
+        $("#option_sale").addClass("btn-success");
+        $("#option_sale").text("Abrir una venta.");
         chatActive = chat;
         chargeClient(chat);
         getResponsesFast();
@@ -684,7 +693,7 @@
     function setRecord(data) {
         var html = "";
         for (let i = 0; i < data.length; i++) {
-            html += '<li id="liChat' + data[i].CliPhone.split('@')[0] + '" ' + (data[i].SaleStatus != null ? 'class="bg-warning"' : null) + ' onclick="openChat(' + "'" + data[i].CliPhone + "'" + ')" ><a href="#"><img class="contacts-list-img" src="' + (data[i].CliImg != null ? data[i].CliImg : '/dist/img/AdminLTELogo.png') + '" alt="User Avatar"><div class="contacts-list-info" bis_skin_checked="1"><span class="contacts-list-name">' + data[i].CliName + '<small class="contacts-list-date float-right">' + formatFecha(data[i].CliDate) + '</small><span style="margin-left:10px;" id="countChat' + data[i].CliPhone.split('@')[0] + '" title="Mensajes sin ver" class="badge bg-' + (data[i].UnreadCount == 0 ? 'info' : 'warning') + '">' + data[i].UnreadCount + '</span></span><span class="contacts-list-msg" id="chat' + data[i].CliPhone.split('@')[0] + '">' + data[i].CliLastMessage + '.</span></div></a></li>';
+            html += '<li id="liChat' + data[i].CliPhone.split('@')[0] + '" class="' + (data[i].SaleStatus != null ? 'bg-warning' : null) + " " + (data[i].UnreadCount == 0 ? null : 'bg-success') + '" onclick="openChat(' + "'" + data[i].CliPhone + "'" + ')" ><a href="#"><img class="contacts-list-img" src="' + (data[i].CliImg != null ? data[i].CliImg : '/dist/img/AdminLTELogo.png') + '" alt="User Avatar"><div class="contacts-list-info" bis_skin_checked="1"><span class="contacts-list-name">' + data[i].CliName + '<small class="contacts-list-date float-right">' + formatFecha(data[i].CliDate) + '</small><span style="margin-left:10px;" id="countChat' + data[i].CliPhone.split('@')[0] + '" title="Mensajes sin ver" class="badge bg-' + (data[i].UnreadCount == 0 ? 'info' : 'warning') + '">' + data[i].UnreadCount + '</span></span><span class="contacts-list-msg" id="chat' + data[i].CliPhone.split('@')[0] + '">' + data[i].CliLastMessage + '.</span></div></a></li>';
         }
         $('#contacts_list').html(html);
     }

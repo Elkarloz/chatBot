@@ -53,6 +53,20 @@ tempController.getAllActive = async () => {
     }
 };
 
+tempController.getAll = async () => {
+    try {
+        const temp = await Temp.findAll();
+        const simplifiedtemp = temp.map(
+            (temp) => temp.dataValues
+        );
+
+        return simplifiedtemp;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+};
+
 tempController.isActive = async (user) => {
     let temp = await Temp.findOne({
         where: {
