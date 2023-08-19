@@ -1,4 +1,4 @@
-<div class="modal fade" id="editClient" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
+<div class="modal fade" id="editClient" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,7 @@
                             placeholder="Escribe la informacion con la que editara el dato." />
                     </div>
                     <div class="form-group">
-                        <label for="">Dirección predeterminada</label>
+                        <label for="">Dirección principal</label>
                         <input type="text" class="client_address form-control" id="edit_client_address"
                             placeholder="Escribe la informacion con la que editara el dato." />
                         <input type="text" class="client_phone none" id="edit_client_phone">
@@ -31,11 +31,22 @@
                             placeholder="Escribe la informacion con la que editara el dato." />
                     </div>
                     <div class="form-group">
+                        <label for="">Ubicacion url</label>
+                        <input type="text" class="client_location form-control" id="edit_client_location"
+                            placeholder="Escribe la informacion con la que editara el dato." />
+                    </div>
+                    <div class="form-group">
                         <label for="">Direcciones extra</label>
                         <select id="extra-address-select-delete" class="form-control extra-address-select"
                             style="width: 100%;">
-                            <option class="address_default_option" value="0">Dirección predeterminada</option>
-                            <option class="address_default_option" value="-1">Dirección temporal</option>
+                            <optgroup label="Grupo 1">
+                                <option value="opcion1">Opción 1</option>
+                                <option value="opcion2">Opción 2</option>
+                            </optgroup>
+                            <optgroup label="Grupo 2">
+                                <option value="opcion3">Opción 3</option>
+                                <option value="opcion4">Opción 4</option>
+                            </optgroup>
                         </select>
                         <% if(role=="admin" ){%>
                             <button style="margin-top: 10px;" onclick="deleteExtraAddress()"
@@ -50,11 +61,6 @@
                             placeholder="Escribe la dirección que deseas agregar.">
                         <button style="margin-top: 10px;" onclick="addExtraAddress()"
                             class="btn btn-success btn-xs">Agregar</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Ubicacion url</label>
-                        <input type="text" class="client_location form-control" id="edit_client_location"
-                            placeholder="Escribe la informacion con la que editara el dato." />
                     </div>
                     <div class="form-group" bis_skin_checked="1">
                         <label>Observaciones</label>

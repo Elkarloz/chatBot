@@ -3,6 +3,7 @@
   "unknown": "Hola, ¿Antes de ordenar podemos saber tu nombre y dirección para agilizar el proceso?",
   "sale": "Tu pedido ya va en camino, nuestro repartidor muy pronto se comunicará contigo.",
   "sale_delivery": "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #{id}\nNombre: {nombre}\nNumero: {telefono}\nDirección: {direccion}\nUbicacion: {link}\nNota del pedido: {notas}\nPedido realizado: {fecha}",
+  "sale_delivery_2": "🧑‍🍳Nuevo pedido para ser entregado.\n\nCliente #{id}\nNombre: {nombre}\nNumero: {telefono}\nDirección: {direccion}\nNota del pedido: {notas}\nPedido realizado: {fecha}",
   "sale_pick": "Tu pedido está siendo preparado, para que puedas recogerlo.\nNota:{notas}",
   "resume_day": "El sistema ha validado todos los chats no convertidos, en total del dia ha sido de {notas}."
 }

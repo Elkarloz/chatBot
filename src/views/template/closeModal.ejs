@@ -1,4 +1,4 @@
-<div class="modal fade" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
+<div class="modal fade" id="closeModal" role="dialog" aria-labelledby="addModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,6 @@
                 <div class="form-group">
                     <label id="type_dom_close">Repartidor</label>
                     <select id="select-delivery" class="form-control select2" style="width: 100%;">
-                        <option selected value="-1">Seleccione un repartidor</option>
                         <option value="0">Recoger en local</option>
                         <% if(typeof deliverys !='undefined' ){ for(var i=0; i<deliverys.length; i++) {%>
                             <option value="<%=deliverys[i].DelId%>">
@@ -22,14 +21,23 @@
                 </div>
                 <div id="type_dom_address" class="form-group">
                     <label>Dirección</label>
-                    <select disabled id="select-address" class="form-control extra-address-select" style="width: 100%;">
-                        <option value="-1">Dirección temporal</option>
-                        <option selected value="0">Dirección predeterminada</option>
+                    <select disabled id="select-address" class="form-control" style="width: 100%;">
+                        <optgroup label="Dirección principal">
+                            <option selected class="client_address" value="0">Dirección predeterminada</option>
+                        </optgroup>
+                        <optgroup class="extra-address-select" label="Direcciones extra">
+
+                        </optgroup>
+                        <optgroup label="Dirección temporal">
+                            <option value="-1">Dirección temporal</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div id="address-div-custom-temp" class="form-group">
-                    <label>Dirección</label>
+                    <label>Dirección temporal</label>
                     <input type="text" id="address-custom-temp" class="form-control" placeholder="Dirección temporal">
+                    <small class="text-danger">*Recuerda que esta dirección no sera almacenada en la base de
+                        datos.</small>
                 </div>
                 <div class="form-group" bis_skin_checked="1">
                     <label>Nota para cocina.</label>

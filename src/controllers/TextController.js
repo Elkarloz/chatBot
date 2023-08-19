@@ -92,6 +92,7 @@ textController.getText = (item, user, add, address) => {
         element = element.replace("{link}", user.CliLocation != null ? user.CliLocation : 'Desconocido');
         element = element.replace("{telefono}", user.CliPhone != null ? "+" + user.CliPhone.split('@')[0] : 'Desconocido');
         element = element.replace("{observaciones}", user.CliObservation != null ? user.CliObservation : 'Desconocido');
+        element = element.replace("{zona}", user.CliZone != null ? user.CliZone : 'Desconocido');
         element = element.replace("{id}", user.CliId != null ? user.CliId : 'Desconocido');
     } else {
         element = element.replace("{direccion}", "");
@@ -100,6 +101,7 @@ textController.getText = (item, user, add, address) => {
         element = element.replace("{link}", "");
         element = element.replace("{telefono}", "");
         element = element.replace("{observaciones}", "");
+        element = element.replace("{zona}", "");
     }
 
     if (add != null) {
@@ -107,10 +109,24 @@ textController.getText = (item, user, add, address) => {
     } else {
         element = element.replace("{notas}", "");
     }
-    element = element.replace("{fecha}", new Date());
+    element = element.replace("{fecha}", formatFecha());
 
     return element;
 };
+
+function formatFecha() {
+    const fecha = new Date();
+    const año = fecha.getFullYear();
+    const
+        mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const horas = String(fecha.getHours() % 12 || 12).padStart(2, '0');
+    const
+        minutos = String(fecha.getMinutes()).padStart(2, '0');
+    const ampm = fecha.getHours() >= 12 ? 'pm' : 'am';
+
+    return `${año}-${mes}-${dia} ${horas}:${minutos} ${ampm}`;
+}
 
 module.exports = textController;
 

@@ -24,20 +24,6 @@
         resumeDay = [],
         indexResumeDay = 0;
 
-    $('.select2').select2({
-        theme: 'bootstrap4'
-    });
-
-    $("#btn-send-server").click(function () {
-        sendMessage();
-    });
-
-    $('#message-input-server').keypress(function (event) {
-        if (event.which === 13) {
-            sendMessage();
-        }
-    });
-
     if (route == "/") {
         modal.show();
     }
@@ -285,6 +271,21 @@
             });
         });
     }
+
+
+    $('.select2').select2({
+        theme: 'bootstrap4'
+    });
+
+    $("#btn-send-server").click(function () {
+        sendMessage();
+    });
+
+    $('#message-input-server').keypress(function (event) {
+        if (event.which === 13) {
+            sendMessage();
+        }
+    });
 
     const socket = io();
 
@@ -564,10 +565,10 @@
                     }
 
                     if (route != "/") {
-                        $(".extra-address-select").html('<option selected value="0">Selecciona una dirección extra</option>' + html);
+                        $(".extra-address-select").html(html);
                         $(".extra-address-select").val(0);
                     } else {
-                        $(".extra-address-select").html('<option selected value="0">Dirección predeterminada</option><option value="-1">Dirección temporal</option>' + html);
+                        $(".extra-address-select").html(html);
                     }
 
                     if (route == "/") {
@@ -575,14 +576,16 @@
                     }
 
                 } else {
-                    $(".client_name").val('Desconocido');
-                    $(".client_location").val('Desconocido');
-                    $(".client_address").val("Desconocido");
-                    $(".client_observations").val("Desconocido");
-                    $(".client_id").val("Desconocido");
+                    $(".client_name").val('');
+                    $(".client_location").val('');
+                    $(".client_address").val("");
+                    $(".client_observations").val("");
+                    $(".client_id").val("");
 
                     $("#client-extra-address-small").text("");
-                    $(".extra-address-select").html('<option value="-1">Dirección temporal</option><option selected value="0">Dirección predeterminada</option>');
+                    $(".extra-address-select").html('');
+                    $(".client_zone").val("");
+                    $(".client_zone").text("");
 
                     $(".client_name").text("Desconocido");
                     $(".client_location").text('Desconocido');
@@ -619,10 +622,10 @@
         const value = $("#msg-add-delivery").val();
         const delivery = $('#select-delivery').val();
         const resume = $("#resume-close-buy").val();
-        const address = $("#select-address").val();
+        let address = $("#select-address").val();
         const content1 = value.trim();
         const content2 = resume.trim();
-        if (chatActive != "0" && delivery != "0" && delivery != "-1") {
+        if (chatActive != "0" && delivery != "0" && delivery != "-1" && delivery != "" && delivery != null) {
             if (address == "-1") {
                 const customAddressValue = ($("#address-custom-temp").val());
                 const customAddress = customAddressValue.trim();
@@ -637,6 +640,7 @@
                     $('#select-delivery').val("-1").trigger("change");
                     $("#msg-add-delivery").val('');
                     $("#select-address").val("0");
+                    $("#resume-close-buy").val("");
                     statusSale = "0";
                     $("#close_sale").prop('disabled', true);
                     $("#option_sale").removeClass("btn-danger");
@@ -649,24 +653,30 @@
                     toastr.error("Pon una dirección por favor.");
                 }
             } else {
-                socket.emit('close_sale', {
-                    delivery: delivery,
-                    body: content1,
-                    client: chatActive,
-                    resume: content2,
-                    address: address,
-                });
-                $('#select-delivery').val("-1").trigger("change");
-                $("#msg-add-delivery").val('');
-                $("#select-address").val("0");
-                statusSale = "0";
-                $("#close_sale").prop('disabled', true);
-                $("#option_sale").removeClass("btn-danger");
-                $("#option_sale").addClass("btn-success");
-                $("#option_sale").text("Abrir una venta.");
-                closeModalBootstrap.hide();
-                $("#liChat" + chatActive.split('@')[0]).removeClass("bg-warning");
-                toastr.success("Venta cerrada con exito.");
+                if (address != null & address != "") {
+                    address = (address == $(".client_address").val() ? '0' : address);
+                    socket.emit('close_sale', {
+                        delivery: delivery,
+                        body: content1,
+                        client: chatActive,
+                        resume: content2,
+                        address: address,
+                    });
+                    $('#select-delivery').val("-1").trigger("change");
+                    $("#msg-add-delivery").val('');
+                    $("#select-address").val("0");
+                    $("#resume-close-buy").val("");
+                    statusSale = "0";
+                    $("#close_sale").prop('disabled', true);
+                    $("#option_sale").removeClass("btn-danger");
+                    $("#option_sale").addClass("btn-success");
+                    $("#option_sale").text("Abrir una venta.");
+                    closeModalBootstrap.hide();
+                    $("#liChat" + chatActive.split('@')[0]).removeClass("bg-warning");
+                    toastr.success("Venta cerrada con exito.");
+                } else {
+                    toastr.error("Pon una dirección por favor.");
+                }
             }
             closeModalBootstrap.hide();
         } else if (chatActive != "0" && delivery == "0") {
@@ -678,6 +688,7 @@
             $('#select-delivery').val("-1").trigger("change");
             $("#msg-add-delivery").val('');
             statusSale = "0";
+            $("#resume-close-buy").val("");
             $("#close_sale").prop('disabled', true);
             $("#option_sale").removeClass("btn-danger");
             $("#option_sale").addClass("btn-success");
@@ -799,6 +810,7 @@
     }
 
     function openSale() {
+        $("#reason-cancel").val("");
         if ("1" != "0") {
             if ($("#option_sale").text() != "Cancelar venta.") {
                 $("#close_sale").prop('disabled', false);
@@ -886,7 +898,8 @@
                 statusSale = "0";
                 $("#liChat" + chatActive.split('@')[0]).removeClass("bg-warning");
                 closeModalSaleBootstrap.hide();
-                toastr.success("Venta cancelada por <b>" + reason + "</b>");
+                $("#reason-cancel").val("");
+                toastr.success("Venta cancelada por <b>" + (reason == "" ? 'motivo no especificado.' : reason) + "</b>");
             },
             error: function (xhr, status, error) {
                 toastr.error(error);
@@ -1034,14 +1047,24 @@
             confirmButtonText: 'Domicilio'
         }).then((result) => {
             if (result.isConfirmed) {
-                $("#type_dom_close").text('Repartidor.');
-                $('#select-delivery').prop('disabled', false);
-                $('#select-delivery').val("-1").trigger("change");
-                hideOption();
-                $('#type_dom_address').show();
-                closeModalBootstrap.show();
+                const zone = $(".client_zone").val();
+                const location = $(".client_location").val();
+                const address = $(".client_address").val();
+                if ((zone != "" && location != "" && address != "" && zone != "Desconocido" && location != "Desconocido" && address != "Desconocido")) {
+                    $("#type_dom_close").text('Repartidor.');
+                    $('#select-delivery').prop('disabled', false);
+                    $('#select-delivery').val("").trigger("change");
+                    hideOption();
+                    $('#type_dom_address').show();
+                    closeModalBootstrap.show();
+                } else {
+                    toastr.error("Primero registra una dirección, una zona y link de ubicacion.");
+                }
             } else {
                 reverseHideOption();
+                $("#address-div-custom-temp").hide();
+                $("#address-custom-temp").val("");
+                $('#select-address').val("0").trigger("change");
                 $("#type_dom_close").text('Tipo de entrega.');
                 $('#select-delivery').val("0").trigger("change");
                 $('#select-delivery').prop('disabled', true);
@@ -1099,6 +1122,12 @@
                         $("#next_btn_resume").attr("onclick", "finishResume(1)");
                     }
                 } else {
+                    $("#direct-chat-view").html("");
+                    $(".client_name").text("");
+                    $(".client_location").text('');
+                    $(".client_address").text("");
+                    $(".client_observations").text("");
+                    $(".client_id").text("");
                     toastr.info("<b>Servidor:</b> No hay nigun chat que cumpla las condiciones del cierre de dia.");
                     $("#next_btn_resume").attr("onclick", "finishResume(0)");
                     $("#next_btn_resume").text('Finalizar');
