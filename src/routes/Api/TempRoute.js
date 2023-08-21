@@ -1,10 +1,19 @@
 const express = require("express");
+const clientController = require("../../controllers/ClientController.js");
 const tempController = require("../../controllers/TempController.js");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
         const resp = await tempController.getAllActive();
+        for (let i = 0; i < resp.length; i++) {
+            const user = clientController.getClient(resp.TempClient);
+            if (user != null) {
+                resp[i] = user.CliId;
+            } else {
+                resp[i] = '';
+            }
+        }
         res.status(200).json(resp);
     } catch (error) {
         res.status(500).send({

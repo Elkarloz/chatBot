@@ -534,13 +534,13 @@
             dataType: "json",
             success: function (response) {
                 if (response != null) {
-                    $(".client_location").val(response.CliLocation == "" || response.CliLocation == null ? 'Desconocido' : response.CliLocation);
-                    $(".client_name").val(response.CliName == "" || response.CliName == null ? 'Desconocido' : response.CliName);
-                    $(".client_address").val(response.CliAddress == "" || response.CliAddress == null ? 'Desconocido' : response.CliAddress);
-                    $(".client_zone").val(response.CliZone == "" || response.CliZone == null ? 'Desconocido' : response.CliZone);
-                    $(".client_observations").val(response.CliObservation == "" || response.CliObservation == null ? 'Desconocido' : response.CliObservation);
-                    $(".client_id").val(response.CliId == "" || response.CliId == null ? 'Desconocido' : response.CliId);
-                    $(".client_phone").val(response.CliPhone == "" || response.CliPhone == null ? 'Desconocido' : response.CliPhone);
+                    $(".client_location").val(response.CliLocation == "" || response.CliLocation == null ? '' : response.CliLocation);
+                    $(".client_name").val(response.CliName == "" || response.CliName == null ? '' : response.CliName);
+                    $(".client_address").val(response.CliAddress == "" || response.CliAddress == null ? '' : response.CliAddress);
+                    $(".client_zone").val(response.CliZone == "" || response.CliZone == null ? '' : response.CliZone);
+                    $(".client_observations").val(response.CliObservation == "" || response.CliObservation == null ? '' : response.CliObservation);
+                    $(".client_id").val(response.CliId == "" || response.CliId == null ? '' : response.CliId);
+                    $(".client_phone").val(response.CliPhone == "" || response.CliPhone == null ? '' : response.CliPhone);
 
                     $(".client_location").text(response.CliLocation == "" || response.CliLocation == null ? 'Desconocido' : response.CliLocation);
                     $(".client_name").text(response.CliName == "" || response.CliName == null ? 'Desconocido' : response.CliName);
@@ -886,29 +886,31 @@
 
     function cancelSale() {
         const reason = $("#reason-cancel").val();
-        $.ajax({
-            url: "/api/sale/cancel",
-            method: "POST",
-            dataType: "json",
-            data: {
-                phone: chatActive,
-                reason: reason,
-            },
-            success: function (response) {
-                statusSale = "0";
-                $("#liChat" + chatActive.split('@')[0]).removeClass("bg-warning");
-                closeModalSaleBootstrap.hide();
-                $("#reason-cancel").val("");
-                toastr.success("Venta cancelada por <b>" + (reason == "" ? 'motivo no especificado.' : reason) + "</b>");
-            },
-            error: function (xhr, status, error) {
-                toastr.error(error);
-                $("#close_sale").prop('disabled', false);
-                $("#option_sale").removeClass("btn-success");
-                $("#option_sale").addClass("btn-danger");
-                $("#option_sale").text("Cancelar venta.");
-            },
-        });
+        if (reason.length >= 5 && reason.length <= 256) {
+            $.ajax({
+                url: "/api/sale/cancel",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    phone: chatActive,
+                    reason: reason,
+                },
+                success: function (response) {
+                    statusSale = "0";
+                    $("#liChat" + chatActive.split('@')[0]).removeClass("bg-warning");
+                    closeModalSaleBootstrap.hide();
+                    $("#reason-cancel").val("");
+                    toastr.success("Venta cancelada por <b>" + (reason == "" ? 'motivo no especificado.' : reason) + "</b>");
+                },
+                error: function (xhr, status, error) {
+                    toastr.error(error);
+                    $("#close_sale").prop('disabled', false);
+                    $("#option_sale").removeClass("btn-success");
+                    $("#option_sale").addClass("btn-danger");
+                    $("#option_sale").text("Cancelar venta.");
+                },
+            });
+        }
     }
 
     function deleteExtraAddress() {

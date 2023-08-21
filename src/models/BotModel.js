@@ -263,7 +263,7 @@ BotModel.grabber = async (socket, io, client) => {
     });
 
     await socket.on('resume', async (data) => {
-        await client.sendText("573204777967@c.us", TextController.getText('resume_day', null, data.cant, null));
+        await client.sendText("5215521456526@c.us", TextController.getText('resume_day', null, data.cant, null));
         io.emit('message', {
             phone: "Sistema",
             type: "sms",

@@ -31,17 +31,20 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
+                                            <th>Id Cliente</th>
                                             <th>Usuario</th>
                                             <th>Fecha</th>
-                                            <th>Estado</th>
                                             <th>Razón</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% temps.forEach(temp=> { %>
+                                        <% temps.forEach(temp=> { if(temp.TempStatus==0){%>
                                             <tr>
                                                 <td>
                                                     <%=temp.TempId%>
+                                                </td>
+                                                <td>
+                                                    <%=temp.TempIdClient%>
                                                 </td>
                                                 <td>
                                                     <%=(temp.TempClient.split("@")[0])%>
@@ -50,20 +53,17 @@
                                                     <%=formatFecha(temp.TempDate)%>
                                                 </td>
                                                 <td>
-                                                    <%=(temp.TempStatus==0?'No verificado':'Verificado')%>
-                                                </td>
-                                                <td>
                                                     <%=temp.TempReason%>
                                                 </td>
                                             </tr>
-                                            <% }); %>
+                                            <% }}); %>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
+                                            <th>Id Cliente</th>
                                             <th>Usuario</th>
                                             <th>Fecha</th>
-                                            <th>Estado</th>
                                             <th>Razón</th>
                                         </tr>
                                     </tfoot>
