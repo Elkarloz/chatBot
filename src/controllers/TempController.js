@@ -60,7 +60,18 @@ tempController.getAll = async () => {
             (temp) => temp.dataValues
         );
 
-        return simplifiedtemp;
+        let resp = simplifiedtemp;
+
+        for (let i = 0; i < resp.length; i++) {
+            const user = await clientController.getClient(resp[i].TempClient);
+            if (user != null) {
+                resp[i].TempIdClient = user.CliId;
+            } else {
+                resp[i].TempIdClient = '';
+            }
+        }
+
+        return resp;
     } catch (error) {
         console.log(error);
         throw new Error(error);
