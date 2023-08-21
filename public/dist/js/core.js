@@ -910,6 +910,8 @@
                     $("#option_sale").text("Cancelar venta.");
                 },
             });
+        } else {
+            toastr.warning("El campo de motivo es obligatorio, por favor escribe un motivo mayor a 5 caracteres y menor a 256 caracteres.");
         }
     }
 
