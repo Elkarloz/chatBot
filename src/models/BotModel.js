@@ -81,7 +81,8 @@ BotModel.bootstrap = async (client, msg, io) => {
             }
         }
 
-        const unread = await client.getChatById(msg.from);
+        let unread = await client.getChatById(msg.from);
+        unread.unreadCount = unread.unreadCount + 1;
         if (msg.type == "image" || msg.type == "document" || msg.type == 'ptt') {
             const base64 = await client.downloadMedia(msg.id);
             io.emit('message', {
@@ -188,6 +189,15 @@ BotModel.grabber = async (socket, io, client) => {
             name: data.name
         });
 
+    });
+
+    await socket.on('seen', async (data) => {
+        console.log("Visto");
+        try {
+            await client.sendSeen(data.phone);
+        } catch (e) {
+            console.log(e)
+        }
     });
 
     await socket.on('close', async (data) => {

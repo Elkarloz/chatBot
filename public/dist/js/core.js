@@ -312,7 +312,9 @@
                 },
                 500
             );
-            addCountLi((data.phone).split('@')[0], data.UnreadCount);
+            socket.emit('seen', {
+                phone: data.phone
+            });
         } else if (data.phone == "server") {
             if (data.client == chatActive) {
                 var html = "";
@@ -516,6 +518,10 @@
         socket.emit('request', {
             chat: chat
         });
+        socket.emit('seen', {
+            phone: chat
+        });
+        addCountLi((chat).split('@')[0], 0);
         statusSale = "0";
         $("#close_sale").prop('disabled', true);
         $("#option_sale").removeClass("btn-danger");
