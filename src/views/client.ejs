@@ -33,11 +33,11 @@
                                             <th>Id</th>
                                             <th>Nombre</th>
                                             <th>Telefono</th>
-                                            <th>Observaciones</th>
-                                            <th>Ubicacion</th>
-                                            <th>Dirección</th>
-                                            <th>Direcciones extra</th>
+                                            <th>Dirección principal</th>
                                             <th>Zona</th>
+                                            <th>Link ubicacion principal</th>
+                                            <th>Direcciones extra</th>
+                                            <th>Observaciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,13 +55,13 @@
                                                     <%=client.CliPhone.split('@')[0]%>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliObservation%>
+                                                    <%=client.CliAddress%>
+                                                </td>
+                                                <td>
+                                                    <%=client.CliZone%>
                                                 </td>
                                                 <td>
                                                     <%=client.CliLocation%>
-                                                </td>
-                                                <td>
-                                                    <%=client.CliAddress%>
                                                 </td>
                                                 <td>
                                                     <ul>
@@ -69,22 +69,21 @@
                                                     </ul>
                                                 </td>
                                                 <td>
-                                                    <%=client.CliZone%>
+                                                    <%=client.CliObservation%>
                                                 </td>
                                             </tr>
                                             <% }}); %>
-
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
                                             <th>Nombre</th>
                                             <th>Telefono</th>
-                                            <th>Observaciones</th>
-                                            <th>Ubicacion</th>
-                                            <th>Dirección</th>
-                                            <th>Direcciones extra</th>
+                                            <th>Dirección principal</th>
                                             <th>Zona</th>
+                                            <th>Link ubicacion principal</th>
+                                            <th>Direcciones extra</th>
+                                            <th>Observaciones</th>
                                         </tr>
                                     </tfoot>
                                 </table>
