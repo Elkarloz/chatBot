@@ -542,12 +542,12 @@
                     $(".client_id").val(response.CliId == "" || response.CliId == null ? '' : response.CliId);
                     $(".client_phone").val(response.CliPhone == "" || response.CliPhone == null ? '' : response.CliPhone);
 
-                    $(".client_location").text(response.CliLocation == "" || response.CliLocation == null ? 'Desconocido' : response.CliLocation);
-                    $(".client_name").text(response.CliName == "" || response.CliName == null ? 'Desconocido' : response.CliName);
-                    $(".client_address").text(response.CliAddress == "" || response.CliAddress == null ? 'Desconocido' : response.CliAddress);
-                    $(".client_zone").text(response.CliZone == "" || response.CliZone == null ? 'Desconocido' : response.CliZone);
-                    $(".client_observations").text(response.CliObservation == "" || response.CliObservation == null ? 'Desconocido' : response.CliObservation);
-                    $(".client_id").text(response.CliId == "" || response.CliId == null ? 'Desconocido' : response.CliId);
+                    $(".client_location").text(response.CliLocation == "" || response.CliLocation == null ? '' : response.CliLocation);
+                    $(".client_name").text(response.CliName == "" || response.CliName == null ? '' : response.CliName);
+                    $(".client_address").text(response.CliAddress == "" || response.CliAddress == null ? '' : response.CliAddress);
+                    $(".client_zone").text(response.CliZone == "" || response.CliZone == null ? '' : response.CliZone);
+                    $(".client_observations").text(response.CliObservation == "" || response.CliObservation == null ? '' : response.CliObservation);
+                    $(".client_id").text(response.CliId == "" || response.CliId == null ? 'Usuario no registrado.' : response.CliId);
                     var html = "";
                     var extra = 0;
                     if (response.CliAddressExtra != null) {
