@@ -99,8 +99,8 @@ botController.startBucle = async (io, socket) => {
                     }
                 },
                 logQR: false,
-                disableWelcome: false,
-                headless: false,
+                disableWelcome: true,
+                headless: true,
                 debug: false,
                 updatesLog: false,
                 useChrome: false,
