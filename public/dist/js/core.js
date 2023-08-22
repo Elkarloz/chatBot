@@ -298,7 +298,9 @@
         console.log(data);
         if (data.phone == chatActive) {
             var html = "";
-            if (data.type == "sms") {
+            if (data.type == "location") {
+                html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<a href="https://www.google.com/maps?q=' + data.lat + ',' + data.lng + '" target="_blank">Ubicacion, click aqui para ver</a>' + '</div></div>';
+            } else if (data.type == "sms") {
                 html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-right">' + data.name + '</span><span class="direct-chat-timestamp float-left">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + data.body + '</div></div>';
             } else if (data.type == "image") {
                 html = '<div class="direct-chat-msg" bis_skin_checked="1"><div class="direct-chat-infos clearfix" bis_skin_checked="1"><span class="direct-chat-name float-left">' + data.name + '</span><span class="direct-chat-timestamp float-right">' + formatFecha(new Date()) + '</span></div><img class="direct-chat-img" src="' + data.img + '" alt="Message User Image"><div class="direct-chat-text" bis_skin_checked="1">' + '<img src="' + msg.body + '" width="100%" alt="Imagen">' + '</div></div>';

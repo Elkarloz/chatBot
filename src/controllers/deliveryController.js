@@ -32,8 +32,27 @@ deliveryController.getDelivery = async (id) => {
   }
 };
 
+deliveryController.getDeliveryPhone = async (phone) => {
+  try {
+    const deliverys = await Delivery.findOne({
+      where: {
+        DelPhone: phone,
+      },
+    });
+
+    return deliverys;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+
 deliveryController.createDelivery = async (delivery) => {
-  const { DelName, DelPhone } = delivery;
+  const {
+    DelName,
+    DelPhone
+  } = delivery;
   if (!DelName || !DelPhone) {
     return "Datos incompletos";
   }
@@ -49,7 +68,10 @@ deliveryController.createDelivery = async (delivery) => {
 };
 
 deliveryController.updateDelivery = async (id, delivery) => {
-  const { DelName, DelPhone } = delivery;
+  const {
+    DelName,
+    DelPhone
+  } = delivery;
 
   if (!DelName || !DelPhone) {
     return "Datos incompletos";

@@ -12,7 +12,10 @@ tempController.create = async (temp) => {
         const dia = today.getDate().toString().padStart(2, '0');
         const todayFormat = `${anio}-${mes}-${dia}`;
         temp.TempDate = todayFormat;
-        await Temp.create(temp);
+        const user = await deliveryController.getDeliveryPhone((temp.TempClient).split('@')[0]);
+        if (temp.TempClient != "status@broadcast" && user == null) {
+            await Temp.create(temp);
+        }
         return "Temporal creado.";
     } catch (error) {
         console.log(error);

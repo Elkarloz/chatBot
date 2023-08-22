@@ -123,6 +123,16 @@ BotModel.bootstrap = async (client, msg, io) => {
                 body: "Tarjeta de contacto del número: " + temp,
                 UnreadCount: unread.unreadCount,
             });
+        } else if (msg.type == "location") {
+            io.emit('message', {
+                phone: msg.from,
+                type: "location",
+                name: nameUser,
+                img: imgUser,
+                lat: msg.lat,
+                lng: msg.lng,
+                UnreadCount: unread.unreadCount,
+            });
         } else {
             msg.body = msg.body.replace("\n", '');
             io.emit('message', {
@@ -173,7 +183,7 @@ BotModel.grabber = async (socket, io, client) => {
             phone: "server",
             name: data.name,
             body: data.body,
-            type: 'sms',
+            type: data.type,
             img: data.img,
             UnreadCount: unread.unreadCount,
             client: data.phone
